@@ -14,6 +14,7 @@
 #include "d3dx9.h"       //描画処理に必要
 #include "2dpolygon.h"
 #include "input.h"
+#include "TexLoad.h"
 //******************************************************
 // ライブラリのリンク
 //******************************************************
@@ -40,5 +41,7 @@ enum SCENE {//状態
 	LOAD
 };
 extern SCENE Scene;
+extern _TexOp *TexOp;
+
 
 #endif

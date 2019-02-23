@@ -156,6 +156,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TexLoad.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="XAudio2.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TexLoad.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="XAudio2.h" />
   </ItemGroup>

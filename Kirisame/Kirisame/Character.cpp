@@ -5,6 +5,7 @@
 #include "config.h"
 #include "Asset.h"
 #include "main.h"
+#include "TexLoad.h"
 
 #define HOSEITI 15.0f//キャラクター描画位置調整用
 extern LPDIRECT3DDEVICE9 g_pD3DDevice;
@@ -23,7 +24,7 @@ Character::Character(void) {
 	Pos_Vertex.X = 2;
 	Pos_Vertex.Y = 4;
 	//テクスチャセット
-	Texture = LoadTexture(HIRE_TEX_FILE, Texture);
+	Texture = TexOp->PlayerTex;
 	KeyWait = 0;
 	Inputflg = false;
 
@@ -34,7 +35,6 @@ Character::Character(void) {
 }
 
 Character::~Character(void) {
-	ReleaseTexture(Texture);
 }
 
 

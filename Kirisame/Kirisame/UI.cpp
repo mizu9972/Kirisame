@@ -4,24 +4,17 @@
 
 UI::UI(void) {
 	//コンストラクタ
-	Scoreboard = LoadTexture(SCOREBOARD_FILE, Scoreboard);
-	Scorenum = LoadTexture(SCORENUM_FILE, Scorenum);
-	Timeboard = LoadTexture(TIMEBOARD_FILE, Timeboard);
-	Timenum = LoadTexture(TIMENUM_FILE, Timenum);
-	Playerstatus = LoadTexture(UIPlayerstatus_FILE, Playerstatus);
-	Description = LoadTexture(DESCRIPTION_FILE, Description);
-	Background = LoadTexture(BACKGROUND_FILE, Background);
+	Scoreboard = TexOp->UI_ScoreBoard;
+	Scorenum = TexOp->UI_ScoreNum;
+	Timeboard = TexOp->UI_TimeBoard;
+	Timenum = TexOp->UI_TimeNum;
+	Playerstatus = TexOp->UI_PlayerStatus;
+	Description = TexOp->UI_Discription;
+	Background = TexOp->UI_Background;
 
 }
 UI::~UI(void) {
 	//デストラクタ
-	ReleaseTexture(Scoreboard);
-	ReleaseTexture(Scorenum);
-	ReleaseTexture(Timeboard);
-	ReleaseTexture(Timenum);
-	ReleaseTexture(Playerstatus);
-	ReleaseTexture(Description);
-	ReleaseTexture(Background);
 }
 
 

@@ -1,9 +1,11 @@
 //-----------------------------------------------
 //敵キャラクターの処理
 //-----------------------------------------------
+#include "main.h"
 #include "Enemy.h"
 #include "Asset.h"
 #include "config.h"
+#include "TexLoad.h"
 #include "XAudio2.h"
 
 //攻撃したときに画面全体にエフェクトをかける
@@ -427,14 +429,11 @@ COORD Enemy::OutPos(void) {
 
 BrownBear::BrownBear(void) {
 	//コンストラクタ
-	Texture = LoadTexture(ENEMY_BROWNBEAR_TEX_FILE, Texture);
-	AttackInfo.Texture = LoadTexture(ENEMY_SLASH_TEX_FILE, AttackInfo.Texture);
-	DiveTexture = LoadTexture(ENEMY_SUNABOKORI_TEX_FILE, DiveTexture);
+	Texture = TexOp->BrownBearTex;
+	AttackInfo.Texture = TexOp->EnemyAttackTex;
+	DiveTexture = TexOp->EnemySunabokoriTex;
 }
 
 BrownBear::~BrownBear(void) {
 	//デストラクタ
-	ReleaseTexture(Texture);
-	ReleaseTexture(AttackInfo.Texture);
-	ReleaseTexture(DiveTexture);
 }

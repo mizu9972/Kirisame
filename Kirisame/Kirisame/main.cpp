@@ -9,6 +9,7 @@
 #include "config.h"
 #include "Game.h"
 #include "XAudio2.h"
+#include "TexLoad.h"
 #include <Time.h>
 //*******************************************************
 //マクロ定義
@@ -42,6 +43,7 @@ LPDIRECT3DTEXTURE9* PadTutorial_Texture = NULL;
 LPDIRECT3DTEXTURE9* Result_Texture = NULL;//リザルト
 LPDIRECT3DTEXTURE9* Load_Texture = NULL;//ロード中
 Game *game = NULL;
+_TexOp *TexOp = NULL;
 
 extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 //=======================================================
@@ -285,8 +287,11 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	Result_Texture = LoadTexture(RESULT_FILE, Result_Texture);//リザルトのテクスチャ読み込み
 	Load_Texture = LoadTexture(LOAD_FILE, Load_Texture);//ロード画面のテクスチャ読み込み
 
-	game = new Game;
 
+	TexOp = new _TexOp;
+
+	TexOp->LoadAllTexture();
+	game = new Game;
 	game->Init();
 
 	return S_OK;
@@ -306,6 +311,10 @@ void Uninit(void)
 	ReleaseTexture(Tutorial_Texture);
 	ReleaseTexture(PadTutorial_Texture);
 
+	TexOp->ReleaseAllTexture();
+	if (TexOp != NULL) {
+		delete TexOp;
+	}
 	if (game != NULL) {
 		delete game;
 	}

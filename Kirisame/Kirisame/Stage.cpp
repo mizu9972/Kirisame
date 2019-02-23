@@ -6,27 +6,14 @@ extern SCENE Scene;
 
 Stage::Stage(void) {
 	//コンストラクタ
-	sideTextureYoko = LoadTexture(SIDE_YOKO_TEX_FILE, sideTextureYoko);
-	sideTextureTate = LoadTexture(SIDE_TATE_TEX_FILE, sideTextureTate);
-	blockTexture = LoadTexture(TILE_TEX_FILE, blockTexture);
-	cutblockTexture = LoadTexture(TILE_CUT_TEX_FILE, cutblockTexture);
-	wallTexture = LoadTexture(WALL_TEX_FILE, wallTexture);
+	sideTextureYoko = TexOp->sideTextureYoko;
+	sideTextureTate = TexOp->sideTextureTate;
+	blockTexture = TexOp->blockTexture;
+	cutblockTexture = TexOp->cutblockTexture;
+	wallTexture = TexOp->wallTexture;
 }
 Stage::~Stage(void) {
 	//デストラクタ
-	ReleaseTexture(sideTextureYoko);
-	ReleaseTexture(sideTextureTate);
-	ReleaseTexture(blockTexture);
-	ReleaseTexture(cutblockTexture);
-	ReleaseTexture(wallTexture);
-	for (int num = 0; num < ROCK_NUM; num++)
-	{
-		ReleaseTexture(Rockinfo[num].Texture);
-	}
-	for (int num = 0; num < CAKE_NUM; num++)
-	{
-		ReleaseTexture(Cakeinfo[num].Texture);
-	}
 }
 void Stage::Init(void) {
 	//初期化
@@ -164,7 +151,7 @@ void Stage::RockInit(void)//岩の初期化
 {
 	for (int num = 0; num < ROCK_NUM; num++)//テクスチャ読み込み用の繰り返し処理
 	{
-		Rockinfo[num].Texture = LoadTexture(ROCK_TEX_FILE, Rockinfo[num].Texture);//テクスチャ読み込み
+		Rockinfo[num].Texture = TexOp->rockTexture;//テクスチャ読み込み
 		Rockinfo[num].Coord.X = NULL;//一旦NULLを入れてる
 		Rockinfo[num].Coord.Y = NULL;
 	}
@@ -194,7 +181,7 @@ void Stage::CakeInit(void)//ケーキの初期化
 {
 	for (int num = 0; num < CAKE_NUM; num++)//テクスチャ読み込み用の繰り返し処理
 	{
-		Cakeinfo[num].Texture = LoadTexture(CAKE_TEX_FILE, Cakeinfo[num].Texture);//テクスチャ読み込み
+		Cakeinfo[num].Texture = TexOp->cakeTexture;//テクスチャ読み込み
 		Cakeinfo[num].Coord.X = NULL;//一旦NULLを入れてる
 		Cakeinfo[num].Coord.Y = NULL;
 		Cakeinfo[num].isAlive = true;
