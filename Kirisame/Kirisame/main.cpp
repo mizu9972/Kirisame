@@ -360,6 +360,9 @@ void Update(void)
 		//タイトル画面の操作処理
 		if (ENTER_TRIG)
 		{
+			if (PollSound(TitleBGM)) {
+				StopSound(TitleBGM);//タイトルBGM停止
+			}
 			Scene = TUTORIAL;
 		}
 		break;
@@ -384,9 +387,7 @@ void Update(void)
 			JoypadDI_Y = GetGamePadLeftStickY();
 
 
-			if (PollSound(TitleBGM)) {
-				StopSound(TitleBGM);//タイトルBGM停止
-			}
+			
 
 		}
 		break;
@@ -424,6 +425,9 @@ void Update(void)
 		break;
 
 	case RESULT:
+		if (PollSound(GamePlayBGM)) {//ゲームBGM停止
+			StopSound(GamePlayBGM);
+		}
 		//リザルト画面の操作処理
 		g_cnt++;
 		if (ENTER_TRIG || g_cnt >= SCENE_TIME)
@@ -436,9 +440,7 @@ void Update(void)
 	case LOAD://ロード中(この間にゲームクラスのdeleteとnewを行う)
 		if (game != NULL)
 		{
-			if (PollSound(GamePlayBGM)) {//ゲームBGM停止
-				StopSound(GamePlayBGM);
-			}
+			
 			delete game;
 			game = new Game;//こいつに時間かかる
 			game->Init();
