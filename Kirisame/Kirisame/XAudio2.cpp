@@ -21,7 +21,7 @@ PARAM g_param[SOUND_LABEL_MAX] =
 	{FALL_SE_FILE, false},			// サンプルSE（ループしないのでfalse設定）
 	{MISSATTACK_SE_FILE, false},		// サンプルSE
 	{SUNA_SE_FILE, false},			// サンプルSE
-	{TITLE_BGM_FILE,true},
+	{TITLE_BGM_FILE,true},			//BGM（ループさせるのでtrue設定）
 	{GAME_BGM_FILE,true},
 };
 
