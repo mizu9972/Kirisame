@@ -65,7 +65,7 @@ void Game::Init(void) {
 	DeathEnemyNum = 0;
 	InitSound();
 
-	PlaySound(TitleBGM);
+	
 }
 
 void Game::Edit(void) {

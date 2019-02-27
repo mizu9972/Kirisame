@@ -345,7 +345,7 @@ void Update(void)
 		ENTER_TRIG = true;
 	}
 	if (g_pDIDevGamePad) {
-		if (GetGamePadTrigger(0)|| GetGamePadTrigger(1) ||GetGamePadTrigger(2)|| GetGamePadTrigger(3)) {
+		if (GetGamePadTrigger(0) || GetGamePadTrigger(1) || GetGamePadTrigger(2) || GetGamePadTrigger(3)) {
 			ENTER_TRIG = true;
 		}
 	}
@@ -353,10 +353,16 @@ void Update(void)
 	switch (Scene)
 	{
 	case TITLE:
-
+		if (!PollSound(TitleBGM))//非再生状態ならBGMを再生
+		{
+			PlaySound(TitleBGM);
+		}
 		//タイトル画面の操作処理
 		if (ENTER_TRIG)
 		{
+			if (PollSound(TitleBGM)) {
+				StopSound(TitleBGM);//タイトルBGM停止
+			}
 			Scene = TUTORIAL;
 		}
 		break;
@@ -368,7 +374,7 @@ void Update(void)
 		if (ENTER_TRIG)
 		{
 			Scene = GAME_STAGE1;
-			
+
 			game->Init();
 
 			game->Edit();
@@ -381,21 +387,23 @@ void Update(void)
 			JoypadDI_Y = GetGamePadLeftStickY();
 
 
-			if (PollSound(TitleBGM)) {
-				StopSound(TitleBGM);//タイトルBGM停止
-			}
-			PlaySound(GamePlayBGM);//ゲームBGM再生
+			
+
 		}
 		break;
 
 	case GAME_STAGE1:
+		if (!PollSound(GamePlayBGM))//非再生状態ならBGMを再生
+		{
+			PlaySound(GamePlayBGM);
+		}
 		if (game != NULL) {
 			game->Update();
 		}
 		//ゲームのCLEAR条件を記入
 		if (game->OutClearFlg())
 		{
-			Scene = RESULT;;
+			Scene = RESULT;
 
 			//game->Init();
 			//
@@ -417,6 +425,9 @@ void Update(void)
 		break;
 
 	case RESULT:
+		if (PollSound(GamePlayBGM)) {//ゲームBGM停止
+			StopSound(GamePlayBGM);
+		}
 		//リザルト画面の操作処理
 		g_cnt++;
 		if (ENTER_TRIG || g_cnt >= SCENE_TIME)
@@ -429,9 +440,7 @@ void Update(void)
 	case LOAD://ロード中(この間にゲームクラスのdeleteとnewを行う)
 		if (game != NULL)
 		{
-			if (PollSound(GamePlayBGM)) {//ゲームBGM停止
-				StopSound(GamePlayBGM);
-			}
+			
 			delete game;
 			game = new Game;//こいつに時間かかる
 			game->Init();
