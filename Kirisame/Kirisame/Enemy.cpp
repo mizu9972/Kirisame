@@ -54,6 +54,27 @@ void Enemy::Init(COORD GetCoord) {
 	  isFalling = false;
 	  AttackMode = false;
 	  Attack = false;
+
+	  MoveMode = RIGHT_MOVE_MODE;//移動パターン
+	  MoveCount = 0;
+	  Animation = 0;//アニメーション用変数
+	  AnimeCount = 0;//アニメーション速度
+	  DrawCount = (int)(ENEMY_MOVESPEED * 2 * FPS);
+
+	  Texture = TexOp->BrownBearTex;
+	  AttackInfo.Texture = TexOp->EnemyAttackTex;
+	  DiveTexture = TexOp->EnemySunabokoriTex;
+
+	  MoveFlagXRight = true;
+	  MoveFlagYUp = true;
+	  MoveFlagXLeft = true;
+	  MoveFlagYDown = true;
+
+	  isFalling = false;
+	  AttackMode = false;
+	  Attack = false;
+	  isAlive = true;
+
 }
 
 bool Enemy::Update(COORD PlayerCoord,bool Diveflag,bool Attackflag,COORD ToCoord) {

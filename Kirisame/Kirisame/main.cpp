@@ -403,13 +403,14 @@ void Update(void)
 		//ゲームのCLEAR条件を記入
 		if (game->OutClearFlg())
 		{
-			Scene = RESULT;
 
-			//game->Init();
-			//
-			//game->Edit();
+			Scene = GAME_STAGE2;
 
-			//game->SetCoord();
+			game->Init();
+			
+			game->Edit();
+
+			game->SetCoord();
 
 
 		}
@@ -420,6 +421,7 @@ void Update(void)
 			game->Update();
 		}
 		if (game->OutClearFlg()) {
+
 			Scene = RESULT;
 		}
 		break;
@@ -440,7 +442,8 @@ void Update(void)
 	case LOAD://ロード中(この間にゲームクラスのdeleteとnewを行う)
 		if (game != NULL)
 		{
-			
+			game->EnemyUnInit();
+
 			delete game;
 			game = new Game;//こいつに時間かかる
 			game->Init();

@@ -155,26 +155,6 @@ void Stage::RockInit(void)//岩の初期化
 		Rockinfo[num].Coord.X = NULL;//一旦NULLを入れてる
 		Rockinfo[num].Coord.Y = NULL;
 	}
-
-	//座標位置を入力(6.0)～(6.5)に６つ、(0.5)～(5.5)に６つ、(3.6)～(3.7)に２つ 　計１４個
-	for (int rocknum = 0, rockY = 0; rocknum < 6; rocknum++, rockY++) {
-
-		Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6);
-		Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
-
-	}
-	for (int rocknum = 6, rockX = 0; rocknum < 12; rocknum++, rockX++) {
-
-		Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-		Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 5);
-
-	}
-	for (int rocknum = 12, rockY = 6; rocknum < 14; rocknum++, rockY++) {
-
-		Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 3);
-		Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
-
-	}
 }
 
 void Stage::CakeInit(void)//ケーキの初期化

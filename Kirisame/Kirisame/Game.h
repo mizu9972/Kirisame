@@ -14,6 +14,7 @@ private:
 	BrownBear S2Brownbear[ENEMY_STAGE2_NUM];
 	StageBoardSystem* stageBoardSystem = NULL;
 	bool Dive_State;//1‚È‚çö‚Á‚Ä‚È‚¢A0‚È‚çö‚Á‚Ä‚é
+	bool AllocFlag;//malloc‚µ‚½‚©‚Ü‚¾‚µ‚Ä‚¢‚È‚¢‚©
 	UI* ui = NULL;
 	int Enemy_num;//“G‚Ì”
 	int Enemy_MaxNum;
@@ -22,6 +23,7 @@ public:
 	~Game(void);
 
 	void Init(void);
+	void EnemyUnInit(void);
 	void Edit(void);
 	void SetCoord(void);
 	void EnemyInit(void);

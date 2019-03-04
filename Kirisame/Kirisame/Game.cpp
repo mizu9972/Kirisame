@@ -9,11 +9,10 @@ Game::Game(void) {
 	//コンストラクタ
 	character = new Character;
 	stageBoardSystem = new StageBoardSystem;
-	//S2Brownbear = new BrownBear[ENEMY_STAGE2_NUM];//err
-	//S1Brownbear = new BrownBear[ENEMY_STAGE1_NUM];
-
 
 	ui = new UI;
+
+	AllocFlag = false;
 	//Enemy_num = ENEMY_STAGE1_NUM;//敵の数
 }
 
@@ -22,17 +21,6 @@ Game::~Game(void) {
 	if (character != NULL) {
 		delete character;
 	}
-	//if (S1Brownbear != NULL) {
-	//	S1Brownbear = NULL;
-	//	delete[] S1Brownbear;
-	//}
-	//if (S2Brownbear != NULL) {
-	//	S2Brownbear = NULL;
-	//	delete[] S2Brownbear;
-	//}
-	//if (brownBear != NULL) {
-	//	delete[] brownBear;
-	//}
 	
 	if (stageBoardSystem != NULL) {
 		delete stageBoardSystem;
@@ -46,11 +34,25 @@ void Game::Init(void) {
 	//初期化
 	switch (Scene) {
 	case GAME_STAGE1:
-		brownBear = S1Brownbear;
+		//brownBear = S1Brownbear;
+		if (AllocFlag == false) {
+			brownBear = (BrownBear*)malloc(sizeof(BrownBear) * ENEMY_STAGE1_NUM);
+			AllocFlag = true;
+		}
+		else if (AllocFlag == true) {
+			brownBear = (BrownBear*)realloc(brownBear, sizeof(BrownBear) * ENEMY_STAGE1_NUM);
+		}
 		break;
 
 	case GAME_STAGE2:
-		brownBear = S2Brownbear;
+		//brownBear = S2Brownbear;
+		if (AllocFlag == false) {
+			brownBear = (BrownBear*)malloc(sizeof(BrownBear) * ENEMY_STAGE2_NUM);
+			AllocFlag = true;
+		}
+		else if (AllocFlag == true) {
+			brownBear = (BrownBear*)realloc(brownBear, sizeof(BrownBear) * ENEMY_STAGE2_NUM);
+		}
 		break;
 	}
 	if (brownBear != NULL) {
@@ -100,12 +102,16 @@ void Game::EnemyInit(void) {
 
 		coord[0].X = ENEMY3_DEFPOS_X;
 		coord[0].Y = ENEMY3_DEFPOS_Y;
+
 		coord[1].X = ENEMY4_DEFPOS_X;
 		coord[1].Y = ENEMY4_DEFPOS_Y;
+
 		coord[2].X = ENEMY5_DEFPOS_X;
 		coord[2].Y = ENEMY5_DEFPOS_Y;
+
 		coord[3].X = ENEMY6_DEFPOS_X;
 		coord[3].Y = ENEMY6_DEFPOS_Y;
+
 		coord[4].X = ENEMY7_DEFPOS_X;
 		coord[4].Y = ENEMY7_DEFPOS_Y;
 		break;
@@ -116,6 +122,10 @@ void Game::EnemyInit(void) {
 			brownBear[InitNum].Init(coord[InitNum]);
 		}
 	}
+}
+
+void Game::EnemyUnInit(void) {
+	free(brownBear);
 }
 
 void Game::Draw(void) {
@@ -300,25 +310,6 @@ void Game::Gettime(void) {
 
 bool Game::OutClearFlg(void)//敵が0ならtrueを返す
 {
-	//for (int num = 0; num < Enemy_MaxNum; num++)
-	//{
-	//	//クマさん配列の生存フラグを参照していって全員が消えてたら
-	//	//敵の数が0になる処理
-	//	if (brownBear[num].isAlive == false)
-	//	{
-	//		Enemy_num--;
-	//	}
-	//}
-	//if (Enemy_num >  0)
-	//{
-	//	Enemy_num = Enemy_MaxNum;//敵1体倒すだけでカウントが0になる対策
-	//	return false;
-	//}
-	//else if (Enemy_num <= 0)
-	//{
-	//	return true;
-	//}
-	//return false;
 	if (DeathEnemyNum == Enemy_MaxNum) {
 		return true;
 	}

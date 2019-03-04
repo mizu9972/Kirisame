@@ -12,6 +12,7 @@ public:
 	static LPDIRECT3DTEXTURE9* BrownBearTex;//敵キャラクター
 	static LPDIRECT3DTEXTURE9* EnemyAttackTex;//敵キャラクター攻撃
 	static LPDIRECT3DTEXTURE9* EnemySunabokoriTex;//敵キャラ砂ぼこり
+
 	//ステージ
 	static LPDIRECT3DTEXTURE9* sideTextureYoko;
 	static LPDIRECT3DTEXTURE9* sideTextureTate;
