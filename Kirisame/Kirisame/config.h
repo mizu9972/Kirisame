@@ -13,8 +13,8 @@
 #define ENEMY_STAGE1_NUM (2)//敵の数
 #define ENEMY_STAGE2_NUM (5)//敵の数
 
-#define PLAYER_STARTPOS_X (300)//プレイヤーの初期位置(X座標)
-#define PLAYER_STARTPOS_Y (100)//プレイヤーの初期位置(Y座標)
+#define PLAYER_STARTPOS_X (350)//プレイヤーの初期位置(X座標)
+#define PLAYER_STARTPOS_Y (250)//プレイヤーの初期位置(Y座標)
 
 #define PLAYER_SPEED (1)//プレイヤーの移動速度
 #define ENEMY_SPEED (1) //敵の移動速度
@@ -25,15 +25,15 @@
 #define ENEMY2_DEFPOS_X (325)//敵2の初期位置(X座標)
 #define ENEMY2_DEFPOS_Y (375)//敵2の初期位置(Y座標)
 #define ENEMY3_DEFPOS_X (475)
-#define ENEMY3_DEFPOS_Y (275)
+#define ENEMY3_DEFPOS_Y (475)
 #define ENEMY4_DEFPOS_X (675)
-#define ENEMY4_DEFPOS_Y (275)
+#define ENEMY4_DEFPOS_Y (475)
 #define ENEMY5_DEFPOS_X (325)
-#define ENEMY5_DEFPOS_Y (475)
+#define ENEMY5_DEFPOS_Y (675)
 #define ENEMY6_DEFPOS_X (475)
-#define ENEMY6_DEFPOS_Y (475)
+#define ENEMY6_DEFPOS_Y (675)
 #define ENEMY7_DEFPOS_X (725)
-#define ENEMY7_DEFPOS_Y (525)
+#define ENEMY7_DEFPOS_Y (725)
 
 #define ENEMY_PERSONAL_SPACE (3)//敵のパーソナルスペース
 #define ENEMY_SEARCH_RAD (5)//敵の索敵範囲(マス)

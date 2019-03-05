@@ -214,25 +214,21 @@ void Stage::SideEdit(void) {
 		// ===c‚Ì•Ó‚©‚ç’Ês•s‰Â‚ğw’è===
 		//(7.2)
 		Side_Tate[2][7].isPassagable = false;
-		for (int setNum_row = 0; setNum_row < 4; setNum_row++) {
-			//(0.3)`(3.3)‚Ü‚Å
+		for (int setNum_row = 1; setNum_row < 4; setNum_row++) {
+			//(1.3)`(3.3)‚Ü‚Å
 			Side_Tate[3][setNum_row].isPassagable = false;
 		}
 		//(7.3)
 		Side_Tate[3][7].isPassagable = false;
 		for (int setNum_column = 7; setNum_column < 11; setNum_column++) {
 			//(7.6)`(10.6)‚Ü‚Å
-			Side_Tate[6][setNum_column].isPassagable = false;
+			Side_Tate[setNum_column][7].isPassagable = false;
 		}
 		// ===Ÿ‚É‰¡‚Ì•Ó‚Ì’Ês•s‰Â‚ğw’è===
 		Side_Yoko[3][6].isPassagable = false;
-		Side_Yoko[3][7].isPassagable = false;		
-		
+		Side_Yoko[3][7].isPassagable = false;
 		Side_Yoko[7][6].isPassagable = false;
-		Side_Yoko[8][6].isPassagable = false;
-		Side_Yoko[9][6].isPassagable = false;
 		Side_Yoko[10][6].isPassagable = false;
-
 
 		break;
 	default:
