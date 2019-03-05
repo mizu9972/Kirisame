@@ -63,6 +63,9 @@ void Game::Init(void) {
 		stageBoardSystem->InitCheckedBoard();
 		stageBoardSystem->stage->Init();
 	}
+	COORD setCoord = { PLAYER_STARTPOS_X ,PLAYER_STARTPOS_Y };
+	character->SetCoord(setCoord);
+
 	Dive_State = true;//最初は潜ってない状態からスタート
 	DeathEnemyNum = 0;
 	InitSound();
@@ -285,6 +288,7 @@ void Game::Update(void) {
 	}
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------
 	if (EnemyAttack) {
+
 		//プレイヤーへダメージ
 		character->Hit();
 

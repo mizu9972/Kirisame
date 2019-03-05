@@ -38,6 +38,11 @@ Character::~Character(void) {
 }
 
 
+void Character::SetCoord(COORD inCoord) {
+	memcpy(&Coord, &inCoord, sizeof(COORD));
+	
+}
+
 void Character::Draw(void) {
 	//ƒLƒƒƒ‰‚ð•`‰æ
 	Draw2dPolygon(Coord.X - CHARA_SIZE / 2, Coord.Y - CHARA_SIZE + HOSEITI, CHARA_SIZE, CHARA_SIZE, D3DCOLOR_ARGB(255, 255, 255, 255), Texture, Tu, Tv, 0.5f, 0.5f);

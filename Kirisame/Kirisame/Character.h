@@ -25,7 +25,7 @@ public:
 
 	Character(void);
 	~Character(void);
-
+	void SetCoord(COORD);
 	void Hit(void);//UŒ‚‚­‚ç‚¢ˆ—
 
 	StageTypeT OutStageType(void);
