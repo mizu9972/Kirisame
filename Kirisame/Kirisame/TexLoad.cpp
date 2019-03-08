@@ -2,6 +2,7 @@
 #include "TexLoad.h"
 #include "Asset.h"
 LPDIRECT3DTEXTURE9* _TexOp::PlayerTex;//プレイヤー
+LPDIRECT3DTEXTURE9* _TexOp::PlayerLightTex;//プレイヤーの光沢
 LPDIRECT3DTEXTURE9* _TexOp::BrownBearTex;//敵キャラクター
 LPDIRECT3DTEXTURE9* _TexOp::EnemyAttackTex;//敵キャラクター攻撃
 LPDIRECT3DTEXTURE9* _TexOp::EnemySunabokoriTex;//敵キャラ砂ぼこり
@@ -35,6 +36,7 @@ void _TexOp::LoadAllTexture(void) {
 	//総テクスチャ読み込み
 	//キャラクター
 	PlayerTex = LoadTexture(HIRE_TEX_FILE, PlayerTex);
+	PlayerLightTex = LoadTexture(HIRE_BRIGHT_TEX_FILE, PlayerLightTex);
 	BrownBearTex = LoadTexture(ENEMY_BROWNBEAR_TEX_FILE, BrownBearTex);
 	EnemyAttackTex = LoadTexture(ENEMY_SLASH_TEX_FILE, EnemyAttackTex);
 	EnemySunabokoriTex = LoadTexture(ENEMY_SUNABOKORI_TEX_FILE, EnemySunabokoriTex);
@@ -62,6 +64,7 @@ void _TexOp::ReleaseAllTexture(void) {
 	//総テクスチャ解放
 	//キャラクター
 	ReleaseTexture(PlayerTex);
+	ReleaseTexture(PlayerLightTex);
 	ReleaseTexture(BrownBearTex);
 	ReleaseTexture(EnemyAttackTex);
 	ReleaseTexture(EnemySunabokoriTex);
