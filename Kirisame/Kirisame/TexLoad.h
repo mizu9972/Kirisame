@@ -1,20 +1,18 @@
-#pragma once
+ï»¿#pragma once
 
 #include "2dpolygon.h"
 
 class _TexOp {
-	//“Æ©‚ÅƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ‚ğs‚¤ƒNƒ‰ƒX
-	//GameƒNƒ‰ƒX‚©‚ç“Æ—§‚µ‚Ä‚¨‚èAƒQ[ƒ€‹N“®‚Éˆê“x‚¾‚¯ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚ñ‚Å
-	//ƒ‹[ƒvˆ—‚ğŒy‚­‚³‚¹‚é
+
 private:
 public:
-	static LPDIRECT3DTEXTURE9* PlayerTex;//ƒvƒŒƒCƒ„[
-	static LPDIRECT3DTEXTURE9* PlayerLightTex;//ƒvƒŒƒCƒ„[‚ÌŒõ‘ò
-	static LPDIRECT3DTEXTURE9* BrownBearTex;//“GƒLƒƒƒ‰ƒNƒ^[
-	static LPDIRECT3DTEXTURE9* EnemyAttackTex;//“GƒLƒƒƒ‰ƒNƒ^[UŒ‚
-	static LPDIRECT3DTEXTURE9* EnemySunabokoriTex;//“GƒLƒƒƒ‰»‚Ú‚±‚è
+	static LPDIRECT3DTEXTURE9* PlayerTex;
+	static LPDIRECT3DTEXTURE9* PlayerLightTex;
+	static LPDIRECT3DTEXTURE9* BrownBearTex;
+	static LPDIRECT3DTEXTURE9* EnemyAttackTex;
+	static LPDIRECT3DTEXTURE9* EnemySunabokoriTex;
 
-	//ƒXƒe[ƒW
+
 	static LPDIRECT3DTEXTURE9* sideTextureYoko;
 	static LPDIRECT3DTEXTURE9* sideTextureTate;
 	static LPDIRECT3DTEXTURE9* blockTexture;
