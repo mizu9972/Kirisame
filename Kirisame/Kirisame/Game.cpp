@@ -6,22 +6,22 @@ extern long JoypadDI_X;
 extern long JoypadDI_Y;
 int DeathEnemyNum = 0;
 Game::Game(void) {
-	//繧ｳ繝ｳ繧ｹ繝医Λ繧ｯ繧ｿ
+	//コンストラクタ
 	character = new Character;
 	stageBoardSystem = new StageBoardSystem;
 
 	ui = new UI;
 
 	AllocFlag = false;
-	//Enemy_num = ENEMY_STAGE1_NUM;//謨ｵ縺ｮ謨ｰ
+	//Enemy_num = ENEMY_STAGE1_NUM;//敵の数
 }
 
 Game::~Game(void) {
-	//繝・せ繝医Λ繧ｯ繧ｿ
+	//デストラクタ
 	if (character != NULL) {
 		delete character;
 	}
-
+	
 	if (stageBoardSystem != NULL) {
 		delete stageBoardSystem;
 	}
@@ -31,7 +31,7 @@ Game::~Game(void) {
 }
 
 void Game::Init(void) {
-	//蛻晄悄蛹・
+	//初期化
 	switch (Scene) {
 	case GAME_STAGE1:
 		//brownBear = S1Brownbear;
@@ -63,30 +63,27 @@ void Game::Init(void) {
 		stageBoardSystem->InitCheckedBoard();
 		stageBoardSystem->stage->Init();
 	}
-	COORD setCoord = { PLAYER_STARTPOS_X ,PLAYER_STARTPOS_Y };
-	character->SetCoord(setCoord);
-
-	Dive_State = true;//譛蛻昴・貎懊▲縺ｦ縺ｪ縺・憾諷九°繧峨せ繧ｿ繝ｼ繝・
+	Dive_State = true;//最初は潜ってない状態からスタート
 	DeathEnemyNum = 0;
 	InitSound();
 
-
+	
 }
 
 void Game::Edit(void) {
-	//逶ｴ謗･邱ｨ髮・
+	//直接編集
 	stageBoardSystem->stage->Edit();
 
 }
 
 void Game::SetCoord(void) {
-	//繧ｪ繝悶ず繧ｧ繧ｯ繝医・蠎ｧ讓呎ｼ邏・
+	//オブジェクトの座標格納
 	stageBoardSystem->stage->SetCoord();
 
 }
 
 void Game::EnemyInit(void) {
-	//謨ｵ縺ｮ蛻晄悄蛹・
+	//敵の初期化
 	COORD coord[ENEMY_STAGE1_NUM + ENEMY_STAGE2_NUM];
 	switch (Scene) {
 	case GAME_STAGE1:
@@ -132,22 +129,21 @@ void Game::EnemyUnInit(void) {
 }
 
 void Game::Draw(void) {
-	//謠冗判
-	//UI縺ｮ謠冗判
+	//描画
+	//UIの描画
 	if (ui != NULL) {
 		ui->UIDraw(Dive_State);
-		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
 	}
-	if (Dive_State)//豬ｮ荳翫＠縺ｦ繧九→縺・
+	if (Dive_State)//浮上してるとき
 	{
 		stageBoardSystem->stage->Tu = 0.0f;
 		stageBoardSystem->stage->Tv = 0.0f;
 	}
-	else {//貎懊▲縺ｦ縺・ｋ譎・
+	else {//潜っている時
 		stageBoardSystem->stage->Tu = 0.5f;
 		stageBoardSystem->stage->Tv = 0.0f;
 	}
-	//繧ｹ繝・・繧ｸ縺ｮ謠冗判
+	//ステージの描画
 	if (stageBoardSystem != NULL) {
 		stageBoardSystem->stage->BlockDraw();
 		stageBoardSystem->stage->SideDraw();
@@ -155,11 +151,11 @@ void Game::Draw(void) {
 		stageBoardSystem->stage->RockDraw(Dive_State);
 		stageBoardSystem->stage->CakeDraw();
 	}
-	//繝励Ξ繧､繝､繝ｼ縺ｮ謠冗判
+	//プレイヤーの描画
 	if (character != NULL) {
 		character->Draw();
 	}
-	//謨ｵ繧ｭ繝｣繝ｩ繧ｯ繧ｿ繝ｼ縺ｮ謠冗判
+	//敵キャラクターの描画
 	if (brownBear != NULL) {
 		for (int DrawNum = 0; DrawNum < Enemy_MaxNum; DrawNum++) {
 			if (brownBear[DrawNum].isAlive) {
@@ -171,27 +167,27 @@ void Game::Draw(void) {
 }
 
 void Game::Update(void) {
-	COORD coord;//繝励Ξ繧､繝､繝ｼ縺ｮ蠎ｧ讓・
-	COORD wark_coord;//outcoord縺ｧ繧ゅｉ縺｣縺溘ｄ縺､譬ｼ邏・
-	COORD enemyCoord;//謨ｵ繧ｭ繝｣繝ｩ繧ｯ繧ｿ繝ｼ縺ｮ蠎ｧ讓・
-	COORD playerpos;//繝励Ξ繧､繝､繝ｼ縺ｮ蠎ｧ讓・逕ｻ髱｢蜀・・蠎ｧ讓・
-	COORD enemypos;//謨ｵ繧ｭ繝｣繝ｩ繧ｯ繧ｿ繝ｼ縺ｮ蠎ｧ讓・逕ｻ髱｢蜀・・蠎ｧ讓・
-	COORD ToCoord;//謨ｵ繧ｭ繝｣繝ｩ繧ｯ繧ｿ繝ｼ縺ｮ蛻晄悄菴咲ｽｮ
-				  //繧ｹ繝・・繧ｸ諠・ｱ菫晉ｮ｡逕ｨ
+	COORD coord;//プレイヤーの座標
+	COORD wark_coord;//outcoordでもらったやつ格納
+	COORD enemyCoord;//敵キャラクターの座標
+	COORD playerpos;//プレイヤーの座標(画面内の座標)
+	COORD enemypos;//敵キャラクターの座標(画面内の座標)
+	COORD ToCoord;//敵キャラクターの初期位置
+	//ステージ情報保管用
 	PieceT  blockinfo;
 	PieceT tate;
 	PieceT yoko;
 	PieceT vertex;
 	//------------------
-	bool DIVE_TRIG = false;//莉ｮ諠ｳ繧ｭ繝ｼ
-	bool EnemyAttackFlag = false;//謾ｻ謦・庄閭ｽ縺九←縺・°
-	bool EnemyAttack = false;//謾ｻ謦・・蜉溘＠縺溘°縺ｩ縺・°
+	bool DIVE_TRIG = false;//仮想キー
+	bool EnemyAttackFlag = false;//攻撃可能かどうか
+	bool EnemyAttack = false;//攻撃成功したかどうか
 
-							 //譖ｴ譁ｰ
+	//更新
 	if (GetKeyboardTrigger(DIK_SPACE)) {
 		DIVE_TRIG = true;
 	}
-	//繧ｳ繝ｳ繝医Ο繝ｼ繝ｩ縺ｧ縺ｮ蜈･蜉帛・逅・
+	//コントローラでの入力処理
 	if (g_pDIDevGamePad) {
 		if (GetGamePadTrigger(0) || GetGamePadTrigger(1) || GetGamePadTrigger(2) || GetGamePadTrigger(3)) {
 			DIVE_TRIG = true;
@@ -199,60 +195,60 @@ void Game::Update(void) {
 	}
 
 
-	//繝励Ξ繧､繝､繝ｼ縺ｮ譖ｴ譁ｰ-------------------------------
+	//プレイヤーの更新-------------------------------
 	if (character != NULL)
 	{
-		character->Update(Dive_State);//蠑墓焚縺ｧ貎懊▲縺ｦ縺・ｋ縺九・繝輔Λ繧ｰ繧呈ｸ｡縺・
+		character->Update(Dive_State);//引数で潜っているかのフラグを渡す
 
-		wark_coord = character->OutCoord();//繧ｭ繝｣繝ｩ縺ｮ鬆らせ蠎ｧ讓吝女縺大叙縺｣縺ｦ縺翫￥
+		wark_coord = character->OutCoord();//キャラの頂点座標受け取っておく
 
 		tate = stageBoardSystem->stage->OutSide_Tate(wark_coord.X / 2, wark_coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(wark_coord.X / 2, wark_coord.Y / 2);
 		if (Dive_State == 1) {
-			character->CheckMove(tate.isPassagable, yoko.isPassagable);//謌ｻ縺吶ｄ縺､
+			character->CheckMove(tate.isPassagable, yoko.isPassagable);//戻すやつ
 		}
 		coord = character->OutCoord();
 		playerpos = character->OutPos();
 	}
 	//-----------------------------------------------
-	if (DIVE_TRIG)//貎懊ｋ縲∵ｵｮ荳翫☆繧・
+	if (DIVE_TRIG)//潜る、浮上する
 	{
 		tate = stageBoardSystem->stage->OutSide_Tate(coord.X / 2, coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(coord.X / 2, coord.Y / 2);
 		vertex = stageBoardSystem->stage->OutVertexInfo(coord.X / 2, coord.Y / 2);
-		if (character->CheckDive(tate.isPassagable, yoko.isPassagable, vertex.isPassagable)) {
-			//豬ｮ荳翫〒縺阪ｋ蝣ｴ謇縺句愛螳・
-			//貎懊ｋ縺ｮ繧貞・繧頑崛縺医ｋ
+		if (character->CheckDive(tate.isPassagable,yoko.isPassagable,vertex.isPassagable)) {
+			//浮上できる場所か判定
+			//潜るのを切り替える
 			Dive_State = !Dive_State;
 			PlaySound(SunaSE);
 		}
 	}
 
-	//謨ｵ繧ｭ繝｣繝ｩ繧ｯ繧ｿ繝ｼ縺ｮ譖ｴ譁ｰ------------------------------------------------------------------------------------------------------------------------------------
+	//敵キャラクターの更新------------------------------------------------------------------------------------------------------------------------------------
 	if (brownBear != NULL) {
 		for (int UpdateNum = 0; UpdateNum < Enemy_MaxNum; UpdateNum++) {
 			if (brownBear[UpdateNum].isAlive) {
-				enemyCoord = brownBear[UpdateNum].OutBlockCoord();//蠎ｧ讓吝叙繧雁・縺・
+				enemyCoord = brownBear[UpdateNum].OutBlockCoord();//座標取り出し
 				enemypos = brownBear[UpdateNum].OutPos();
 
 				if ((enemypos.X - playerpos.X)*(enemypos.X - playerpos.X) + (enemypos.Y - playerpos.Y)*(enemypos.Y - playerpos.Y) < (MASUWIDTH / 2 * 1.5f)*(MASUWIDTH / 2 * 1.5f)) {
-					//謾ｻ謦・庄閭ｽ遽・峇蜀・↑繧峨ヵ繝ｩ繧ｰ繧稚rue縺ｫ
+					//攻撃可能範囲内ならフラグをtrueに
 					EnemyAttackFlag = true;
 				}
 				else {
 					EnemyAttackFlag = false;
 				}
 
-				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y);//雜ｳ蜈・・繝槭せ諠・ｱ蜿悶ｊ蜃ｺ縺・
+				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X,enemyCoord.Y);//足元のマス情報取り出し
 				if (blockinfo.isCut) {
-					//遨ｴ縺ｫ關ｽ縺｡繧・
+					//穴に落ちる
 					brownBear[UpdateNum].FallintoHole();
 					if (PollSound(FallSE) == false) {
 						PlaySound(FallSE);
 					}
 				}
 
-				//遨ｴ繧帝∩縺代ｋ
+				//穴を避ける
 				brownBear[UpdateNum].AvoidHole(
 					stageBoardSystem->stage->OutBlockInfo(enemyCoord.X + 1, enemyCoord.Y),
 					stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y - 1),
@@ -260,83 +256,49 @@ void Game::Update(void) {
 					stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y + 1)
 				);
 
-				//蛻･縺ｮ謨ｵ繧ｭ繝｣繝ｩ繧帝∩縺代ｋ
-
-				for (int avoidNum = 0; avoidNum < Enemy_MaxNum; avoidNum++) {
-					if (avoidNum == UpdateNum) {
-						continue;//閾ｪ蛻・・霄ｫ縺ｯ繧ｹ繧ｭ繝・・
+				//別の敵キャラを避ける
+				
+					for (int avoidNum = 0; avoidNum < Enemy_MaxNum; avoidNum++) {
+						if (avoidNum == UpdateNum) {
+							continue;//自分自身はスキップ
+						}
+						if (brownBear[avoidNum].isAlive == false) {
+							continue;//死んだ敵はスキップ
+						}
+						brownBear[UpdateNum].AvoidAnotherEnemy(brownBear[avoidNum].OutBlockCoord());
 					}
-					if (brownBear[avoidNum].isAlive == false) {
-						continue;//豁ｻ繧薙□謨ｵ縺ｯ繧ｹ繧ｭ繝・・
-					}
-					brownBear[UpdateNum].AvoidAnotherEnemy(brownBear[avoidNum].OutBlockCoord());
-				}
-				switch (Scene) {
-				case GAME_STAGE1:
-					switch (UpdateNum) {
-					case 0:
-						ToCoord.X = ENEMY1_DEFPOS_X;
-						ToCoord.Y = ENEMY1_DEFPOS_Y;
-						break;
-
-					case 1:
-						ToCoord.X = ENEMY2_DEFPOS_X;
-						ToCoord.Y = ENEMY2_DEFPOS_Y;
-						break;
-
-					}
+				
+				switch (UpdateNum) {
+				case 0:
+					ToCoord.X = ENEMY1_DEFPOS_X;
+					ToCoord.Y = ENEMY1_DEFPOS_Y;
 					break;
 
-				case GAME_STAGE2:
-					switch (UpdateNum) {
-					case 0:
-						ToCoord.X = ENEMY3_DEFPOS_X;
-						ToCoord.Y = ENEMY3_DEFPOS_Y;
-						break;
-
-					case 1:
-						ToCoord.X = ENEMY4_DEFPOS_X;
-						ToCoord.Y = ENEMY4_DEFPOS_Y;
-						break;
-
-					case 2:
-						ToCoord.X = ENEMY5_DEFPOS_X;
-						ToCoord.Y = ENEMY5_DEFPOS_Y;
-						break;
-
-					case 3:
-						ToCoord.X = ENEMY6_DEFPOS_X;
-						ToCoord.Y = ENEMY6_DEFPOS_Y;
-						break;
-
-					case 4:
-						ToCoord.X = ENEMY7_DEFPOS_X;
-						ToCoord.Y = ENEMY7_DEFPOS_Y;
-						break;
-					}
+				case 1:
+					ToCoord.X = ENEMY2_DEFPOS_X;
+					ToCoord.Y = ENEMY2_DEFPOS_Y;
 					break;
 				}
-				EnemyAttack = brownBear[UpdateNum].Update(character->OutPos(), Dive_State, EnemyAttackFlag, ToCoord);
+				EnemyAttack = brownBear[UpdateNum].Update(character->OutPos(), Dive_State, EnemyAttackFlag,ToCoord);
 			}
 		}
 	}
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------
 	if (EnemyAttack) {
-
-		//繝励Ξ繧､繝､繝ｼ縺ｸ繝繝｡繝ｼ繧ｸ
+		//プレイヤーへダメージ
 		character->Hit();
 
 	}
-	//繧ｹ繝・・繧ｸ諠・ｱ縺ｮ譖ｴ譁ｰ
+	//ステージ情報の更新
 	if (stageBoardSystem != NULL) {
-		if (Dive_State)//貎懊▲縺ｦ縺・↑縺・凾縺ｮ縺ｿ蛻・ｊ蜿悶ｋ
+		if (Dive_State)//潜っていない時のみ切り取る
 		{
-			stageBoardSystem->CutBoard(coord);//繧ｭ繝｣繝ｩ繧ｯ繧ｿ繝ｼ縺ｮ菴咲ｽｮ繧貞・繧・
+			stageBoardSystem->CutBoard(coord);//キャラクターの位置を切る
 			stageBoardSystem->BoardUpdate(coord);
-			stageBoardSystem->stage->Check_Passagable();//蛻・ｊ蜿悶ｉ繧後◆縺ｨ縺薙ｍ縺ｫ縺ｯ陦後￠縺ｪ縺・ｈ縺・↓縺吶ｋ繧・▽
-			stageBoardSystem->stage->CheckCakeFall();//繧ｱ繝ｼ繧ｭ縺悟・繧願誠縺｡縺ｦ繧九°
+			stageBoardSystem->stage->Check_Passagable();//切り取られたところには行けないようにするやつ
+			stageBoardSystem->stage->CheckCakeFall();//ケーキが切り落ちてるか
+			stageBoardSystem->stage->FallingCake();
 		}
-		stageBoardSystem->stage->FallingCake();//繧ｱ繝ｼ繧ｭ縺瑚誠縺｡縺ｦ縺・￥蜃ｦ逅・
 	}
 	ui->TIME();
 }
@@ -346,7 +308,7 @@ void Game::Gettime(void) {
 	ui->GTIME();
 }
 
-bool Game::OutClearFlg(void)//謨ｵ縺・縺ｪ繧液rue繧定ｿ斐☆
+bool Game::OutClearFlg(void)//敵が0ならtrueを返す
 {
 	if (DeathEnemyNum == Enemy_MaxNum) {
 		return true;
