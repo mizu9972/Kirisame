@@ -136,6 +136,7 @@ void Game::Draw(void) {
 	//UI‚Ì•`‰æ
 	if (ui != NULL) {
 		ui->UIDraw(Dive_State);
+		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
 	}
 	if (Dive_State)//•‚ã‚µ‚Ä‚é‚Æ‚«
 	{

@@ -661,3 +661,20 @@ void Stage::FallingCake(void)
 		}
 	}
 }
+int Stage::RestMathCheck(void)//残りのマスの数を返す
+{
+	int RestMath = 0;//残りマスの数
+	PieceT Check;
+	for (int num_retu = 0; num_retu < YOKOMASU_NUM; num_retu++)
+	{
+		for (int num_gyo = 0; num_gyo < TATEMASU_NUM; num_gyo++)
+		{
+			Check = OutBlockInfo(num_gyo, num_retu);
+			if (Check.isCut == false)
+			{
+				RestMath++;
+			}
+		}
+	}
+	return RestMath;//残りマスの数を返す
+}
