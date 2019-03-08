@@ -542,11 +542,14 @@ void Stage::CakeDraw(void) {
 		{
 			break;
 		}
-
-		Draw2dPolygon(Cakeinfo[num].Coord.X - Cakeinfo[num].Size / 2, Cakeinfo[num].Coord.Y - Cakeinfo[num].Size / 2, Cakeinfo[num].Size, Cakeinfo[num].Size, D3DCOLOR_ARGB(255, 255, 255, 255),
-			Cakeinfo[num].Texture, 0.0f, 0.0f, 1.0f, 1.0f);
+		if (Cakeinfo[num].isAlive)
+		{
+			Draw2dPolygon(Cakeinfo[num].Coord.X - Cakeinfo[num].Size / 2, Cakeinfo[num].Coord.Y - Cakeinfo[num].Size / 2, Cakeinfo[num].Size, Cakeinfo[num].Size, D3DCOLOR_ARGB(255, 255, 255, 255),
+				Cakeinfo[num].Texture, 0.0f, 0.0f, 1.0f, 1.0f);
+		}
 	}
 }
+
 //ステージ情報取り出し関数---------------------
 PieceT Stage::OutSide_Tate(int X, int Y) {
 	PieceT rtn;
@@ -658,4 +661,22 @@ void Stage::FallingCake(void)
 			Cakeinfo[num].Size -= 1;
 		}
 	}
+}
+
+int Stage::RestMathCheck(void)//残りのマスの数を返す
+{
+	int RestMath = 0;//残りマスの数
+	PieceT Check;
+	for (int num_retu = 0; num_retu < YOKOMASU_NUM; num_retu++)
+	{
+		for (int num_gyo = 0; num_gyo < TATEMASU_NUM; num_gyo++)
+		{
+			Check = OutBlockInfo(num_gyo, num_retu);
+			if (Check.isCut == false)
+			{
+				RestMath++;
+			}
+		}
+	}
+	return RestMath;//残りマスの数を返す
 }

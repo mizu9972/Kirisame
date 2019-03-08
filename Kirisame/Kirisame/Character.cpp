@@ -52,8 +52,19 @@ Character::~Character(void) {
 
 void Character::SetCoord(COORD inCoord) {
 	memcpy(&Coord, &inCoord, sizeof(COORD));
-	
+	//初期位置の配列をセット
+	GroundInfo.X = (inCoord.X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
+	GroundInfo.Y = (inCoord.Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
+
+	////初期位置の頂点セット
+	Pos_Vertex.X = 2;
+	Pos_Vertex.Y = 4;
+
+	//サメの向きを初期状態に
+	Tu = 0;
+	Tv = 0;
 }
+
 
 void Character::Draw(void) {
 	//キャラを描画

@@ -107,5 +107,5 @@ public:
 	void Check_Passagable(void);//通行可能かどうかを判定
 	void CheckCakeFall(void);//ケーキが落ちたか
 	void FallingCake(void);//ケーキが落ちた時の処理
-
+	int RestMathCheck(void);//残りマスの数
 };
