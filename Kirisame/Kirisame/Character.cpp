@@ -1,5 +1,5 @@
 ///-----------------------------------------------
-//ƒLƒƒƒ‰ƒNƒ^[ƒNƒ‰ƒX‚Ìˆ—
+//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ã®å‡¦ç†
 //-----------------------------------------------
 #include "Character.h"
 #include "config.h"
@@ -7,23 +7,23 @@
 #include "main.h"
 #include "TexLoad.h"
 
-#define HOSEITI 15.0f//ƒLƒƒƒ‰ƒNƒ^[•`‰æˆÊ’u’²®—p
+#define HOSEITI 15.0f//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æç”»ä½ç½®èª¿æ•´ç”¨
 extern LPDIRECT3DDEVICE9 g_pD3DDevice;
 extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 
 Character::Character(void) {
-	//‰ŠúˆÊ’u‚ğƒZƒbƒg
+	//åˆæœŸä½ç½®ã‚’ã‚»ãƒƒãƒˆ
 	Coord.X = PLAYER_STARTPOS_X;
 	Coord.Y = PLAYER_STARTPOS_Y;
 
-	//‰ŠúˆÊ’u‚Ì”z—ñ‚ğƒZƒbƒg
+	//åˆæœŸä½ç½®ã®é…åˆ—ã‚’ã‚»ãƒƒãƒˆ
 	GroundInfo.X = (PLAYER_STARTPOS_X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
 	GroundInfo.Y = (PLAYER_STARTPOS_Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
 
-	////‰ŠúˆÊ’u‚Ì’¸“_ƒZƒbƒg
+	////åˆæœŸä½ç½®ã®é ‚ç‚¹ã‚»ãƒƒãƒˆ
 	Pos_Vertex.X = 2;
 	Pos_Vertex.Y = 4;
-	//ƒeƒNƒXƒ`ƒƒƒZƒbƒg
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚»ãƒƒãƒˆ
 	Texture = TexOp->PlayerTex;
 	KeyWait = 0;
 	Inputflg = false;
@@ -40,36 +40,38 @@ Character::~Character(void) {
 
 void Character::SetCoord(COORD inCoord) {
 	memcpy(&Coord, &inCoord, sizeof(COORD));
-	//‰ŠúˆÊ’u‚Ì”z—ñ‚ğƒZƒbƒg
+
+	//åˆæœŸä½ç½®ã®é…åˆ—ã‚’ã‚»ãƒƒãƒˆ
 	GroundInfo.X = (inCoord.X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
 	GroundInfo.Y = (inCoord.Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
 
-	////‰ŠúˆÊ’u‚Ì’¸“_ƒZƒbƒg
+	////åˆæœŸä½ç½®ã®é ‚ç‚¹ã‚»ãƒƒãƒˆ
 	Pos_Vertex.X = 2;
 	Pos_Vertex.Y = 4;
 
-	//ƒTƒ‚ÌŒü‚«‚ğ‰Šúó‘Ô‚É
+	//ã‚µãƒ¡ã®å‘ãã‚’åˆæœŸçŠ¶æ…‹ã«
 	Tu = 0;
 	Tv = 0;
+
 }
 
 void Character::Draw(void) {
-	//ƒLƒƒƒ‰‚ğ•`‰æ
+	//ã‚­ãƒ£ãƒ©ã‚’æç”»
 	Draw2dPolygon(Coord.X - CHARA_SIZE / 2, Coord.Y - CHARA_SIZE + HOSEITI, CHARA_SIZE, CHARA_SIZE, D3DCOLOR_ARGB(255, 255, 255, 255), Texture, Tu, Tv, 0.5f, 0.5f);
 }
 
 void Character::Move(void)
 {
-	//‰¼‘zƒL[
+	//ä»®æƒ³ã‚­ãƒ¼
 	bool UP_TRIG = false;
 	bool DOWN_TRIG = false;
 	bool LEFT_TRIG = false;
 	bool RIGHT_TRIG = false;
 
-	memcpy(&wark_coord, &Coord, sizeof(COORD));//ƒLƒƒƒ‰‚ÌÀ•W‚Ì‘Ş”ğ—p
-	memcpy(&wark_groundinfo, &GroundInfo, sizeof(COORD));//ƒLƒƒƒ‰‚Ì”z—ñÀ•W‚Ì‘Ş”ğ—p
+	memcpy(&wark_coord, &Coord, sizeof(COORD));//ã‚­ãƒ£ãƒ©ã®åº§æ¨™ã®é€€é¿ç”¨
+	memcpy(&wark_groundinfo, &GroundInfo, sizeof(COORD));//ã‚­ãƒ£ãƒ©ã®é…åˆ—åº§æ¨™ã®é€€é¿ç”¨
 
-														 //‘Î‰‚·‚éƒL[‚ª‰Ÿ‚³‚ê‚½‚ç(ƒL[ƒ{[ƒh)
+														 //å¯¾å¿œã™ã‚‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰(ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰)
 	if (GetKeyboardPress(DIK_UP) && Inputflg == false) {
 		UP_TRIG = true;
 		Inputflg = true;
@@ -104,7 +106,7 @@ void Character::Move(void)
 		Inputflg = false;
 	}
 
-	//‘Î‰‚·‚éƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç(ƒQ[ƒ€ƒpƒbƒh)
+	//å¯¾å¿œã™ã‚‹ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰(ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰)
 	if (g_pDIDevGamePad) {
 		if (GetGamePadLeftStickY() <= JoypadDI_Y - GAMEPAD_DEADZONE&&Inputflg == false) {
 			UP_TRIG = true;
@@ -132,69 +134,69 @@ void Character::Move(void)
 		}
 	}
 
-	if (UP_TRIG)//1ƒ}ƒXã‚ÉˆÚ“®
+	if (UP_TRIG)//1ãƒã‚¹ä¸Šã«ç§»å‹•
 	{
-		if (Coord.X % MASUWIDTH == 0)//’¸“_‚É‚¢‚é‚Ì‚İˆÚ“®‰Â”\‚É
+		if (Coord.X % MASUWIDTH == 0)//é ‚ç‚¹ã«ã„ã‚‹æ™‚ã®ã¿ç§»å‹•å¯èƒ½ã«
 		{
 			Coord.Y -= MASUHEIGHT / 2;
-			GroundInfo.Y--;//”z—ñ‚ÌYÀ•W‚ğƒ}ƒCƒiƒX
+			GroundInfo.Y--;//é…åˆ—ã®Yåº§æ¨™ã‚’ãƒã‚¤ãƒŠã‚¹
 			Pos_Vertex.Y -= (short)0.5;
 		}
 
 	}
-	else if (DOWN_TRIG)//‚Pƒ}ƒX‰º‚ÉˆÚ“®
+	else if (DOWN_TRIG)//ï¼‘ãƒã‚¹ä¸‹ã«ç§»å‹•
 	{
-		if (Coord.X % MASUWIDTH == 0)//’¸“_‚É‚¢‚é‚Ì‚İˆÚ“®‰Â”\‚É
+		if (Coord.X % MASUWIDTH == 0)//é ‚ç‚¹ã«ã„ã‚‹æ™‚ã®ã¿ç§»å‹•å¯èƒ½ã«
 		{
 			Coord.Y += MASUHEIGHT / 2;
-			GroundInfo.Y++;//”z—ñ‚ÌYÀ•W‚ğƒvƒ‰ƒX
+			GroundInfo.Y++;//é…åˆ—ã®Yåº§æ¨™ã‚’ãƒ—ãƒ©ã‚¹
 			Pos_Vertex.Y += (short)0.5;
 		}
 
 	}
-	if (LEFT_TRIG)//1ƒ}ƒX¶‚ÉˆÚ“®
+	if (LEFT_TRIG)//1ãƒã‚¹å·¦ã«ç§»å‹•
 	{
-		if (Coord.Y % MASUHEIGHT == 0)//’¸“_‚É‚¢‚é‚Ì‚İˆÚ“®‰Â”\‚É
+		if (Coord.Y % MASUHEIGHT == 0)//é ‚ç‚¹ã«ã„ã‚‹æ™‚ã®ã¿ç§»å‹•å¯èƒ½ã«
 		{
 			Coord.X -= MASUWIDTH / 2;
-			GroundInfo.X--;//”z—ñ‚ÌXÀ•W‚ğƒ}ƒCƒiƒX
+			GroundInfo.X--;//é…åˆ—ã®Xåº§æ¨™ã‚’ãƒã‚¤ãƒŠã‚¹
 			Pos_Vertex.X -= (short)0.5;
 		}
 
 	}
-	else if (RIGHT_TRIG)//1ƒ}ƒX‰E‚ÉˆÚ“®
+	else if (RIGHT_TRIG)//1ãƒã‚¹å³ã«ç§»å‹•
 	{
-		if (Coord.Y % MASUHEIGHT == 0)//’¸“_‚É‚¢‚é‚Ì‚İˆÚ“®‰Â”\‚É
+		if (Coord.Y % MASUHEIGHT == 0)//é ‚ç‚¹ã«ã„ã‚‹æ™‚ã®ã¿ç§»å‹•å¯èƒ½ã«
 		{
 			Coord.X += MASUWIDTH / 2;
-			GroundInfo.X++;//”z—ñ‚ÌXÀ•W‚ğƒvƒ‰ƒX
+			GroundInfo.X++;//é…åˆ—ã®Xåº§æ¨™ã‚’ãƒ—ãƒ©ã‚¹
 			Pos_Vertex.X += (short)0.5;
 		}
 
 	}
 
 	///////////////////////////////////////
-	// ƒ}ƒX‚ÌŠO‚Éo‚È‚¢‚æ‚¤‚É‚·‚éˆ—
+	// ãƒã‚¹ã®å¤–ã«å‡ºãªã„ã‚ˆã†ã«ã™ã‚‹å‡¦ç†
 	///////////////////////////////////////
-	if (Coord.X <= STAGEPOS_YOKO)//¶‚Éƒ|ƒƒŠ‚µ‚½‚ç
+	if (Coord.X <= STAGEPOS_YOKO)//å·¦ã«ãƒãƒ­ãƒªã—ãŸã‚‰
 	{
 		Coord.X = STAGEPOS_YOKO;
 		GroundInfo.X = 0;
 		Pos_Vertex.X = 0;
 	}
-	if (Coord.Y <= STAGEPOS_TATE)//ã‚Éƒ|ƒƒŠ‚µ‚½‚ç
+	if (Coord.Y <= STAGEPOS_TATE)//ä¸Šã«ãƒãƒ­ãƒªã—ãŸã‚‰
 	{
 		Coord.Y = STAGEPOS_TATE;
 		GroundInfo.Y = 0;
 		Pos_Vertex.Y = 0;
 	}
-	if (Coord.X >= STAGEPOS_YOKO + (MASUWIDTH*YOKOMASU_NUM))//‰E‚Éƒ|ƒƒŠ‚µ‚½‚ç
+	if (Coord.X >= STAGEPOS_YOKO + (MASUWIDTH*YOKOMASU_NUM))//å³ã«ãƒãƒ­ãƒªã—ãŸã‚‰
 	{
 		Coord.X = STAGEPOS_YOKO + (MASUWIDTH*YOKOMASU_NUM);
 		GroundInfo.X = STAGESIZE_IGOX - 1;
 		Pos_Vertex.X = VERTEXX_NUM;
 	}
-	if (Coord.Y >= STAGEPOS_TATE + (MASUHEIGHT*TATEMASU_NUM))//‰º‚Éƒ|ƒƒŠ‚µ‚½‚ç
+	if (Coord.Y >= STAGEPOS_TATE + (MASUHEIGHT*TATEMASU_NUM))//ä¸‹ã«ãƒãƒ­ãƒªã—ãŸã‚‰
 	{
 		Coord.Y = STAGEPOS_TATE + (MASUHEIGHT*TATEMASU_NUM);
 		GroundInfo.Y = STAGESIZE_IGOY - 1;
@@ -252,35 +254,35 @@ bool Character::CheckDive(bool tate, bool yoko, bool vertex) {
 }
 void Character::Update(bool Dive_State)
 {
-	//XV
+	//æ›´æ–°
 
 	Move();
 
-	if (GroundInfo.X % 2 == 0 && GroundInfo.Y % 2 == 0)//’¸“_‚É‚¢‚éê‡
+	if (GroundInfo.X % 2 == 0 && GroundInfo.Y % 2 == 0)//é ‚ç‚¹ã«ã„ã‚‹å ´åˆ
 	{
 		Stagetype = Vertex;
 	}
-	else if (GroundInfo.X % 2 == 1 && GroundInfo.Y % 2 == 0) {//‰¡•Ó
+	else if (GroundInfo.X % 2 == 1 && GroundInfo.Y % 2 == 0) {//æ¨ªè¾º
 		Stagetype = Side_Yoko;
 	}
-	else if (GroundInfo.X % 2 == 0 && GroundInfo.Y % 2 == 1) {//c•Ó
+	else if (GroundInfo.X % 2 == 0 && GroundInfo.Y % 2 == 1) {//ç¸¦è¾º
 		Stagetype = Side_Tate;
 	}
 
 }
 StageTypeT Character::OutStageType(void) {
-	//StageType‚ğ•Ô‚·
+	//StageTypeã‚’è¿”ã™
 	return Stagetype;
 }
 void Character::Hit(void) {
-	//UŒ‚H‚ç‚Á‚½‚Ìˆ—
-	int a = 0;///‰¼
+	//æ”»æ’ƒé£Ÿã‚‰ã£ãŸæ™‚ã®å‡¦ç†
+	int a = 0;///ä»®
 }
 COORD Character::OutCoord(void) {
-	//ƒXƒe[ƒW“à‚ÌˆÊ’u‚ğæ‚èo‚·
+	//ã‚¹ãƒ†ãƒ¼ã‚¸å†…ã®ä½ç½®ã‚’å–ã‚Šå‡ºã™
 	return GroundInfo;
 }
 COORD Character::OutPos(void) {
-	//À•W‚ğæ‚èo‚·
+	//åº§æ¨™ã‚’å–ã‚Šå‡ºã™
 	return Coord;
 }

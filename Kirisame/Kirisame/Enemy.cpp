@@ -1,5 +1,5 @@
 //-----------------------------------------------
-//“GƒLƒƒƒ‰ƒNƒ^[‚Ìˆ—
+//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®å‡¦ç†
 //-----------------------------------------------
 #include "main.h"
 #include "Enemy.h"
@@ -8,15 +8,15 @@
 #include "TexLoad.h"
 #include "XAudio2.h"
 
-//UŒ‚‚µ‚½‚Æ‚«‚É‰æ–Ê‘S‘Ì‚ÉƒGƒtƒFƒNƒg‚ğ‚©‚¯‚é
-//•¡”‚ÌUŒ‚‚ÅƒGƒtƒFƒNƒg‚ªd•¡‚µ‚È‚¢‚æ‚¤‚ÉƒOƒ[ƒoƒ‹‚Å’è‹`
+//æ”»æ’ƒã—ãŸã¨ãã«ç”»é¢å…¨ä½“ã«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ã‹ã‘ã‚‹
+//è¤‡æ•°ã®æ”»æ’ƒã§ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒé‡è¤‡ã—ãªã„ã‚ˆã†ã«ã‚°ãƒ­ãƒ¼ãƒãƒ«ã§å®šç¾©
 bool AttackEffectFlag = false;
 int AttackEffectCount = 0;
 
 extern int DeathEnemyNum;
 
 Enemy::Enemy(void) {
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	MoveFlagXRight = true;
 	MoveFlagYUp = true;
 	MoveFlagXLeft = true;
@@ -29,61 +29,63 @@ Enemy::Enemy(void) {
 }
 
 Enemy::~Enemy(void) {
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 }
 
 void Enemy::Init(COORD GetCoord) {
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 
-	//ó‚¯æ‚Á‚½À•Wî•ñ‚ğ”½‰f‚·‚é
+	//å—ã‘å–ã£ãŸåº§æ¨™æƒ…å ±ã‚’åæ˜ ã™ã‚‹
 	Coord.X = GetCoord.X;
 	Coord.Y = GetCoord.Y;
 
-	//‚Ç‚Ìƒ}ƒX‚É‚¢‚é‚©
+	//ã©ã®ãƒã‚¹ã«ã„ã‚‹ã‹
 	BlockCoord.X = ((GetCoord.X - (STAGEPOS_YOKO - (MASUWIDTH / 2))) / MASUWIDTH) - 1;
 	BlockCoord.Y = ((GetCoord.Y - (STAGEPOS_TATE - (MASUHEIGHT / 2))) / MASUHEIGHT) - 1;
 
 	Size = ENEMY_SIZE;
 	isAlive = true;
-	MoveFlagXRight = true;
-	MoveFlagYUp = true;
-	MoveFlagXLeft = true;
-	MoveFlagYDown = true;
 
-	isFalling = false;
-	AttackMode = false;
-	Attack = false;
+	  MoveFlagXRight = true;
+	  MoveFlagYUp = true;
+	  MoveFlagXLeft = true;
+	  MoveFlagYDown = true;
 
-	MoveMode = RIGHT_MOVE_MODE;//ˆÚ“®ƒpƒ^[ƒ“
-	MoveCount = 0;
-	Animation = 0;//ƒAƒjƒ[ƒVƒ‡ƒ“—p•Ï”
-	AnimeCount = 0;//ƒAƒjƒ[ƒVƒ‡ƒ“‘¬“x
-	DrawCount = (int)(ENEMY_MOVESPEED * 2 * FPS);
+	  isFalling = false;
+	  AttackMode = false;
+	  Attack = false;
 
-	Texture = TexOp->BrownBearTex;
-	AttackInfo.Texture = TexOp->EnemyAttackTex;
-	DiveTexture = TexOp->EnemySunabokoriTex;
+	  MoveMode = RIGHT_MOVE_MODE;//ç§»å‹•ãƒ‘ã‚¿ãƒ¼ãƒ³
+	  MoveCount = 0;
+	  Animation = 0;//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨å¤‰æ•°
+	  AnimeCount = 0;//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é€Ÿåº¦
+	  DrawCount = (int)(ENEMY_MOVESPEED * 2 * FPS);
 
-	MoveFlagXRight = true;
-	MoveFlagYUp = true;
-	MoveFlagXLeft = true;
-	MoveFlagYDown = true;
+	  Texture = TexOp->BrownBearTex;
+	  AttackInfo.Texture = TexOp->EnemyAttackTex;
+	  DiveTexture = TexOp->EnemySunabokoriTex;
 
-	isFalling = false;
-	AttackMode = false;
-	Attack = false;
-	isAlive = true;
+	  MoveFlagXRight = true;
+	  MoveFlagYUp = true;
+	  MoveFlagXLeft = true;
+	  MoveFlagYDown = true;
+
+	  isFalling = false;
+	  AttackMode = false;
+	  Attack = false;
+	  isAlive = true;
+
 
 }
 
 bool Enemy::Update(COORD PlayerCoord, bool Diveflag, bool Attackflag, COORD ToCoord) {
-	//XVˆ—
+	//æ›´æ–°å‡¦ç†
 	bool ReturnBool = false;
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“is
-	if (AnimeCount > 0.5f * FPS) {//ƒAƒjƒ[ƒVƒ‡ƒ“‘¬“x
-		if (Animation > 4) {//ƒAƒjƒ[ƒVƒ‡ƒ“‚ªÄ¶‚µ‚«‚Á‚½‚çƒŠƒZƒbƒg
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é€²è¡Œ
+	if (AnimeCount > 0.5f * FPS) {//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é€Ÿåº¦
+		if (Animation > 4) {//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒå†ç”Ÿã—ãã£ãŸã‚‰ãƒªã‚»ãƒƒãƒˆ
 			Animation = 0;
 		}
 		else {
@@ -95,100 +97,100 @@ bool Enemy::Update(COORD PlayerCoord, bool Diveflag, bool Attackflag, COORD ToCo
 		AnimeCount += 1;
 	}
 
-	//UŒ‚‰Â”\‚È‚çUŒ‚€”õ‚É“ü‚é
+	//æ”»æ’ƒå¯èƒ½ãªã‚‰æ”»æ’ƒæº–å‚™ã«å…¥ã‚‹
 	if (AttackMode == false && Attackflag == true && Diveflag == 1) {
-		AttackMode = true;//UŒ‚€”õƒtƒ‰ƒO
-		memcpy(&AttackInfo.Coord, &PlayerCoord, sizeof(COORD));//UŒ‚‚·‚éÀ•W‚ğƒZƒbƒg
+		AttackMode = true;//æ”»æ’ƒæº–å‚™ãƒ•ãƒ©ã‚°
+		memcpy(&AttackInfo.Coord, &PlayerCoord, sizeof(COORD));//æ”»æ’ƒã™ã‚‹åº§æ¨™ã‚’ã‚»ãƒƒãƒˆ
 	}
-	//‰ŠúˆÊ’u‚©‚ç‚ÌƒvƒŒƒCƒ„[‚Ì‹——£ŒvZ------------------------------------------------
+	//åˆæœŸä½ç½®ã‹ã‚‰ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è·é›¢è¨ˆç®—------------------------------------------------
 	COORD SubCoord;
 
 	SubCoord.X = (short)sqrt((ToCoord.X - PlayerCoord.X) * (ToCoord.X - PlayerCoord.X));
 	SubCoord.Y = (short)sqrt((ToCoord.Y - PlayerCoord.Y) * (ToCoord.Y - PlayerCoord.Y));
 	//----------------------------------------------------------------------------------
 
-	//“GƒLƒƒƒ‰ƒNƒ^[‚ÆƒvƒŒƒCƒ„[‚Ì‹——£ŒvZ--------------------------------------------------
+	//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è·é›¢è¨ˆç®—--------------------------------------------------
 	COORD SubPersonalCoord;
 
 	SubPersonalCoord.X = (short)sqrt((Coord.X - PlayerCoord.X) * (Coord.X - PlayerCoord.X));
 	SubPersonalCoord.Y = (short)sqrt((Coord.Y - PlayerCoord.Y) * (Coord.Y - PlayerCoord.Y));
 	//--------------------------------------------------------------------------------------
 
-	if (Diveflag) {//ö‚Á‚Ä‚¢‚é‚©
-				   //ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚É‚æ‚Á‚ÄˆÚ“®‚·‚é–Ú•W’n“_‚ğ’²®‚·‚é
+	if (Diveflag) {//æ½œã£ã¦ã„ã‚‹ã‹
+				   //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã«ã‚ˆã£ã¦ç§»å‹•ã™ã‚‹ç›®æ¨™åœ°ç‚¹ã‚’èª¿æ•´ã™ã‚‹
 		if ((SubCoord.X < ENEMY_SEARCH_RAD * MASUWIDTH) && (SubCoord.Y < ENEMY_SEARCH_RAD * MASUHEIGHT)) {
-			//ƒvƒŒƒCƒ„[‚ªƒeƒŠƒgƒŠ[‚É‹ß‚Ã‚¢‚½‚ç
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒ†ãƒªãƒˆãƒªãƒ¼ã«è¿‘ã¥ã„ãŸã‚‰
 
-			//ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğˆÚ“®–Ú•W‚É‚·‚é
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’ç§»å‹•ç›®æ¨™ã«ã™ã‚‹
 			MokuhyoCoord.X = PlayerCoord.X;
 			MokuhyoCoord.Y = PlayerCoord.Y;
 		}
 		else {
-			//ˆá‚¤‚È‚ç‰ŠúˆÊ’u‚ğ–Ú•W‚É
+			//é•ã†ãªã‚‰åˆæœŸä½ç½®ã‚’ç›®æ¨™ã«
 			MokuhyoCoord.X = ToCoord.X;
 			MokuhyoCoord.Y = ToCoord.Y;
 		}
 
 		if ((SubPersonalCoord.X < ENEMY_PERSONAL_SPACE * MASUWIDTH) && (SubPersonalCoord.Y < ENEMY_PERSONAL_SPACE * MASUWIDTH)) {
-			//ƒvƒŒƒCƒ„[‚ª‚©‚È‚è‹ß‚­‚É‚¢‚é‚È‚ç’Ç‚¢‘±‚¯‚é
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‹ãªã‚Šè¿‘ãã«ã„ã‚‹ãªã‚‰è¿½ã„ç¶šã‘ã‚‹
 			MokuhyoCoord.X = PlayerCoord.X;
 			MokuhyoCoord.Y = PlayerCoord.Y;
 		}
 	}
 	else {
-		//ƒvƒŒƒCƒ„[‚ªö‚Á‚Ä‚¢‚é‚È‚ç‰ŠúˆÊ’u‚ğ–Ú•W‚É
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ½œã£ã¦ã„ã‚‹ãªã‚‰åˆæœŸä½ç½®ã‚’ç›®æ¨™ã«
 		MokuhyoCoord.X = ToCoord.X;
 		MokuhyoCoord.Y = ToCoord.Y;
 	}
 	if (isFalling == false) {
-		if (ENEMY_MOVESPEED * FPS < MoveCount) {//ˆê’èŠÔ‚²‚Æ‚Éˆ—
+		if (ENEMY_MOVESPEED * FPS < MoveCount) {//ä¸€å®šæ™‚é–“ã”ã¨ã«å‡¦ç†
 			if (AttackMode == true && Diveflag == 1) {
-				AttackInfo.Flag = true;//UŒ‚‚·‚é
+				AttackInfo.Flag = true;//æ”»æ’ƒã™ã‚‹
 				if ((Coord.X - PlayerCoord.X) * (Coord.X - PlayerCoord.X) + (Coord.Y - PlayerCoord.Y) * (Coord.Y - PlayerCoord.Y) < (MASUWIDTH / 2 * 1.5) * (MASUWIDTH / 2 * 1.5)) {
-					//–½’†
-					AttackEffectFlag = true;//ƒGƒtƒFƒNƒg•`‰æƒtƒ‰ƒO‚ğtrue‚É
-					ReturnBool = AttackMove();//UŒ‚ˆ—
+					//å‘½ä¸­
+					AttackEffectFlag = true;//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»ãƒ•ãƒ©ã‚°ã‚’trueã«
+					ReturnBool = AttackMove();//æ”»æ’ƒå‡¦ç†
 				}
 				else {
-					//ŠO‚ê
+					//å¤–ã‚Œ
 					AttackMode = false;
 					if (PollSound(AttackSE) == false) {
-						PlaySound(MissAttackSE);//UŒ‚¸”sSE
+						PlaySound(MissAttackSE);//æ”»æ’ƒå¤±æ•—SE
 					}
 				}
 			}
 			else if (AttackMode == false || Diveflag == 0) {
-				AttackInfo.Flag = false;//UŒ‚‚µ‚È‚¢
-				Move();//ˆÚ“®
+				AttackInfo.Flag = false;//æ”»æ’ƒã—ãªã„
+				Move();//ç§»å‹•
 			}
-			MoveCount = 0;//s“®‚µ‚½‚çƒŠƒZƒbƒg
+			MoveCount = 0;//è¡Œå‹•ã—ãŸã‚‰ãƒªã‚»ãƒƒãƒˆ
 		}
 		MoveCount += 1;
 	}
 
-	return ReturnBool;//UŒ‚‚É¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ•Ô‚·
+	return ReturnBool;//æ”»æ’ƒã«æˆåŠŸã—ãŸã‹ã©ã†ã‹ã‚’è¿”ã™
 }
 
 void Enemy::Move(void) {
-	bool MoveFlag = true;//ˆÚ“®‰Â”\‚©”»’è—p
+	bool MoveFlag = true;//ç§»å‹•å¯èƒ½ã‹åˆ¤å®šç”¨
 
 	if (MokuhyoCoord.X == Coord.X && MokuhyoCoord.Y == Coord.Y) {
 		return;
 	}
-	//–Ú•WÀ•W‚Æ©•ª‚ÌÀ•W‚Ì·‚ğŒvZ--------
+	//ç›®æ¨™åº§æ¨™ã¨è‡ªåˆ†ã®åº§æ¨™ã®å·®ã‚’è¨ˆç®—--------
 	COORD SubCoord;
 
 	SubCoord.X = MokuhyoCoord.X - Coord.X;
 	SubCoord.Y = MokuhyoCoord.Y - Coord.Y;
 	//--------------------------------------
 
-	//X²‚ÆY²‚Ì‚æ‚è–Ú•W‚Æ‚Ì‹——£‚ª‚ ‚é‚Ù‚¤‚ğ—Dæ‚µ‚ÄˆÚ“®‚·‚é
+	//Xè»¸ã¨Yè»¸ã®ã‚ˆã‚Šç›®æ¨™ã¨ã®è·é›¢ãŒã‚ã‚‹ã»ã†ã‚’å„ªå…ˆã—ã¦ç§»å‹•ã™ã‚‹
 	if ((SubCoord.X) * (SubCoord.X) > (SubCoord.Y) * (SubCoord.Y)) {
-		//XÀ•W‚Ì•û‚ª—£‚ê‚Ä‚¢‚éê‡---------------------------------
+		//Xåº§æ¨™ã®æ–¹ãŒé›¢ã‚Œã¦ã„ã‚‹å ´åˆ---------------------------------
 		if (MoveFlag) {
-			//ˆÚ“®‰Â”\‚È‚ç–Ú•WÀ•W–Úw‚µ‚ÄˆÚ“®
+			//ç§»å‹•å¯èƒ½ãªã‚‰ç›®æ¨™åº§æ¨™ç›®æŒ‡ã—ã¦ç§»å‹•
 			if (SubCoord.X > 0) {
-				//‰EˆÚ“®
+				//å³ç§»å‹•
 				if (MoveFlagXRight) {
 					MoveMode = RIGHT_MOVE_MODE;
 					Coord.X += ENEMY_SPEED * MASUWIDTH;
@@ -197,7 +199,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.X < 0) {
-				//¶ˆÚ“®
+				//å·¦ç§»å‹•
 				if (MoveFlagXLeft) {
 					MoveMode = LEFT_MOVE_MODE;
 					Coord.X -= ENEMY_SPEED * MASUWIDTH;
@@ -206,16 +208,16 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//‰½‚à‚µ‚È‚¢
+				//ä½•ã‚‚ã—ãªã„
 			}
 		}
 
-		//X²‚Ì•û‚ª—£‚ê‚Ä‚¢‚é‚ªA’Ê‚ê‚È‚©‚Á‚½---------------------
-		//Y²•û–Ê‚ÖˆÚ“®(Y²ˆÚ“®‚Æ“¯‚¶ˆ—)
+		//Xè»¸ã®æ–¹ãŒé›¢ã‚Œã¦ã„ã‚‹ãŒã€é€šã‚Œãªã‹ã£ãŸæ™‚---------------------
+		//Yè»¸æ–¹é¢ã¸ç§»å‹•(Yè»¸ç§»å‹•ã¨åŒã˜å‡¦ç†)
 		if (MoveFlag == true && (MoveFlagXRight == false || MoveFlagXLeft == false)) {
-			//ˆÚ“®‰Â”\‚È‚ç–Ú•WÀ•W–Úw‚µ‚ÄˆÚ“®
+			//ç§»å‹•å¯èƒ½ãªã‚‰ç›®æ¨™åº§æ¨™ç›®æŒ‡ã—ã¦ç§»å‹•
 			if (SubCoord.Y > 0) {
-				//‰ºˆÚ“®
+				//ä¸‹ç§»å‹•
 				if (MoveFlagYDown) {
 					MoveMode = DOWN_MOVE_MODE;
 					Coord.Y += ENEMY_SPEED * MASUHEIGHT;
@@ -224,7 +226,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.Y <= 0) {
-				//ãˆÚ“®
+				//ä¸Šç§»å‹•
 				if (MoveFlagYUp) {
 					MoveMode = UP_MOVE_MODE;
 					Coord.Y -= ENEMY_SPEED * MASUHEIGHT;
@@ -233,18 +235,18 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//‰½‚à‚µ‚È‚¢
+				//ä½•ã‚‚ã—ãªã„
 			}
 		}
 		//----------------------------------------------------------
 
 	}
 	else {
-		//Y²‚Ì•û‚ª—£‚ê‚Ä‚¢‚éê‡-----------------------------------
+		//Yè»¸ã®æ–¹ãŒé›¢ã‚Œã¦ã„ã‚‹å ´åˆ-----------------------------------
 		if (MoveFlag) {
-			//ˆÚ“®‰Â”\‚È‚ç–Ú•WÀ•W–Úw‚µ‚ÄˆÚ“®
+			//ç§»å‹•å¯èƒ½ãªã‚‰ç›®æ¨™åº§æ¨™ç›®æŒ‡ã—ã¦ç§»å‹•
 			if (SubCoord.Y > 0) {
-				//‰ºˆÚ“®
+				//ä¸‹ç§»å‹•
 				if (MoveFlagYDown) {
 					MoveMode = DOWN_MOVE_MODE;
 					Coord.Y += ENEMY_SPEED * MASUHEIGHT;
@@ -253,7 +255,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.Y < 0) {
-				//ãˆÚ“®
+				//ä¸Šç§»å‹•
 				if (MoveFlagYUp) {
 					MoveMode = UP_MOVE_MODE;
 					Coord.Y -= ENEMY_SPEED * MASUHEIGHT;
@@ -262,19 +264,19 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//‰½‚à‚µ‚È‚¢
+				//ä½•ã‚‚ã—ãªã„
 			}
 		}
 
 		//----------------------------------------------------------
 
 
-		//Y²‚Ì•û‚ª—£‚ê‚Ä‚¢‚é‚ªA’Ê‚ê‚È‚©‚Á‚½---------------------
-		//X²•û–Ê‚ÖˆÚ“®(X²ˆÚ“®‚Æ“¯‚¶ˆ—)
+		//Yè»¸ã®æ–¹ãŒé›¢ã‚Œã¦ã„ã‚‹ãŒã€é€šã‚Œãªã‹ã£ãŸæ™‚---------------------
+		//Xè»¸æ–¹é¢ã¸ç§»å‹•(Xè»¸ç§»å‹•ã¨åŒã˜å‡¦ç†)
 		if (MoveFlag == true && (MoveFlagYUp == false || MoveFlagYDown == false)) {
-			//ˆÚ“®‰Â”\‚È‚ç–Ú•WÀ•W–Úw‚µ‚ÄˆÚ“®
+			//ç§»å‹•å¯èƒ½ãªã‚‰ç›®æ¨™åº§æ¨™ç›®æŒ‡ã—ã¦ç§»å‹•
 			if (SubCoord.X > 0) {
-				//‰EˆÚ“®
+				//å³ç§»å‹•
 				if (MoveFlagXRight) {
 					MoveMode = RIGHT_MOVE_MODE;
 					Coord.X += ENEMY_SPEED * MASUWIDTH;
@@ -283,7 +285,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.X <= 0) {
-				//¶ˆÚ“®
+				//å·¦ç§»å‹•
 				if (MoveFlagXLeft) {
 					MoveMode = LEFT_MOVE_MODE;
 					Coord.X -= ENEMY_SPEED * MASUWIDTH;
@@ -292,14 +294,14 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//‰½‚à‚µ‚È‚¢
+				//ä½•ã‚‚ã—ãªã„
 			}
 		}
 
 		//----------------------------------------------------------
 
 	}
-	//‰æ–ÊŠO‚É‚¢‚©‚È‚¢‚æ‚¤‚É(X²)
+	//ç”»é¢å¤–ã«ã„ã‹ãªã„ã‚ˆã†ã«(Xè»¸)
 	while (Coord.X < STAGEPOS_YOKO) {
 		Coord.X += ENEMY_SPEED * MASUWIDTH;
 		BlockCoord.X += 1;
@@ -308,7 +310,7 @@ void Enemy::Move(void) {
 		Coord.X -= ENEMY_SPEED * MASUWIDTH;
 		BlockCoord.X -= 1;
 	}
-	//‰æ–ÊŠO‚É‚¢‚©‚È‚¢‚æ‚¤‚É(Y²)
+	//ç”»é¢å¤–ã«ã„ã‹ãªã„ã‚ˆã†ã«(Yè»¸)
 	while (Coord.Y < STAGEPOS_TATE) {
 		Coord.Y += ENEMY_SPEED * MASUHEIGHT;
 		BlockCoord.Y += 1;
@@ -320,17 +322,17 @@ void Enemy::Move(void) {
 }
 
 bool Enemy::AttackMove(void) {
-	//UŒ‚“®ìˆ—
+	//æ”»æ’ƒå‹•ä½œå‡¦ç†
 	AttackMode = false;
 	PlaySound(AttackSE);
 	return true;
 }
 
 void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, PieceT DownBlock) {
-	//ŒŠ‚ğ”ğ‚¯‚Ä’Ê‚éˆ—
-	//ã‰º¶‰E‚ÉŒŠ‚ª‚ ‚é‚È‚ç’Ê‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+	//ç©´ã‚’é¿ã‘ã¦é€šã‚‹å‡¦ç†
+	//ä¸Šä¸‹å·¦å³ã«ç©´ãŒã‚ã‚‹ãªã‚‰é€šã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹
 
-	//‰E
+	//å³
 	if (RightBlock.isActive) {
 		if (RightBlock.isCut == true || RightBlock.isPassagable == false) {
 			MoveFlagXRight = false;
@@ -339,7 +341,7 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 			MoveFlagXRight = true;
 		}
 	}
-	//ã
+	//ä¸Š
 	if (UpBlock.isActive) {
 		if (UpBlock.isCut == true || UpBlock.isPassagable == false) {
 			MoveFlagYUp = false;
@@ -348,7 +350,7 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 			MoveFlagYUp = true;
 		}
 	}
-	//¶
+	//å·¦
 	if (LeftBlock.isActive) {
 		if (LeftBlock.isCut == true || LeftBlock.isPassagable == false) {
 			MoveFlagXLeft = false;
@@ -357,7 +359,7 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 			MoveFlagXLeft = true;
 		}
 	}
-	//‰º
+	//ä¸‹
 	if (DownBlock.isActive) {
 		if (DownBlock.isCut == true || DownBlock.isPassagable == false) {
 			MoveFlagYDown = false;
@@ -369,26 +371,26 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 }
 
 void Enemy::AvoidAnotherEnemy(COORD AnotherCoord) {
-	//—×‚Ìƒ}ƒX‚É‚Ù‚©‚Ì“GƒLƒƒƒ‰‚ª‚¢‚éê‡‚»‚Ì•ûŒü‚Ö‚ÌˆÚ“®‚ğ‚Å‚«‚È‚­‚·‚é
-	//‰E
+	//éš£ã®ãƒã‚¹ã«ã»ã‹ã®æ•µã‚­ãƒ£ãƒ©ãŒã„ã‚‹å ´åˆãã®æ–¹å‘ã¸ã®ç§»å‹•ã‚’ã§ããªãã™ã‚‹
+	//å³
 	if (BlockCoord.X + 1 == AnotherCoord.X && BlockCoord.Y == AnotherCoord.Y) {
 		MoveFlagXRight = false;
 	}
-	//¶
+	//å·¦
 	if (BlockCoord.X - 1 == AnotherCoord.X && BlockCoord.Y == AnotherCoord.Y) {
 		MoveFlagXLeft = false;
 	}
-	//‰º
+	//ä¸‹
 	if (BlockCoord.Y + 1 == AnotherCoord.Y && BlockCoord.X == AnotherCoord.X) {
 		MoveFlagYDown = false;
 	}
-	//ã
+	//ä¸Š
 	if (BlockCoord.Y - 1 == AnotherCoord.Y && BlockCoord.X == AnotherCoord.X) {
 		MoveFlagYUp = false;
 	}
 }
 void Enemy::FallintoHole(void) {
-	//ŒŠ‚É—‚¿‚éˆ—
+	//ç©´ã«è½ã¡ã‚‹å‡¦ç†
 	isFalling = true;
 	if (Size <= 0) {
 		isAlive = false;
@@ -397,17 +399,17 @@ void Enemy::FallintoHole(void) {
 	Size -= 1;
 }
 void Enemy::Draw(bool DiveFlag) {
-	//•`‰æˆ—
+	//æç”»å‡¦ç†
 
 	if (DiveFlag) {
-		//“GƒLƒƒƒ‰ƒNƒ^[•`‰æ
+		//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æç”»
 		Draw2dPolygon(Coord.X - Size / 2, Coord.Y - Size / 2, Size, Size, D3DCOLOR_ARGB(255, 255, 255, 255), Texture, 0.25f * Animation, 0.25f * MoveMode, 0.25f, 0.25f);
 	}
 	else {
 		if (ENEMY_MOVESPEED * 3 * FPS < DrawCount) {
 
 			memcpy(&SunabokoriCoord, &Coord, sizeof(COORD));
-			//»‚Ú‚±‚è•`‰æ
+			//ç ‚ã¼ã“ã‚Šæç”»
 			Draw2dPolygon(SunabokoriCoord.X - Size / 2, SunabokoriCoord.Y - Size / 2, Size, Size, D3DCOLOR_ARGB(255, 255, 255, 255), DiveTexture, 0, 0, 1, 1);
 			DrawCount = 0;
 		}
@@ -417,7 +419,7 @@ void Enemy::Draw(bool DiveFlag) {
 	}
 	if (AttackInfo.Flag) {
 		if (AttackInfo.Count < 0.2f * FPS) {
-			//’Ü­•`‰æ
+			//çˆªç—•æç”»
 			Draw2dPolygon(AttackInfo.Coord.X - MASUWIDTH / 2.0f, AttackInfo.Coord.Y - MASUHEIGHT / 2.0f, MASUWIDTH, MASUHEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), AttackInfo.Texture, 0, 0, 1.0f, 1.0f);
 			AttackInfo.Count += 1;
 		}
@@ -427,9 +429,9 @@ void Enemy::Draw(bool DiveFlag) {
 		}
 	}
 	if (AttackEffectFlag) {
-		//UŒ‚ƒGƒtƒFƒNƒg•`‰æ
+		//æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»
 		if (AttackEffectCount < 0.1f * FPS) {
-			Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(128, 200, 0, 0));//Ô‚Á‚Û‚¢ƒGƒtƒFƒNƒg
+			Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(128, 200, 0, 0));//èµ¤ã£ã½ã„ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 			AttackEffectCount += 1;
 		}
 		else {
@@ -449,12 +451,12 @@ COORD Enemy::OutPos(void) {
 }
 
 BrownBear::BrownBear(void) {
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Texture = TexOp->BrownBearTex;
 	AttackInfo.Texture = TexOp->EnemyAttackTex;
 	DiveTexture = TexOp->EnemySunabokoriTex;
 }
 
 BrownBear::~BrownBear(void) {
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 }
