@@ -1,5 +1,5 @@
 //-----------------------------------------------
-//敵キャラクターの処理
+//敵キャラクターの処琁E
 //-----------------------------------------------
 #include "main.h"
 #include "Enemy.h"
@@ -8,8 +8,8 @@
 #include "TexLoad.h"
 #include "XAudio2.h"
 
-//攻撃したときに画面全体にエフェクトをかける
-//複数の攻撃でエフェクトが重複しないようにグローバルで定義
+//攻撁E��たときに画面全体にエフェクトをかけめE
+//褁E��の攻撁E��エフェクトが重褁E��なぁE��ぁE��グローバルで定義
 bool AttackEffectFlag = false;
 int AttackEffectCount = 0;
 
@@ -29,18 +29,18 @@ Enemy::Enemy(void) {
 }
 
 Enemy::~Enemy(void) {
-	//デストラクタ
+	//チE��トラクタ
 
 }
 
 void Enemy::Init(COORD GetCoord) {
-	//初期化
+	//初期匁E
 
 	//受け取った座標情報を反映する
 	Coord.X = GetCoord.X;
 	Coord.Y = GetCoord.Y;
 
-	//どのマスにいるか
+	//どのマスにぁE��ぁE
 	BlockCoord.X = ((GetCoord.X - (STAGEPOS_YOKO - (MASUWIDTH / 2))) / MASUWIDTH) - 1;
 	BlockCoord.Y = ((GetCoord.Y - (STAGEPOS_TATE - (MASUHEIGHT / 2))) / MASUHEIGHT) - 1;
 
@@ -80,12 +80,12 @@ void Enemy::Init(COORD GetCoord) {
 }
 
 bool Enemy::Update(COORD PlayerCoord, bool Diveflag, bool Attackflag, COORD ToCoord) {
-	//更新処理
+	//更新処琁E
 	bool ReturnBool = false;
 
-	//アニメーション進行
+	//アニメーション進衁E
 	if (AnimeCount > 0.5f * FPS) {//アニメーション速度
-		if (Animation > 4) {//アニメーションが再生しきったらリセット
+		if (Animation > 4) {//アニメーションが�E生しきったらリセチE��
 			Animation = 0;
 		}
 		else {
@@ -97,78 +97,78 @@ bool Enemy::Update(COORD PlayerCoord, bool Diveflag, bool Attackflag, COORD ToCo
 		AnimeCount += 1;
 	}
 
-	//攻撃可能なら攻撃準備に入る
+	//攻撁E��能なら攻撁E��備に入めE
 	if (AttackMode == false && Attackflag == true && Diveflag == 1) {
-		AttackMode = true;//攻撃準備フラグ
-		memcpy(&AttackInfo.Coord, &PlayerCoord, sizeof(COORD));//攻撃する座標をセット
+		AttackMode = true;//攻撁E��備フラグ
+		memcpy(&AttackInfo.Coord, &PlayerCoord, sizeof(COORD));//攻撁E��る座標をセチE��
 	}
-	//初期位置からのプレイヤーの距離計算------------------------------------------------
+	//初期位置からのプレイヤーの距離計箁E-----------------------------------------------
 	COORD SubCoord;
 
 	SubCoord.X = (short)sqrt((ToCoord.X - PlayerCoord.X) * (ToCoord.X - PlayerCoord.X));
 	SubCoord.Y = (short)sqrt((ToCoord.Y - PlayerCoord.Y) * (ToCoord.Y - PlayerCoord.Y));
 	//----------------------------------------------------------------------------------
 
-	//敵キャラクターとプレイヤーの距離計算--------------------------------------------------
+	//敵キャラクターとプレイヤーの距離計箁E-------------------------------------------------
 	COORD SubPersonalCoord;
 
 	SubPersonalCoord.X = (short)sqrt((Coord.X - PlayerCoord.X) * (Coord.X - PlayerCoord.X));
 	SubPersonalCoord.Y = (short)sqrt((Coord.Y - PlayerCoord.Y) * (Coord.Y - PlayerCoord.Y));
 	//--------------------------------------------------------------------------------------
 
-	if (Diveflag) {//潜っているか
+	if (Diveflag) {//潜ってぁE��ぁE
 				   //プレイヤーの位置によって移動する目標地点を調整する
 		if ((SubCoord.X < ENEMY_SEARCH_RAD * MASUWIDTH) && (SubCoord.Y < ENEMY_SEARCH_RAD * MASUHEIGHT)) {
-			//プレイヤーがテリトリーに近づいたら
+			//プレイヤーがテリトリーに近づぁE��めE
 
 			//プレイヤーの位置を移動目標にする
 			MokuhyoCoord.X = PlayerCoord.X;
 			MokuhyoCoord.Y = PlayerCoord.Y;
 		}
 		else {
-			//違うなら初期位置を目標に
+			//違うなら�E期位置を目標に
 			MokuhyoCoord.X = ToCoord.X;
 			MokuhyoCoord.Y = ToCoord.Y;
 		}
 
 		if ((SubPersonalCoord.X < ENEMY_PERSONAL_SPACE * MASUWIDTH) && (SubPersonalCoord.Y < ENEMY_PERSONAL_SPACE * MASUWIDTH)) {
-			//プレイヤーがかなり近くにいるなら追い続ける
+			//プレイヤーがかなり近くにぁE��なら追ぁE��けめE
 			MokuhyoCoord.X = PlayerCoord.X;
 			MokuhyoCoord.Y = PlayerCoord.Y;
 		}
 	}
 	else {
-		//プレイヤーが潜っているなら初期位置を目標に
+		//プレイヤーが潜ってぁE��なら�E期位置を目標に
 		MokuhyoCoord.X = ToCoord.X;
 		MokuhyoCoord.Y = ToCoord.Y;
 	}
 	if (isFalling == false) {
-		if (ENEMY_MOVESPEED * FPS < MoveCount) {//一定時間ごとに処理
+		if (ENEMY_MOVESPEED * FPS < MoveCount) {//一定時間ごとに処琁E
 			if (AttackMode == true && Diveflag == 1) {
-				AttackInfo.Flag = true;//攻撃する
+				AttackInfo.Flag = true;//攻撁E��めE
 				if ((Coord.X - PlayerCoord.X) * (Coord.X - PlayerCoord.X) + (Coord.Y - PlayerCoord.Y) * (Coord.Y - PlayerCoord.Y) < (MASUWIDTH / 2 * 1.5) * (MASUWIDTH / 2 * 1.5)) {
 					//命中
 					AttackEffectFlag = true;//エフェクト描画フラグをtrueに
-					ReturnBool = AttackMove();//攻撃処理
+					ReturnBool = AttackMove();//攻撁E�E琁E
 				}
 				else {
 					//外れ
 					AttackMode = false;
 					if (PollSound(AttackSE) == false) {
-						PlaySound(MissAttackSE);//攻撃失敗SE
+						PlaySound(MissAttackSE);//攻撁E��敗SE
 					}
 				}
 			}
 			else if (AttackMode == false || Diveflag == 0) {
-				AttackInfo.Flag = false;//攻撃しない
-				Move();//移動
+				AttackInfo.Flag = false;//攻撁E��なぁE
+				Move();//移勁E
 			}
-			MoveCount = 0;//行動したらリセット
+			MoveCount = 0;//行動したらリセチE��
 		}
 		MoveCount += 1;
 	}
 
-	return ReturnBool;//攻撃に成功したかどうかを返す
+	return ReturnBool;//攻撁E��成功したかどぁE��を返す
 }
 
 void Enemy::Move(void) {
@@ -177,20 +177,20 @@ void Enemy::Move(void) {
 	if (MokuhyoCoord.X == Coord.X && MokuhyoCoord.Y == Coord.Y) {
 		return;
 	}
-	//目標座標と自分の座標の差を計算--------
+	//目標座標と自刁E�E座標�E差を計箁E-------
 	COORD SubCoord;
 
 	SubCoord.X = MokuhyoCoord.X - Coord.X;
 	SubCoord.Y = MokuhyoCoord.Y - Coord.Y;
 	//--------------------------------------
 
-	//X軸とY軸のより目標との距離があるほうを優先して移動する
+	//X軸とY軸のより目標との距離があるほぁE��優先して移動すめE
 	if ((SubCoord.X) * (SubCoord.X) > (SubCoord.Y) * (SubCoord.Y)) {
-		//X座標の方が離れている場合---------------------------------
+		//X座標�E方が離れてぁE��場吁E--------------------------------
 		if (MoveFlag) {
-			//移動可能なら目標座標目指して移動
+			//移動可能なら目標座標目持E��て移勁E
 			if (SubCoord.X > 0) {
-				//右移動
+				//右移勁E
 				if (MoveFlagXRight) {
 					MoveMode = RIGHT_MOVE_MODE;
 					Coord.X += ENEMY_SPEED * MASUWIDTH;
@@ -199,7 +199,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.X < 0) {
-				//左移動
+				//左移勁E
 				if (MoveFlagXLeft) {
 					MoveMode = LEFT_MOVE_MODE;
 					Coord.X -= ENEMY_SPEED * MASUWIDTH;
@@ -208,16 +208,16 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//何もしない
+				//何もしなぁE
 			}
 		}
 
-		//X軸の方が離れているが、通れなかった時---------------------
-		//Y軸方面へ移動(Y軸移動と同じ処理)
+		//X軸の方が離れてぁE��が、E��れなかった時---------------------
+		//Y軸方面へ移勁EY軸移動と同じ処琁E
 		if (MoveFlag == true && (MoveFlagXRight == false || MoveFlagXLeft == false)) {
-			//移動可能なら目標座標目指して移動
+			//移動可能なら目標座標目持E��て移勁E
 			if (SubCoord.Y > 0) {
-				//下移動
+				//下移勁E
 				if (MoveFlagYDown) {
 					MoveMode = DOWN_MOVE_MODE;
 					Coord.Y += ENEMY_SPEED * MASUHEIGHT;
@@ -226,7 +226,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.Y <= 0) {
-				//上移動
+				//上移勁E
 				if (MoveFlagYUp) {
 					MoveMode = UP_MOVE_MODE;
 					Coord.Y -= ENEMY_SPEED * MASUHEIGHT;
@@ -235,18 +235,18 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//何もしない
+				//何もしなぁE
 			}
 		}
 		//----------------------------------------------------------
 
 	}
 	else {
-		//Y軸の方が離れている場合-----------------------------------
+		//Y軸の方が離れてぁE��場吁E----------------------------------
 		if (MoveFlag) {
-			//移動可能なら目標座標目指して移動
+			//移動可能なら目標座標目持E��て移勁E
 			if (SubCoord.Y > 0) {
-				//下移動
+				//下移勁E
 				if (MoveFlagYDown) {
 					MoveMode = DOWN_MOVE_MODE;
 					Coord.Y += ENEMY_SPEED * MASUHEIGHT;
@@ -255,7 +255,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.Y < 0) {
-				//上移動
+				//上移勁E
 				if (MoveFlagYUp) {
 					MoveMode = UP_MOVE_MODE;
 					Coord.Y -= ENEMY_SPEED * MASUHEIGHT;
@@ -264,19 +264,19 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//何もしない
+				//何もしなぁE
 			}
 		}
 
 		//----------------------------------------------------------
 
 
-		//Y軸の方が離れているが、通れなかった時---------------------
-		//X軸方面へ移動(X軸移動と同じ処理)
+		//Y軸の方が離れてぁE��が、E��れなかった時---------------------
+		//X軸方面へ移勁EX軸移動と同じ処琁E
 		if (MoveFlag == true && (MoveFlagYUp == false || MoveFlagYDown == false)) {
-			//移動可能なら目標座標目指して移動
+			//移動可能なら目標座標目持E��て移勁E
 			if (SubCoord.X > 0) {
-				//右移動
+				//右移勁E
 				if (MoveFlagXRight) {
 					MoveMode = RIGHT_MOVE_MODE;
 					Coord.X += ENEMY_SPEED * MASUWIDTH;
@@ -285,7 +285,7 @@ void Enemy::Move(void) {
 				}
 			}
 			else if (SubCoord.X <= 0) {
-				//左移動
+				//左移勁E
 				if (MoveFlagXLeft) {
 					MoveMode = LEFT_MOVE_MODE;
 					Coord.X -= ENEMY_SPEED * MASUWIDTH;
@@ -294,14 +294,14 @@ void Enemy::Move(void) {
 				}
 			}
 			else {
-				//何もしない
+				//何もしなぁE
 			}
 		}
 
 		//----------------------------------------------------------
 
 	}
-	//画面外にいかないように(X軸)
+	//画面外にぁE��なぁE��ぁE��(X軸)
 	while (Coord.X < STAGEPOS_YOKO) {
 		Coord.X += ENEMY_SPEED * MASUWIDTH;
 		BlockCoord.X += 1;
@@ -310,7 +310,7 @@ void Enemy::Move(void) {
 		Coord.X -= ENEMY_SPEED * MASUWIDTH;
 		BlockCoord.X -= 1;
 	}
-	//画面外にいかないように(Y軸)
+	//画面外にぁE��なぁE��ぁE��(Y軸)
 	while (Coord.Y < STAGEPOS_TATE) {
 		Coord.Y += ENEMY_SPEED * MASUHEIGHT;
 		BlockCoord.Y += 1;
@@ -322,15 +322,15 @@ void Enemy::Move(void) {
 }
 
 bool Enemy::AttackMove(void) {
-	//攻撃動作処理
+	//攻撁E��作�E琁E
 	AttackMode = false;
 	PlaySound(AttackSE);
 	return true;
 }
 
 void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, PieceT DownBlock) {
-	//穴を避けて通る処理
-	//上下左右に穴があるなら通れないようにする
+	//穴を避けて通る処琁E
+	//上下左右に穴があるなら通れなぁE��ぁE��する
 
 	//右
 	if (RightBlock.isActive) {
@@ -341,7 +341,7 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 			MoveFlagXRight = true;
 		}
 	}
-	//上
+	//丁E
 	if (UpBlock.isActive) {
 		if (UpBlock.isCut == true || UpBlock.isPassagable == false) {
 			MoveFlagYUp = false;
@@ -359,7 +359,7 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 			MoveFlagXLeft = true;
 		}
 	}
-	//下
+	//丁E
 	if (DownBlock.isActive) {
 		if (DownBlock.isCut == true || DownBlock.isPassagable == false) {
 			MoveFlagYDown = false;
@@ -371,7 +371,7 @@ void Enemy::AvoidHole(PieceT RightBlock, PieceT UpBlock, PieceT LeftBlock, Piece
 }
 
 void Enemy::AvoidAnotherEnemy(COORD AnotherCoord) {
-	//隣のマスにほかの敵キャラがいる場合その方向への移動をできなくする
+	//隣のマスにほか�E敵キャラがいる場合その方向への移動をできなくすめE
 	//右
 	if (BlockCoord.X + 1 == AnotherCoord.X && BlockCoord.Y == AnotherCoord.Y) {
 		MoveFlagXRight = false;
@@ -380,17 +380,17 @@ void Enemy::AvoidAnotherEnemy(COORD AnotherCoord) {
 	if (BlockCoord.X - 1 == AnotherCoord.X && BlockCoord.Y == AnotherCoord.Y) {
 		MoveFlagXLeft = false;
 	}
-	//下
+	//丁E
 	if (BlockCoord.Y + 1 == AnotherCoord.Y && BlockCoord.X == AnotherCoord.X) {
 		MoveFlagYDown = false;
 	}
-	//上
+	//丁E
 	if (BlockCoord.Y - 1 == AnotherCoord.Y && BlockCoord.X == AnotherCoord.X) {
 		MoveFlagYUp = false;
 	}
 }
 void Enemy::FallintoHole(void) {
-	//穴に落ちる処理
+	//穴に落ちる�E琁E
 	isFalling = true;
 	if (Size <= 0) {
 		isAlive = false;
@@ -399,7 +399,7 @@ void Enemy::FallintoHole(void) {
 	Size -= 1;
 }
 void Enemy::Draw(bool DiveFlag) {
-	//描画処理
+	//描画処琁E
 
 	if (DiveFlag) {
 		//敵キャラクター描画
@@ -429,9 +429,9 @@ void Enemy::Draw(bool DiveFlag) {
 		}
 	}
 	if (AttackEffectFlag) {
-		//攻撃エフェクト描画
+		//攻撁E��フェクト描画
 		if (AttackEffectCount < 0.1f * FPS) {
-			Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(128, 200, 0, 0));//赤っぽいエフェクト
+			Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(128, 200, 0, 0));//赤っぽぁE��フェクチE
 			AttackEffectCount += 1;
 		}
 		else {
@@ -458,5 +458,5 @@ BrownBear::BrownBear(void) {
 }
 
 BrownBear::~BrownBear(void) {
-	//デストラクタ
+	//チE��トラクタ
 }

@@ -1,5 +1,5 @@
 ///-----------------------------------------------
-//キャラクタークラスの処理
+//キャラクタークラスの処琁E
 //-----------------------------------------------
 #include "Character.h"
 #include "config.h"
@@ -12,18 +12,18 @@ extern LPDIRECT3DDEVICE9 g_pD3DDevice;
 extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 
 Character::Character(void) {
-	//初期位置をセット
+	//初期位置をセチE��
 	Coord.X = PLAYER_STARTPOS_X;
 	Coord.Y = PLAYER_STARTPOS_Y;
 
-	//初期位置の配列をセット
+	//初期位置の配�EをセチE��
 	GroundInfo.X = (PLAYER_STARTPOS_X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
 	GroundInfo.Y = (PLAYER_STARTPOS_Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
 
-	////初期位置の頂点セット
+	////初期位置の頂点セチE��
 	Pos_Vertex.X = 2;
 	Pos_Vertex.Y = 4;
-	//テクスチャセット
+	//チE��スチャセチE��
 	Texture = TexOp->PlayerTex;
 	KeyWait = 0;
 	Inputflg = false;
@@ -41,15 +41,15 @@ Character::~Character(void) {
 void Character::SetCoord(COORD inCoord) {
 	memcpy(&Coord, &inCoord, sizeof(COORD));
 
-	//初期位置の配列をセット
+	//初期位置の配�EをセチE��
 	GroundInfo.X = (inCoord.X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
 	GroundInfo.Y = (inCoord.Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
 
-	////初期位置の頂点セット
+	////初期位置の頂点セチE��
 	Pos_Vertex.X = 2;
 	Pos_Vertex.Y = 4;
 
-	//サメの向きを初期状態に
+	//サメの向きを�E期状態に
 	Tu = 0;
 	Tv = 0;
 
@@ -68,10 +68,10 @@ void Character::Move(void)
 	bool LEFT_TRIG = false;
 	bool RIGHT_TRIG = false;
 
-	memcpy(&wark_coord, &Coord, sizeof(COORD));//キャラの座標の退避用
-	memcpy(&wark_groundinfo, &GroundInfo, sizeof(COORD));//キャラの配列座標の退避用
+	memcpy(&wark_coord, &Coord, sizeof(COORD));//キャラの座標�E退避用
+	memcpy(&wark_groundinfo, &GroundInfo, sizeof(COORD));//キャラの配�E座標�E退避用
 
-														 //対応するキーが押されたら(キーボード)
+														 //対応するキーが押されたら(キーボ�EチE
 	if (GetKeyboardPress(DIK_UP) && Inputflg == false) {
 		UP_TRIG = true;
 		Inputflg = true;
@@ -106,7 +106,7 @@ void Character::Move(void)
 		Inputflg = false;
 	}
 
-	//対応するボタンが押されたら(ゲームパッド)
+	//対応する�Eタンが押されたら(ゲームパッチE
 	if (g_pDIDevGamePad) {
 		if (GetGamePadLeftStickY() <= JoypadDI_Y - GAMEPAD_DEADZONE&&Inputflg == false) {
 			UP_TRIG = true;
@@ -134,69 +134,69 @@ void Character::Move(void)
 		}
 	}
 
-	if (UP_TRIG)//1マス上に移動
+	if (UP_TRIG)//1マス上に移勁E
 	{
-		if (Coord.X % MASUWIDTH == 0)//頂点にいる時のみ移動可能に
+		if (Coord.X % MASUWIDTH == 0)//頂点にぁE��時�Eみ移動可能に
 		{
 			Coord.Y -= MASUHEIGHT / 2;
-			GroundInfo.Y--;//配列のY座標をマイナス
+			GroundInfo.Y--;//配�EのY座標をマイナス
 			Pos_Vertex.Y -= (short)0.5;
 		}
 
 	}
-	else if (DOWN_TRIG)//１マス下に移動
+	else if (DOWN_TRIG)//�E��Eス下に移勁E
 	{
-		if (Coord.X % MASUWIDTH == 0)//頂点にいる時のみ移動可能に
+		if (Coord.X % MASUWIDTH == 0)//頂点にぁE��時�Eみ移動可能に
 		{
 			Coord.Y += MASUHEIGHT / 2;
-			GroundInfo.Y++;//配列のY座標をプラス
+			GroundInfo.Y++;//配�EのY座標をプラス
 			Pos_Vertex.Y += (short)0.5;
 		}
 
 	}
-	if (LEFT_TRIG)//1マス左に移動
+	if (LEFT_TRIG)//1マス左に移勁E
 	{
-		if (Coord.Y % MASUHEIGHT == 0)//頂点にいる時のみ移動可能に
+		if (Coord.Y % MASUHEIGHT == 0)//頂点にぁE��時�Eみ移動可能に
 		{
 			Coord.X -= MASUWIDTH / 2;
-			GroundInfo.X--;//配列のX座標をマイナス
+			GroundInfo.X--;//配�EのX座標をマイナス
 			Pos_Vertex.X -= (short)0.5;
 		}
 
 	}
-	else if (RIGHT_TRIG)//1マス右に移動
+	else if (RIGHT_TRIG)//1マス右に移勁E
 	{
-		if (Coord.Y % MASUHEIGHT == 0)//頂点にいる時のみ移動可能に
+		if (Coord.Y % MASUHEIGHT == 0)//頂点にぁE��時�Eみ移動可能に
 		{
 			Coord.X += MASUWIDTH / 2;
-			GroundInfo.X++;//配列のX座標をプラス
+			GroundInfo.X++;//配�EのX座標をプラス
 			Pos_Vertex.X += (short)0.5;
 		}
 
 	}
 
 	///////////////////////////////////////
-	// マスの外に出ないようにする処理
+	// マスの外に出なぁE��ぁE��する処琁E
 	///////////////////////////////////////
-	if (Coord.X <= STAGEPOS_YOKO)//左にポロリしたら
+	if (Coord.X <= STAGEPOS_YOKO)//左にポロリしためE
 	{
 		Coord.X = STAGEPOS_YOKO;
 		GroundInfo.X = 0;
 		Pos_Vertex.X = 0;
 	}
-	if (Coord.Y <= STAGEPOS_TATE)//上にポロリしたら
+	if (Coord.Y <= STAGEPOS_TATE)//上にポロリしためE
 	{
 		Coord.Y = STAGEPOS_TATE;
 		GroundInfo.Y = 0;
 		Pos_Vertex.Y = 0;
 	}
-	if (Coord.X >= STAGEPOS_YOKO + (MASUWIDTH*YOKOMASU_NUM))//右にポロリしたら
+	if (Coord.X >= STAGEPOS_YOKO + (MASUWIDTH*YOKOMASU_NUM))//右にポロリしためE
 	{
 		Coord.X = STAGEPOS_YOKO + (MASUWIDTH*YOKOMASU_NUM);
 		GroundInfo.X = STAGESIZE_IGOX - 1;
 		Pos_Vertex.X = VERTEXX_NUM;
 	}
-	if (Coord.Y >= STAGEPOS_TATE + (MASUHEIGHT*TATEMASU_NUM))//下にポロリしたら
+	if (Coord.Y >= STAGEPOS_TATE + (MASUHEIGHT*TATEMASU_NUM))//下にポロリしためE
 	{
 		Coord.Y = STAGEPOS_TATE + (MASUHEIGHT*TATEMASU_NUM);
 		GroundInfo.Y = STAGESIZE_IGOY - 1;
@@ -258,7 +258,7 @@ void Character::Update(bool Dive_State)
 
 	Move();
 
-	if (GroundInfo.X % 2 == 0 && GroundInfo.Y % 2 == 0)//頂点にいる場合
+	if (GroundInfo.X % 2 == 0 && GroundInfo.Y % 2 == 0)//頂点にぁE��場吁E
 	{
 		Stagetype = Vertex;
 	}
@@ -275,14 +275,14 @@ StageTypeT Character::OutStageType(void) {
 	return Stagetype;
 }
 void Character::Hit(void) {
-	//攻撃食らった時の処理
+	//攻撁E��らった時の処琁E
 	int a = 0;///仮
 }
 COORD Character::OutCoord(void) {
-	//ステージ内の位置を取り出す
+	//スチE�Eジ冁E�E位置を取り�EぁE
 	return GroundInfo;
 }
 COORD Character::OutPos(void) {
-	//座標を取り出す
+	//座標を取り出ぁE
 	return Coord;
 }

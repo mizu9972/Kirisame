@@ -1,6 +1,6 @@
 //=======================================================
 // DX21
-// DirectX雛型処理[main.cpp]
+// DirectX雛型処琁Emain.cpp]
 //
 //
 //=======================================================
@@ -16,7 +16,7 @@
 //*******************************************************
 #define CLASS_NAME  "サンプル"  //ウインドウクラスの名前
 #define WINDOW_NAME "KIRISAME"  //ウインドウの名前
-//更新してみた。
+//更新してみた、E
 
 //*******************************************************
 //プロトタイプ宣言
@@ -30,17 +30,17 @@ void Draw(void);
 //*******************************************************
 //グローバル変数
 //*******************************************************
-LPDIRECT3D9        g_pD3D = NULL;   // Direct3Dオブジェクト
-LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;//Deviceオブジェクト(描画に必要)
+LPDIRECT3D9        g_pD3D = NULL;   // Direct3DオブジェクチE
+LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;//DeviceオブジェクチE描画に忁E��E
 
-SCENE Scene = TITLE;//状態遷移用(タイトルから開始)
+SCENE Scene = TITLE;//状態�E移用(タイトルから開姁E
 
 int g_cnt = 0;//勝手にタイトル戻すやつ
 
 LPDIRECT3DTEXTURE9* Title_Texture = NULL;//タイトル
 LPDIRECT3DTEXTURE9* Tutorial_Texture = NULL;//チュートリアル
 LPDIRECT3DTEXTURE9* PadTutorial_Texture = NULL;
-LPDIRECT3DTEXTURE9* Result_Texture = NULL;//リザルト
+LPDIRECT3DTEXTURE9* Result_Texture = NULL;//リザルチE
 LPDIRECT3DTEXTURE9* Load_Texture = NULL;//ロード中
 Game *game = NULL;
 _TexOp *TexOp = NULL;
@@ -48,28 +48,28 @@ _TexOp *TexOp = NULL;
 extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 //=======================================================
 //メイン関数
-// (WINAPI : Win32API関数を呼び出す時の規約
-// hInstance     ; このアプリケーションのインスタンスハンドル(識別子)
+// (WINAPI : Win32API関数を呼び出す時の規紁E
+// hInstance     ; こ�Eアプリケーションのインスタンスハンドル(識別孁E
 // hPrevInstance : 常にNULL(16bit時代の名残り)
 // lpCmdLine     : コマンドラインから受け取った引数へのポインタ
-// nCmdShow      : アプリケーションの初期ウインドウ表示方法の指定
+// nCmdShow      : アプリケーションの初期ウインドウ表示方法�E持E��E
 //=======================================================
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	WNDCLASSEX wcex =
 	{
-		sizeof(WNDCLASSEX),         //WNDCLASSEXのメモリサイズを指定
-		CS_CLASSDC,                 //表示するウインドウのスタイルを設定
-		WndProc,                    //ウインドウプロシージャのアドレス(関数名)を指定
-		0,                          //通常は使用しないので"0"を指定
-		0,                          //通常は使用しないので"0"を指定
-		hInstance,                  //WinMainのパラメータのインスタンスハンドルを設定
-		NULL,                       //使用するアイコンを指定(Windowsがもっているアイコンを使うならNULL)
-		LoadCursor(NULL, IDC_ARROW),//マウスカーソルを指定
-		(HBRUSH)(COLOR_WINDOW + 1), //ウインドウのクライアント領域の背景色を設定
-		NULL,                       //Windowにつけるメニューを設定
+		sizeof(WNDCLASSEX),         //WNDCLASSEXのメモリサイズを指宁E
+		CS_CLASSDC,                 //表示するウインドウのスタイルを設宁E
+		WndProc,                    //ウインドウプロシージャのアドレス(関数吁Eを指宁E
+		0,                          //通常は使用しなぁE�Eで"0"を指宁E
+		0,                          //通常は使用しなぁE�Eで"0"を指宁E
+		hInstance,                  //WinMainのパラメータのインスタンスハンドルを設宁E
+		NULL,                       //使用するアイコンを指宁EWindowsがもってぁE��アイコンを使ぁE��らNULL)
+		LoadCursor(NULL, IDC_ARROW),//マウスカーソルを指宁E
+		(HBRUSH)(COLOR_WINDOW + 1), //ウインドウのクライアント領域の背景色を設宁E
+		NULL,                       //Windowにつけるメニューを設宁E
 		CLASS_NAME,                 //ウインドウクラスの名前
-		NULL,                       //小さいアイコンが設定された場合の情報を記述
+		NULL,                       //小さぁE��イコンが設定された場合�E惁E��を記述
 	};
 	HWND hWnd;
 	MSG msg;
@@ -77,60 +77,60 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//ウインドウクラスの登録
 	RegisterClassEx(&wcex);
 
-	//ウインドウを作成
+	//ウインドウを作�E
 	hWnd = CreateWindowEx(0,//拡張ウインドウスタイル
 		CLASS_NAME,     //ウインドウクラスの名前
 		WINDOW_NAME,    //ウインドウの名前
 		WS_OVERLAPPEDWINDOW, //ウインドウスタイル
-		CW_USEDEFAULT,    //ウインドウの左上X座標
-		CW_USEDEFAULT,    //ウインドウの左上Y座標
-		(SCREEN_WIDTH + GetSystemMetrics(SM_CXDLGFRAME) * 2),     //ウインドウの幅
+		CW_USEDEFAULT,    //ウインドウの左上X座樁E
+		CW_USEDEFAULT,    //ウインドウの左上Y座樁E
+		(SCREEN_WIDTH + GetSystemMetrics(SM_CXDLGFRAME) * 2),     //ウインドウの幁E
 		(SCREEN_HEIGHT + GetSystemMetrics(SM_CXDLGFRAME) * 2 +
 			GetSystemMetrics(SM_CYCAPTION)),    //ウインドウの高さ
 		NULL,             //親ウインドウのハンドル
-		NULL,             //メニューハンドルまたは子ウインドウID
+		NULL,             //メニューハンドルまた�E子ウインドウID
 		hInstance,        //インスタンスハンドル
-		NULL);            //ウインドウ作成データ
+		NULL);            //ウインドウ作�EチE�Eタ
 
-						  //初期化処理(ウインドウを作成してから行う)
+						  //初期化�E琁Eウインドウを作�Eしてから行う)
 	if (FAILED(Init(hInstance, hWnd, TRUE)))
 	{
 		return -1;
 	}
 
-	//ウインドウの表示(初期化処理の後に行う)
-	ShowWindow(hWnd, nCmdShow); // 指定されたウインドウの表示状態を設定(ウインドウを表示)
+	//ウインドウの表示(初期化�E琁E�E後に行う)
+	ShowWindow(hWnd, nCmdShow); // 持E��されたウインドウの表示状態を設宁Eウインドウを表示)
 	UpdateWindow(hWnd);         //ウインドウの状態を直ちに反映(ウインドウのクライアント領域を更新)
 
 	DWORD OldTime = 0;
 	DWORD NowTime = timeGetTime();
-	//メッセージループ
-	//第1引数 :メッセージ情報
+	//メチE��ージルーチE
+	//第1引数 :メチE��ージ惁E��
 	//第2引数 :ウインドウのハンドル
-	//第3引数 :最初のメッセージ
-	//第4引数 :最後のメッセージ
+	//第3引数 :最初�EメチE��ージ
+	//第4引数 :最後�EメチE��ージ
 	while (1)
 	{
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0)//メッセージを取得しなかった場合"0"を返す
-		{//Windowsの処理
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0)//メチE��ージを取得しなかった場吁E0"を返す
+		{//Windowsの処琁E
 			if (msg.message == WM_QUIT)
-			{// PostQuitMessage()が呼ばれて、WM_QUITメッセージが来たらループ終了
+			{// PostQuitMessage()が呼ばれて、WM_QUITメチE��ージが来たらループ終亁E
 				break;
 			}
 			else
 			{
-				//メッセージの翻訳と送出
-				TranslateMessage(&msg);       //仮想キーメッセージを文字メッセージへ変換
-				DispatchMessage(&msg);        //ウインドウプロシージャへメッセージを送出
+				//メチE��ージの翻訳と送�E
+				TranslateMessage(&msg);       //仮想キーメチE��ージを文字メチE��ージへ変換
+				DispatchMessage(&msg);        //ウインドウプロシージャへメチE��ージを送�E
 			}
 		}
 		else
-		{//DirectXの処理
+		{//DirectXの処琁E
 			if (NowTime - OldTime > 1000 / FPS) {
-				// 更新処理
+				// 更新処琁E
 				Update();
 
-				// 描画処理
+				// 描画処琁E
 				Draw();
 
 				OldTime = NowTime;
@@ -140,10 +140,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 	// ウインドウクラスの登録を解除
-	// 第1引数 : クラス名
+	// 第1引数 : クラス吁E
 	// 第2引数 : アプリケーションインスタンスのハンドル
 	UnregisterClass(CLASS_NAME, wcex.hInstance);
-	//終了処理
+	//終亁E�E琁E
 	Uninit();
 
 	return (int)msg.wParam;
@@ -151,11 +151,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 //=============================================================
 // ウインドウプロシージャ
-// (CALLBACK : Win32API関数を呼び出すときの規約)
+// (CALLBACK : Win32API関数を呼び出すとき�E規紁E
 // hWnd     :ウインドウのハンドル
-// uMsg     :メッセージの識別子
-// wParam   :メッセージの最初のパラメータ
-// lParam   :メッセージの2番目のパラメータ
+// uMsg     :メチE��ージの識別孁E
+// wParam   :メチE��ージの最初�Eパラメータ
+// lParam   :メチE��ージの2番目のパラメータ
 //=============================================================
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -171,7 +171,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_ESCAPE:
-			nID = MessageBox(hWnd, "終了しますか？", "終了", MB_YESNO);
+			nID = MessageBox(hWnd, "終亁E��ますか�E�E, "終亁E, MB_YESNO);
 			if (nID == IDYES)
 			{
 				DestroyWindow(hWnd);
@@ -181,7 +181,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_CLOSE:
-		nID = MessageBox(hWnd, "終了しますか？", "終了", MB_YESNO);
+		nID = MessageBox(hWnd, "終亁E��ますか�E�E, "終亁E, MB_YESNO);
 		if (nID == IDYES)
 		{
 			DestroyWindow(hWnd);
@@ -196,67 +196,67 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);   //既定の処理を提供
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);   //既定�E処琁E��提侁E
 }
 
 //==================================================================
-// 初期化処理
+// 初期化�E琁E
 // hInstance : インスタンスのハンドル
 // hWnd      : ウインドウのハンドル
-// bWindow   : ウインドウモードにするかどうか
+// bWindow   : ウインドウモードにするかどぁE��
 //==================================================================
 HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	D3DDISPLAYMODE d3ddm;
 
-	// Direct3Dオブジェクトの生成
+	// Direct3Dオブジェクト�E生�E
 	g_pD3D = Direct3DCreate9(D3D_SDK_VERSION);
 	if (g_pD3D == NULL)
 	{
 		return E_FAIL;
 	}
 
-	//現在のディスプレイモードを取得
+	//現在のチE��スプレイモードを取征E
 	if (FAILED(g_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm)))
 	{
 		return E_FAIL;
 	}
 
-	//デバイスのプレゼンテーションパラメータの設定
+	//チE��イスのプレゼンチE�Eションパラメータの設宁E
 	ZeroMemory(&d3dpp, sizeof(d3dpp));               //ワークをゼロクリア
-	d3dpp.BackBufferWidth = SCREEN_WIDTH;            //ゲーム画面サイズ(幅)
+	d3dpp.BackBufferWidth = SCREEN_WIDTH;            //ゲーム画面サイズ(幁E
 	d3dpp.BackBufferHeight = SCREEN_HEIGHT;          //ゲーム画面サイズ(高さ)
-	d3dpp.BackBufferFormat = d3ddm.Format;           //カラーモードの指定
+	d3dpp.BackBufferFormat = d3ddm.Format;           //カラーモード�E持E��E
 	d3dpp.BackBufferCount = 1;                       //バックバッファの数
-	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;        //映像信号に同期してフリップする
-	d3dpp.Windowed = bWindow;                        //ウインドウモード
-	d3dpp.EnableAutoDepthStencil = TRUE;             //デプスバッファ(Zバッファ)とステンシルバッファを作成
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;       //デプスバッファとして16bitを使う
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;        //映像信号に同期してフリチE�Eする
+	d3dpp.Windowed = bWindow;                        //ウインドウモーチE
+	d3dpp.EnableAutoDepthStencil = TRUE;             //チE�Eスバッファ(Zバッファ)とスチE��シルバッファを作�E
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;       //チE�Eスバッファとして16bitを使ぁE
 
 	if (bWindow)
-	{//ウインドウモード
-		d3dpp.FullScreen_RefreshRateInHz = 0;    //リフレッシュレート(指定できないので0固定)
+	{//ウインドウモーチE
+		d3dpp.FullScreen_RefreshRateInHz = 0;    //リフレチE��ュレーチE持E��できなぁE�Eで0固宁E
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-		//インターバル(VSyncを待たずに描画)
+		//インターバル(VSyncを征E��ずに描画)
 	}
 	else
-	{//フルスクリーンモード
-		d3dpp.FullScreen_RefreshRateInHz = 0;  //リフレッシュレート(指定できないので0固定)
+	{//フルスクリーンモーチE
+		d3dpp.FullScreen_RefreshRateInHz = 0;  //リフレチE��ュレーチE持E��できなぁE�Eで0固宁E
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
-		//インターバル(VSyncを待って描画)
+		//インターバル(VSyncを征E��て描画)
 	}
 
-	//デバイスオブジェクトの生成
-	//[デバイス作成制御]<描画>と<頂点処理>をハードウェアで行う
-	if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT,       //ディスプレイアダプタ	
-		D3DDEVTYPE_HAL,                          //デバイスタイプ
+	//チE��イスオブジェクト�E生�E
+	//[チE��イス作�E制御]<描画>と<頂点処琁Eをハードウェアで行う
+	if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT,       //チE��スプレイアダプタ	
+		D3DDEVTYPE_HAL,                          //チE��イスタイチE
 		hWnd,                                    //フォーカスするウインドウへのハンドル
-		D3DCREATE_HARDWARE_VERTEXPROCESSING,     //デバイス作成制御の組み合わせ
-		&d3dpp,                                  //デバイスのプレゼンテーションパラメータ
-		&g_pD3DDevice)))                         //デバイスインターフェースへのポインタ
+		D3DCREATE_HARDWARE_VERTEXPROCESSING,     //チE��イス作�E制御の絁E��合わぁE
+		&d3dpp,                                  //チE��イスのプレゼンチE�Eションパラメータ
+		&g_pD3DDevice)))                         //チE��イスインターフェースへのポインタ
 	{
-		//[デバイス作成制御]<描画>をハードウェアで行い、<頂点処理>はCPUで行う
+		//[チE��イス作�E制御]<描画>をハードウェアで行い、E頂点処琁EはCPUで行う
 		if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT,
 			D3DDEVTYPE_HAL,
 			hWnd,
@@ -264,8 +264,8 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 			&d3dpp,
 			&g_pD3DDevice)))
 		{
-			//上記の設定が失敗したら
-			//[デバイス作成制御]<描画>と頂点処理をCPUで行う
+			//上記�E設定が失敗したら
+			//[チE��イス作�E制御]<描画>と頂点処琁E��CPUで行う
 			if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT,
 				D3DDEVTYPE_REF,
 				hWnd,
@@ -273,19 +273,19 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 				&d3dpp,
 				&g_pD3DDevice)))
 			{
-				//初期化失敗
+				//初期化失敁E
 				return E_FAIL;
 			}
 		}
 	}
-	InitInput(hInstance, hWnd);//入力情報の初期化
+	InitInput(hInstance, hWnd);//入力情報の初期匁E
 	InitSound();
 
-	Title_Texture = LoadTexture(TITLE_FILE, Title_Texture);//タイトルのテクスチャ読み込み
-	Tutorial_Texture = LoadTexture(Tutorial_FILE, Tutorial_Texture);//チュートリアルのテクスチャ読み込み
-	PadTutorial_Texture = LoadTexture(PadTutorial_FILE, PadTutorial_Texture);//ゲームパッドのチュートリアルのテクスチャ読み込み
-	Result_Texture = LoadTexture(RESULT_FILE, Result_Texture);//リザルトのテクスチャ読み込み
-	Load_Texture = LoadTexture(LOAD_FILE, Load_Texture);//ロード画面のテクスチャ読み込み
+	Title_Texture = LoadTexture(TITLE_FILE, Title_Texture);//タイトルのチE��スチャ読み込み
+	Tutorial_Texture = LoadTexture(Tutorial_FILE, Tutorial_Texture);//チュートリアルのチE��スチャ読み込み
+	PadTutorial_Texture = LoadTexture(PadTutorial_FILE, PadTutorial_Texture);//ゲームパッド�EチュートリアルのチE��スチャ読み込み
+	Result_Texture = LoadTexture(RESULT_FILE, Result_Texture);//リザルト�EチE��スチャ読み込み
+	Load_Texture = LoadTexture(LOAD_FILE, Load_Texture);//ロード画面のチE��スチャ読み込み
 
 
 	TexOp = new _TexOp;
@@ -298,7 +298,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 }
 
 //==================================================
-//　終了処理
+//　終亁E�E琁E
 //==================================================
 void Uninit(void)
 {
@@ -319,13 +319,13 @@ void Uninit(void)
 		delete game;
 	}
 	if (g_pD3DDevice != NULL)
-	{// デバイスの開放
+	{// チE��イスの開放
 		g_pD3DDevice->Release();
 		g_pD3DDevice = NULL;
 	}
 
 	if (g_pD3D != NULL)
-	{// Direct3Dオブジェクトの開放
+	{// Direct3Dオブジェクト�E開放
 		g_pD3D->Release();
 		g_pD3D = NULL;
 	}
@@ -333,15 +333,15 @@ void Uninit(void)
 
 
 //===================================================
-// 更新処理
+// 更新処琁E
 //===================================================
 void Update(void)
 {
 	bool ENTER_TRIG = false;//仮想キー
-	UpdateInput();//キー入力の更新
+	UpdateInput();//キー入力�E更新
 
 	if (GetKeyboardTrigger(DIK_RETURN)) {
-		//決定キーに対応するボタン・キーが押されたら
+		//決定キーに対応する�Eタン・キーが押されたら
 		ENTER_TRIG = true;
 	}
 	if (g_pDIDevGamePad) {
@@ -353,11 +353,11 @@ void Update(void)
 	switch (Scene)
 	{
 	case TITLE:
-		if (!PollSound(TitleBGM))//非再生状態ならBGMを再生
+		if (!PollSound(TitleBGM))//非�E生状態ならBGMを�E甁E
 		{
 			PlaySound(TitleBGM);
 		}
-		//タイトル画面の操作処理
+		//タイトル画面の操作�E琁E
 		if (ENTER_TRIG)
 		{
 			if (PollSound(TitleBGM)) {
@@ -370,7 +370,7 @@ void Update(void)
 
 	case TUTORIAL:
 
-		//タイトル画面の操作処理
+		//タイトル画面の操作�E琁E
 		if (ENTER_TRIG)
 		{
 			Scene = GAME_STAGE1;
@@ -393,14 +393,14 @@ void Update(void)
 		break;
 
 	case GAME_STAGE1:
-		if (!PollSound(GamePlayBGM))//非再生状態ならBGMを再生
+		if (!PollSound(GamePlayBGM))//非�E生状態ならBGMを�E甁E
 		{
 			PlaySound(GamePlayBGM);
 		}
 		if (game != NULL) {
 			game->Update();
 		}
-		//ゲームのCLEAR条件を記入
+		//ゲームのCLEAR条件を記�E
 		if (game->OutClearFlg())
 		{
 
@@ -430,7 +430,7 @@ void Update(void)
 		if (PollSound(GamePlayBGM)) {//ゲームBGM停止
 			StopSound(GamePlayBGM);
 		}
-		//リザルト画面の操作処理
+		//リザルト画面の操作�E琁E
 		g_cnt++;
 		if (ENTER_TRIG || g_cnt >= SCENE_TIME)
 		{
@@ -439,13 +439,13 @@ void Update(void)
 		}
 		break;
 
-	case LOAD://ロード中(この間にゲームクラスのdeleteとnewを行う)
+	case LOAD://ロード中(こ�E間にゲームクラスのdeleteとnewを行う)
 		if (game != NULL)
 		{
 			game->EnemyUnInit();
 
 			delete game;
-			game = new Game;//こいつに時間かかる
+			game = new Game;//こいつに時間かかめE
 			game->Init();
 			Scene = TITLE;
 		}
@@ -455,35 +455,35 @@ void Update(void)
 }
 
 //===================================================
-// 描画処理
+// 描画処琁E
 //===================================================
 void Draw(void)
 {
 	// バックバッファ&Zバッファのクリア
-	// Count   : pRects内にある矩形の数
-	// pRects  : クリアする矩形の配列(NULL指定でビューポート矩形全体をクリア)
-	// Flags   : クリアするサーフェスを示すフラグ(NULL指定でビューポート矩形全体をクリア)
-	//         : [D3DCLEAR_TARGET - レンダリングターゲットをクリアしてColorパラメータの値にする]
+	// Count   : pRects冁E��ある矩形の数
+	// pRects  : クリアする矩形の配�E(NULL持E��でビューポ�Eト矩形全体をクリア)
+	// Flags   : クリアするサーフェスを示すフラグ(NULL持E��でビューポ�Eト矩形全体をクリア)
+	//         : [D3DCLEAR_TARGET - レンダリングターゲチE��をクリアしてColorパラメータの値にする]
 	//         : [D3DCLEAR_ZBUFFER - 深度(Z)バッファをクリアしてZパラメータの値にする]
-	//         : [D3DCLEAR_STENCIL - ステンシルバッファをクリアしてStencilパラメータの値にする]
+	//         : [D3DCLEAR_STENCIL - スチE��シルバッファをクリアしてStencilパラメータの値にする]
 	// Color   : サーフェスをクリアする色
-	// Z       : デプスバッファに保存する値
-	// Stencil : ステンシルバッファに保存する値(整数)
+	// Z       : チE�Eスバッファに保存する値
+	// Stencil : スチE��シルバッファに保存する値(整数)
 	g_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(255, 255, 255, 255), 1.0f, 0);
 
-	// Direct3Dによる描画の開始
+	// Direct3Dによる描画の開姁E
 	if (SUCCEEDED(g_pD3DDevice->BeginScene()))
 	{
-		//具体的な描画処理をココに記述していく
-		switch (Scene)//状態遷移
+		//具体的な描画処琁E��ココに記述してぁE��
+		switch (Scene)//状態�E移
 		{
 		case TITLE:
-			//タイトル画面の描画処理
+			//タイトル画面の描画処琁E
 			Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), Title_Texture, 0, 0, 1, 1);
 			break;
 
 		case TUTORIAL:
-			//チュートリアル画面の描画処理
+			//チュートリアル画面の描画処琁E
 			if (g_pDIDevGamePad) {
 				Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), PadTutorial_Texture, 0, 0, 1, 1);
 			}
@@ -494,14 +494,14 @@ void Draw(void)
 
 		case GAME_STAGE1:
 		case GAME_STAGE2:
-			//ゲーム画面の描画処理
+			//ゲーム画面の描画処琁E
 			if (game != NULL) {
 				game->Draw();
 			}
 			break;
 
 		case RESULT:
-			//リザルトの描画処理
+			//リザルト�E描画処琁E
 			Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), Result_Texture, 0, 0, 1, 1);
 			break;
 
@@ -512,14 +512,14 @@ void Draw(void)
 		}
 
 
-		//Direct3Dによる描画の終了
+		//Direct3Dによる描画の終亁E
 		g_pD3DDevice->EndScene();
 	}
 
-	// バックバッファとフロントバッファの入れ替え
-	// pSourceRect           : 転送元矩形
-	// pDestRect             : 転送先矩形
-	// hDestWindowOverride   : 転送先ウインドウへのポインタ
+	// バックバッファとフロントバチE��ァの入れ替ぁE
+	// pSourceRect           : 転送�E矩形
+	// pDestRect             : 転送�E矩形
+	// hDestWindowOverride   : 転送�Eウインドウへのポインタ
 	// pDirtyRegion          : 通常はNULLで
 	g_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }

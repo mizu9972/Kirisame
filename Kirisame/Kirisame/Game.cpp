@@ -17,7 +17,7 @@ Game::Game(void) {
 }
 
 Game::~Game(void) {
-	//デストラクタ
+	//チE��トラクタ
 	if (character != NULL) {
 		delete character;
 	}
@@ -31,7 +31,7 @@ Game::~Game(void) {
 }
 
 void Game::Init(void) {
-	//初期化
+	//初期匁E
 	switch (Scene) {
 	case GAME_STAGE1:
 		//brownBear = S1Brownbear;
@@ -66,7 +66,7 @@ void Game::Init(void) {
 	COORD setCoord = { PLAYER_STARTPOS_X ,PLAYER_STARTPOS_Y };
 	character->SetCoord(setCoord);
 
-	Dive_State = true;//最初は潜ってない状態からスタート
+	Dive_State = true;//最初�E潜ってなぁE��態からスターチE
 	DeathEnemyNum = 0;
 	InitSound();
 
@@ -74,19 +74,19 @@ void Game::Init(void) {
 }
 
 void Game::Edit(void) {
-	//直接編集
+	//直接編雁E
 	stageBoardSystem->stage->Edit();
 
 }
 
 void Game::SetCoord(void) {
-	//オブジェクトの座標格納
+	//オブジェクト�E座標格紁E
 	stageBoardSystem->stage->SetCoord();
 
 }
 
 void Game::EnemyInit(void) {
-	//敵の初期化
+	//敵の初期匁E
 	COORD coord[ENEMY_STAGE1_NUM + ENEMY_STAGE2_NUM];
 	switch (Scene) {
 	case GAME_STAGE1:
@@ -138,16 +138,16 @@ void Game::Draw(void) {
 		ui->UIDraw(Dive_State);
 		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
 	}
-	if (Dive_State)//浮上してるとき
+	if (Dive_State)//浮上してるとぁE
 	{
 		stageBoardSystem->stage->Tu = 0.0f;
 		stageBoardSystem->stage->Tv = 0.0f;
 	}
-	else {//潜っている時
+	else {//潜ってぁE��晁E
 		stageBoardSystem->stage->Tu = 0.5f;
 		stageBoardSystem->stage->Tv = 0.0f;
 	}
-	//ステージの描画
+	//スチE�Eジの描画
 	if (stageBoardSystem != NULL) {
 		stageBoardSystem->stage->BlockDraw();
 		stageBoardSystem->stage->SideDraw();
@@ -171,27 +171,27 @@ void Game::Draw(void) {
 }
 
 void Game::Update(void) {
-	COORD coord;//プレイヤーの座標
-	COORD wark_coord;//outcoordでもらったやつ格納
-	COORD enemyCoord;//敵キャラクターの座標
-	COORD playerpos;//プレイヤーの座標(画面内の座標)
-	COORD enemypos;//敵キャラクターの座標(画面内の座標)
+	COORD coord;//プレイヤーの座樁E
+	COORD wark_coord;//outcoordでもらったやつ格紁E
+	COORD enemyCoord;//敵キャラクターの座樁E
+	COORD playerpos;//プレイヤーの座樁E画面冁E�E座樁E
+	COORD enemypos;//敵キャラクターの座樁E画面冁E�E座樁E
 	COORD ToCoord;//敵キャラクターの初期位置
-				  //ステージ情報保管用
+				  //スチE�Eジ惁E��保管用
 	PieceT  blockinfo;
 	PieceT tate;
 	PieceT yoko;
 	PieceT vertex;
 	//------------------
 	bool DIVE_TRIG = false;//仮想キー
-	bool EnemyAttackFlag = false;//攻撃可能かどうか
-	bool EnemyAttack = false;//攻撃成功したかどうか
+	bool EnemyAttackFlag = false;//攻撁E��能かどぁE��
+	bool EnemyAttack = false;//攻撁E�E功したかどぁE��
 
 							 //更新
 	if (GetKeyboardTrigger(DIK_SPACE)) {
 		DIVE_TRIG = true;
 	}
-	//コントローラでの入力処理
+	//コントローラでの入力�E琁E
 	if (g_pDIDevGamePad) {
 		if (GetGamePadTrigger(0) || GetGamePadTrigger(1) || GetGamePadTrigger(2) || GetGamePadTrigger(3)) {
 			DIVE_TRIG = true;
@@ -202,7 +202,7 @@ void Game::Update(void) {
 	//プレイヤーの更新-------------------------------
 	if (character != NULL)
 	{
-		character->Update(Dive_State);//引数で潜っているかのフラグを渡す
+		character->Update(Dive_State);//引数で潜ってぁE��か�Eフラグを渡ぁE
 
 		wark_coord = character->OutCoord();//キャラの頂点座標受け取っておく
 
@@ -215,14 +215,14 @@ void Game::Update(void) {
 		playerpos = character->OutPos();
 	}
 	//-----------------------------------------------
-	if (DIVE_TRIG)//潜る、浮上する
+	if (DIVE_TRIG)//潜る、浮上すめE
 	{
 		tate = stageBoardSystem->stage->OutSide_Tate(coord.X / 2, coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(coord.X / 2, coord.Y / 2);
 		vertex = stageBoardSystem->stage->OutVertexInfo(coord.X / 2, coord.Y / 2);
 		if (character->CheckDive(tate.isPassagable, yoko.isPassagable, vertex.isPassagable)) {
-			//浮上できる場所か判定
-			//潜るのを切り替える
+			//浮上できる場所か判宁E
+			//潜るのを�Eり替える
 			Dive_State = !Dive_State;
 			PlaySound(SunaSE);
 		}
@@ -232,20 +232,20 @@ void Game::Update(void) {
 	if (brownBear != NULL) {
 		for (int UpdateNum = 0; UpdateNum < Enemy_MaxNum; UpdateNum++) {
 			if (brownBear[UpdateNum].isAlive) {
-				enemyCoord = brownBear[UpdateNum].OutBlockCoord();//座標取り出し
+				enemyCoord = brownBear[UpdateNum].OutBlockCoord();//座標取り�EぁE
 				enemypos = brownBear[UpdateNum].OutPos();
 
 				if ((enemypos.X - playerpos.X)*(enemypos.X - playerpos.X) + (enemypos.Y - playerpos.Y)*(enemypos.Y - playerpos.Y) < (MASUWIDTH / 2 * 1.5f)*(MASUWIDTH / 2 * 1.5f)) {
-					//攻撃可能範囲内ならフラグをtrueに
+					//攻撁E��能篁E��冁E��らフラグをtrueに
 					EnemyAttackFlag = true;
 				}
 				else {
 					EnemyAttackFlag = false;
 				}
 
-				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y);//足元のマス情報取り出し
+				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y);//足允E�Eマス惁E��取り出ぁE
 				if (blockinfo.isCut) {
-					//穴に落ちる
+					//穴に落ちめE
 					brownBear[UpdateNum].FallintoHole();
 					if (PollSound(FallSE) == false) {
 						PlaySound(FallSE);
@@ -264,10 +264,10 @@ void Game::Update(void) {
 
 				for (int avoidNum = 0; avoidNum < Enemy_MaxNum; avoidNum++) {
 					if (avoidNum == UpdateNum) {
-						continue;//自分自身はスキップ
+						continue;//自刁E�E身はスキチE�E
 					}
 					if (brownBear[avoidNum].isAlive == false) {
-						continue;//死んだ敵はスキップ
+						continue;//死んだ敵はスキチE�E
 					}
 					brownBear[UpdateNum].AvoidAnotherEnemy(brownBear[avoidNum].OutBlockCoord());
 				}
@@ -327,16 +327,16 @@ void Game::Update(void) {
 		character->Hit();
 
 	}
-	//ステージ情報の更新
+	//スチE�Eジ惁E��の更新
 	if (stageBoardSystem != NULL) {
-		if (Dive_State)//潜っていない時のみ切り取る
+		if (Dive_State)//潜ってぁE��ぁE��のみ刁E��取る
 		{
-			stageBoardSystem->CutBoard(coord);//キャラクターの位置を切る
+			stageBoardSystem->CutBoard(coord);//キャラクターの位置を�EめE
 			stageBoardSystem->BoardUpdate(coord);
-			stageBoardSystem->stage->Check_Passagable();//切り取られたところには行けないようにするやつ
-			stageBoardSystem->stage->CheckCakeFall();//ケーキが切り落ちてるか
+			stageBoardSystem->stage->Check_Passagable();//刁E��取られたところには行けなぁE��ぁE��するめE��
+			stageBoardSystem->stage->CheckCakeFall();//ケーキが�Eり落ちてるか
 		}
-		stageBoardSystem->stage->FallingCake();//ケーキが落ちていく処理
+		stageBoardSystem->stage->FallingCake();//ケーキが落ちてぁE��処琁E
 	}
 	ui->TIME();
 }
@@ -346,7 +346,7 @@ void Game::Gettime(void) {
 	ui->GTIME();
 }
 
-bool Game::OutClearFlg(void)//敵が0ならtrueを返す
+bool Game::OutClearFlg(void)//敵ぁEならtrueを返す
 {
 	if (DeathEnemyNum == Enemy_MaxNum) {
 		return true;

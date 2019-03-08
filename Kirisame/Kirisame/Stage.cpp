@@ -13,31 +13,31 @@ Stage::Stage(void) {
 	wallTexture = TexOp->wallTexture;
 }
 Stage::~Stage(void) {
-	//デストラクタ
+	//チE��トラクタ
 }
 void Stage::Init(void) {
-	//初期化
+	//初期匁E
 
-	//ステージデータ初期化
+	//スチE�EジチE�Eタ初期匁E
 	StageDataInit();
-	//辺の初期化
+	//辺の初期匁E
 	SideInit();
-	//マスの初期化
+	//マスの初期匁E
 	BlockInit();
-	//頂点の初期化
+	//頂点の初期匁E
 	VertexInit();
-	//ROCKの初期化
+	//ROCKの初期匁E
 	RockInit();
-	//ケーキの初期化
+	//ケーキの初期匁E
 	CakeInit();
 }
 
 void Stage::StageDataInit(void) {
-	//ステージデータの初期化
+	//スチE�EジチE�Eタの初期匁E
 	//頂点　　辺　　頂点　　辺　　頂点
 	//辺　　マス　　辺　　マス　　辺
 	//頂点　　辺　　頂点　　辺　　頂点
-	//で並べていく
+	//で並べてぁE��
 	int Flag = 0;
 	for (int setY = 0; setY < STAGESIZE_IGOY; setY++) {
 		switch (setY % 2) {
@@ -74,7 +74,7 @@ void Stage::StageDataInit(void) {
 
 void Stage::SideInit(void) {
 
-	//縦向きの辺の初期化
+	//縦向きの辺の初期匁E
 	for (int setNum_retu = 0; setNum_retu < SIDEVERTICAL_NUM; setNum_retu++) {
 
 		for (int setNum_gyo = 0; setNum_gyo < SIDENUM_TATE; setNum_gyo++) {
@@ -90,7 +90,7 @@ void Stage::SideInit(void) {
 		}
 	}
 
-	//横向きの辺の初期化
+	//横向きの辺の初期匁E
 	for (int setNum_retu = 0; setNum_retu < SIDEHORIZONTAL_NUM; setNum_retu++) {
 
 		for (int setNum_gyo = 0; setNum_gyo < SIDENUM_YOKO; setNum_gyo++) {
@@ -109,7 +109,7 @@ void Stage::SideInit(void) {
 }
 
 void Stage::BlockInit(void) {
-	//マスの初期化
+	//マスの初期匁E
 	for (int setY = 0; setY < TATEMASU_NUM; setY++) {
 
 		for (int setX = 0; setX < YOKOMASU_NUM; setX++) {
@@ -129,7 +129,7 @@ void Stage::BlockInit(void) {
 }
 
 void Stage::VertexInit(void) {
-	//頂点の初期化
+	//頂点の初期匁E
 
 	for (int setY = 0; setY < VERTEXY_NUM; setY++) {
 
@@ -147,22 +147,22 @@ void Stage::VertexInit(void) {
 		}
 	}
 }
-void Stage::RockInit(void)//岩の初期化
+void Stage::RockInit(void)//岩の初期匁E
 {
-	for (int num = 0; num < ROCK_NUM; num++)//テクスチャ読み込み用の繰り返し処理
+	for (int num = 0; num < ROCK_NUM; num++)//チE��スチャ読み込み用の繰り返し処琁E
 	{
-		Rockinfo[num].Texture = TexOp->rockTexture;//テクスチャ読み込み
-		Rockinfo[num].Coord.X = NULL;//一旦NULLを入れてる
+		Rockinfo[num].Texture = TexOp->rockTexture;//チE��スチャ読み込み
+		Rockinfo[num].Coord.X = NULL;//一旦NULLを�EれてめE
 		Rockinfo[num].Coord.Y = NULL;
 	}
 }
 
-void Stage::CakeInit(void)//ケーキの初期化
+void Stage::CakeInit(void)//ケーキの初期匁E
 {
-	for (int num = 0; num < CAKE_NUM; num++)//テクスチャ読み込み用の繰り返し処理
+	for (int num = 0; num < CAKE_NUM; num++)//チE��スチャ読み込み用の繰り返し処琁E
 	{
-		Cakeinfo[num].Texture = TexOp->cakeTexture;//テクスチャ読み込み
-		Cakeinfo[num].Coord.X = NULL;//一旦NULLを入れてる
+		Cakeinfo[num].Texture = TexOp->cakeTexture;//チE��スチャ読み込み
+		Cakeinfo[num].Coord.X = NULL;//一旦NULLを�EれてめE
 		Cakeinfo[num].Coord.Y = NULL;
 		Cakeinfo[num].isAlive = true;
 		Cakeinfo[num].isFalling = false;
@@ -172,15 +172,15 @@ void Stage::CakeInit(void)//ケーキの初期化
 }
 
 void Stage::Edit(void) {
-	//直接編集
+	//直接編雁E
 
-	//ステージデータ編集
+	//スチE�EジチE�Eタ編雁E
 	StageDataEdit();
-	//辺の編集
+	//辺の編雁E
 	SideEdit();
-	//マスの編集
+	//マスの編雁E
 	BlockEdit();
-	//頂点の編集
+	//頂点の編雁E
 	VertexEdit();
 }
 
@@ -195,36 +195,36 @@ void Stage::SideEdit(void) {
 	case GAME_STAGE1:
 
 		for (int setNum_row = 0; setNum_row < 6; setNum_row++) {
-			//(6,0)～(6,5)まで
+			//(6,0)�E�E6,5)まで
 			Side_Yoko[setNum_row][6].isPassagable = false;//通行不可に
 
 		}
 		for (int setNum_column = 0; setNum_column < 7; setNum_column++) {
-			//(0,5)～(6,5)まで
+			//(0,5)�E�E6,5)まで
 			Side_Tate[5][setNum_column].isPassagable = false;//通行不可に
 
 		}
 		for (int setNum_row = 6; setNum_row < 8; setNum_row++) {
-			//(6,3)～(7,3)まで
+			//(6,3)�E�E7,3)まで
 			Side_Yoko[setNum_row][3].isPassagable = false;//通行不可に
 		}
 
 		break;
 	case GAME_STAGE2:
-		// ===縦の辺から通行不可を指定===
+		// ===縦の辺から通行不可を指宁E==
 		//(7.2)
 		Side_Tate[2][7].isPassagable = false;
 		for (int setNum_row = 0; setNum_row < 4; setNum_row++) {
-			//(0.3)～(3.3)まで
+			//(0.3)�E�E3.3)まで
 			Side_Tate[3][setNum_row].isPassagable = false;
 		}
 		//(7.3)
 		Side_Tate[3][7].isPassagable = false;
 		for (int setNum_column = 7; setNum_column < 11; setNum_column++) {
-			//(7.6)～(10.6)まで
+			//(7.6)�E�E10.6)まで
 			Side_Tate[6][setNum_column].isPassagable = false;
 		}
-		// ===次に横の辺の通行不可を指定===
+		// ===次に横の辺の通行不可を指宁E==
 		Side_Yoko[3][6].isPassagable = false;
 
 		Side_Yoko[3][7].isPassagable = false;
@@ -309,9 +309,9 @@ void Stage::VertexEdit(void) {
 
 void Stage::SetCoord(void) {
 
-	//岩の座標格納
+	//岩の座標格紁E
 	SetRockCoord();
-	//ケーキの座標格納
+	//ケーキの座標格紁E
 	SetCakeCoord();
 
 }
@@ -320,7 +320,7 @@ void Stage::SetRockCoord(void) {
 	switch (Scene) {
 
 	case GAME_STAGE1:
-		//座標位置を入力(6.0)～(6.5)に６つ、(0.5)～(5.5)に６つ、(3.6)～(3.7)に２つ 　計１４個
+		//座標位置を�E劁E6.0)�E�E6.5)に�E�つ、E0.5)�E�E5.5)に�E�つ、E3.6)�E�E3.7)に�E�つ 　計１４倁E
 		for (int rocknum = 0, rockY = 0; rocknum < 6; rocknum++, rockY++) {
 
 			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6);
@@ -342,8 +342,8 @@ void Stage::SetRockCoord(void) {
 
 		break;
 	case GAME_STAGE2:
-		//座標位置を入力(6.2)～(7.2)に２つ、(0.3)～(3.3)に３つ、(6.3)～(7.3)に２つ
-		//              (1.6)、(4.6)に２つ、(6.6)～(9.6)に４つ、(6.7)～(6.9)に３つ　計１７つ
+		//座標位置を�E劁E6.2)�E�E7.2)に�E�つ、E0.3)�E�E3.3)に�E�つ、E6.3)�E�E7.3)に�E�つ
+		//              (1.6)、E4.6)に�E�つ、E6.6)�E�E9.6)に�E�つ、E6.7)�E�E6.9)に�E�つ　計１７つ
 		for (int rocknum = 0, rockX = 6; rocknum < 2; rocknum++, rockX++) {
 
 			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
@@ -393,14 +393,14 @@ void Stage::SetCakeCoord(void) {
 	switch (Scene) {
 
 	case GAME_STAGE1:
-		////座標入力　(4.2)、(8.2)の２か所
+		////座標�E力　(4.2)、E8.2)の�E�か所
 		//Cakeinfo[0].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 4);
 		//Cakeinfo[0].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 2);
 		//Cakeinfo[1].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 8);
 		//Cakeinfo[1].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 2);
 
-		//座標入力　(4.2)、(8.2)の2か所
-		Cakeinfo[0].MathPos.X = 4;//マスのどこにいるか
+		//座標�E力　(4.2)、E8.2)の2か所
+		Cakeinfo[0].MathPos.X = 4;//マスのどこにぁE��ぁE
 		Cakeinfo[0].MathPos.Y = 2;
 		Cakeinfo[0].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * Cakeinfo[0].MathPos.X) + CAKESIZE / 2;
 		Cakeinfo[0].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * Cakeinfo[0].MathPos.Y) + CAKESIZE / 2;
@@ -412,7 +412,7 @@ void Stage::SetCakeCoord(void) {
 
 		break;
 	case GAME_STAGE2:
-		//座標入力　(8.1)、(1.6)、(6.4)の３か所
+		//座標�E力　(8.1)、E1.6)、E6.4)の�E�か所
 		Cakeinfo[0].MathPos.X = 8;
 		Cakeinfo[0].MathPos.Y = 1;
 		Cakeinfo[1].MathPos.X = 2;
@@ -436,14 +436,14 @@ void Stage::SetCakeCoord(void) {
 }
 
 void Stage::StageCut(int X, int Y) {
-	//切る場所から何を切るか(頂点・辺・マス)、どこを切るかを指定して切る
+	//刁E��場所から何を刁E��ぁE頂点・辺・マス)、どこを刁E��かを持E��して刁E��
 	switch (StageData[Y][X]) {
 	case Vertex:
 		Vertexinfo[Y / 2][X / 2].isCut = true;
 		break;
 
 	case Side:
-		//横向きの辺か縦向きの辺か場所によって判定
+		//横向きの辺か縦向きの辺か場所によって判宁E
 		if (Y % 2 == 0) {
 			Side_Yoko[Y / 2][X / 2].isCut = true;
 		}
@@ -463,7 +463,7 @@ void Stage::SideDraw(void) {
 	for (int drawY = 0; drawY < SIDEHORIZONTAL_NUM; drawY++) {
 		for (int drawX = 0; drawX < SIDENUM_YOKO; drawX++) {
 			if (Side_Yoko[drawY][drawX].isCut) {
-				//切れているかどうかで描画を変える
+				//刁E��てぁE��かどぁE��で描画を変えめE
 				Draw2dPolygon(Side_Yoko[drawY][drawX].Coord.X, Side_Yoko[drawY][drawX].Coord.Y, MASUWIDTH, SIDESIZE_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), sideTextureYoko, 0, 0, 1, 0.2f);
 			}
 			else {
@@ -477,7 +477,7 @@ void Stage::SideDraw(void) {
 	for (int drawY = 0; drawY < SIDEVERTICAL_NUM; drawY++) {
 		for (int drawX = 0; drawX < SIDENUM_TATE; drawX++) {
 			if (Side_Tate[drawY][drawX].isCut) {
-				//切れているかどうかで描画を変える
+				//刁E��てぁE��かどぁE��で描画を変えめE
 
 				Draw2dPolygon(Side_Tate[drawY][drawX].Coord.X, Side_Tate[drawY][drawX].Coord.Y, SIDESIZE_HUTOSA, MASUHEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), sideTextureTate, 0, 0, 0.2f, 1);
 			}
@@ -494,7 +494,7 @@ void Stage::BlockDraw(void) {
 	for (int drawY = 0; drawY < TATEMASU_NUM; drawY++) {
 		for (int drawX = 0; drawX < YOKOMASU_NUM; drawX++) {
 			if (Blockinfo[drawY][drawX].isCut) {
-				//切れているかどうかで描画を変える
+				//刁E��てぁE��かどぁE��で描画を変えめE
 				Draw2dPolygon(Blockinfo[drawY][drawX].Coord.X, Blockinfo[drawY][drawX].Coord.Y, MASUWIDTH, MASUHEIGHT + 1, D3DCOLOR_ARGB(255, 255, 255, 255), cutblockTexture, 0, 0, 1, 1);
 			}
 			else {
@@ -508,11 +508,11 @@ void Stage::BlockDraw(void) {
 void Stage::WallDraw(void) {
 	//壁描画
 
-	//横壁
+	//横壁E
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE - WALL_HUTOSA, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE + WALL_SIZE_HEIGHT, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 
-	//縦壁
+	//縦壁E
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE, WALL_HUTOSA, WALL_SIZE_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 	Draw2dPolygon(STAGEPOS_YOKO + WALL_SIZE_WIDTH, STAGEPOS_TATE, WALL_HUTOSA, WALL_SIZE_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 }
@@ -550,7 +550,7 @@ void Stage::CakeDraw(void) {
 		}
 	}
 }
-//ステージ情報取り出し関数---------------------
+//スチE�Eジ惁E��取り出し関数---------------------
 PieceT Stage::OutSide_Tate(int X, int Y) {
 	PieceT rtn;
 	if (X >= SIDENUM_TATE || X < 0 || Y >= SIDEVERTICAL_NUM || Y < 0) {
@@ -588,15 +588,15 @@ PieceT Stage::OutVertexInfo(int X, int Y) {
 }
 //---------------------------------------------
 
-void Stage::Check_Passagable(void)//通行可能か判定
+void Stage::Check_Passagable(void)//通行可能か判宁E
 {
 	//////////////////////////////////////////////////////
-	//横辺の通行状態確認
+	//横辺の通行状態確誁E
 	for (int setNum_retu = 1; setNum_retu < SIDEHORIZONTAL_NUM - 1; setNum_retu++) {//中
 
 		for (int setNum_gyo = 0; setNum_gyo < SIDENUM_YOKO; setNum_gyo++) {
 			if (Blockinfo[setNum_retu - 1][setNum_gyo].isCut
-				&&Blockinfo[setNum_retu][setNum_gyo].isCut) {//上下のブロックが切り取られていたら
+				&&Blockinfo[setNum_retu][setNum_gyo].isCut) {//上下�EブロチE��が�Eり取られてぁE��めE
 				Side_Yoko[setNum_retu][setNum_gyo].isPassagable = false;//通行不可に
 			}
 		}
@@ -604,11 +604,11 @@ void Stage::Check_Passagable(void)//通行可能か判定
 	//////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////
-	//縦辺の通行状態確認
+	//縦辺の通行状態確誁E
 	for (int setNum_retu = 0; setNum_retu < SIDEVERTICAL_NUM; setNum_retu++) {//中
 		for (int setNum_gyo = 1; setNum_gyo < SIDENUM_TATE - 1; setNum_gyo++) {
 			if (Blockinfo[setNum_retu][setNum_gyo].isCut
-				&&Blockinfo[setNum_retu][setNum_gyo - 1].isCut) {//左右のブロックが切り取られていたら
+				&&Blockinfo[setNum_retu][setNum_gyo - 1].isCut) {//左右のブロチE��が�Eり取られてぁE��めE
 				Side_Tate[setNum_retu][setNum_gyo].isPassagable = false;//通行不可に
 			}
 		}
@@ -616,7 +616,7 @@ void Stage::Check_Passagable(void)//通行可能か判定
 	//////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////
-	//頂点の通行状態確認
+	//頂点の通行状態確誁E
 	for (int setNum_retu = 1; setNum_retu < VERTEXY_NUM - 1; setNum_retu++) {
 		for (int setNum_gyo = 1; setNum_gyo < VERTEXX_NUM - 1; setNum_gyo++) {
 			if (Blockinfo[setNum_retu][setNum_gyo].isCut
@@ -632,17 +632,17 @@ void Stage::Check_Passagable(void)//通行可能か判定
 }
 void Stage::CheckCakeFall(void)
 {
-	PieceT CheckCake;//チャックをする用
+	PieceT CheckCake;//チャチE��をする用
 	for (int num = 0; num < CAKE_NUM; num++)
 	{
-		if (Cakeinfo[num].MathPos.X == NULL&&Cakeinfo[num].MathPos.Y == NULL)//空なら処理を抜ける
+		if (Cakeinfo[num].MathPos.X == NULL&&Cakeinfo[num].MathPos.Y == NULL)//空なら�E琁E��抜けめE
 		{
 			break;
 		}
 		CheckCake = OutBlockInfo(Cakeinfo[num].MathPos.X, Cakeinfo[num].MathPos.Y);
-		if (CheckCake.isCut)//ケーキの下のマスが切り取られていたら
+		if (CheckCake.isCut)//ケーキの下�Eマスが�Eり取られてぁE��めE
 		{
-			Cakeinfo[num].isFalling = true;//落ちた
+			Cakeinfo[num].isFalling = true;//落ちぁE
 		}
 
 	}
