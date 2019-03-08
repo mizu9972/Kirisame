@@ -9,11 +9,10 @@ Game::Game(void) {
 	//コンストラクタ
 	character = new Character;
 	stageBoardSystem = new StageBoardSystem;
-	//S2Brownbear = new BrownBear[ENEMY_STAGE2_NUM];//err
-	//S1Brownbear = new BrownBear[ENEMY_STAGE1_NUM];
-
 
 	ui = new UI;
+
+	AllocFlag = false;
 	//Enemy_num = ENEMY_STAGE1_NUM;//敵の数
 }
 
@@ -22,18 +21,7 @@ Game::~Game(void) {
 	if (character != NULL) {
 		delete character;
 	}
-	//if (S1Brownbear != NULL) {
-	//	S1Brownbear = NULL;
-	//	delete[] S1Brownbear;
-	//}
-	//if (S2Brownbear != NULL) {
-	//	S2Brownbear = NULL;
-	//	delete[] S2Brownbear;
-	//}
-	//if (brownBear != NULL) {
-	//	delete[] brownBear;
-	//}
-	
+
 	if (stageBoardSystem != NULL) {
 		delete stageBoardSystem;
 	}
@@ -46,11 +34,25 @@ void Game::Init(void) {
 	//初期化
 	switch (Scene) {
 	case GAME_STAGE1:
-		brownBear = S1Brownbear;
+		//brownBear = S1Brownbear;
+		if (AllocFlag == false) {
+			brownBear = (BrownBear*)malloc(sizeof(BrownBear) * ENEMY_STAGE1_NUM);
+			AllocFlag = true;
+		}
+		else if (AllocFlag == true) {
+			brownBear = (BrownBear*)realloc(brownBear, sizeof(BrownBear) * ENEMY_STAGE1_NUM);
+		}
 		break;
 
 	case GAME_STAGE2:
-		brownBear = S2Brownbear;
+		//brownBear = S2Brownbear;
+		if (AllocFlag == false) {
+			brownBear = (BrownBear*)malloc(sizeof(BrownBear) * ENEMY_STAGE2_NUM);
+			AllocFlag = true;
+		}
+		else if (AllocFlag == true) {
+			brownBear = (BrownBear*)realloc(brownBear, sizeof(BrownBear) * ENEMY_STAGE2_NUM);
+		}
 		break;
 	}
 	if (brownBear != NULL) {
@@ -61,11 +63,14 @@ void Game::Init(void) {
 		stageBoardSystem->InitCheckedBoard();
 		stageBoardSystem->stage->Init();
 	}
+	COORD setCoord = { PLAYER_STARTPOS_X ,PLAYER_STARTPOS_Y };
+	character->SetCoord(setCoord);
+
 	Dive_State = true;//最初は潜ってない状態からスタート
 	DeathEnemyNum = 0;
 	InitSound();
 
-	
+
 }
 
 void Game::Edit(void) {
@@ -100,12 +105,16 @@ void Game::EnemyInit(void) {
 
 		coord[0].X = ENEMY3_DEFPOS_X;
 		coord[0].Y = ENEMY3_DEFPOS_Y;
+
 		coord[1].X = ENEMY4_DEFPOS_X;
 		coord[1].Y = ENEMY4_DEFPOS_Y;
+
 		coord[2].X = ENEMY5_DEFPOS_X;
 		coord[2].Y = ENEMY5_DEFPOS_Y;
+
 		coord[3].X = ENEMY6_DEFPOS_X;
 		coord[3].Y = ENEMY6_DEFPOS_Y;
+
 		coord[4].X = ENEMY7_DEFPOS_X;
 		coord[4].Y = ENEMY7_DEFPOS_Y;
 		break;
@@ -116,6 +125,10 @@ void Game::EnemyInit(void) {
 			brownBear[InitNum].Init(coord[InitNum]);
 		}
 	}
+}
+
+void Game::EnemyUnInit(void) {
+	free(brownBear);
 }
 
 void Game::Draw(void) {
@@ -163,7 +176,7 @@ void Game::Update(void) {
 	COORD playerpos;//プレイヤーの座標(画面内の座標)
 	COORD enemypos;//敵キャラクターの座標(画面内の座標)
 	COORD ToCoord;//敵キャラクターの初期位置
-	//ステージ情報保管用
+				  //ステージ情報保管用
 	PieceT  blockinfo;
 	PieceT tate;
 	PieceT yoko;
@@ -173,7 +186,7 @@ void Game::Update(void) {
 	bool EnemyAttackFlag = false;//攻撃可能かどうか
 	bool EnemyAttack = false;//攻撃成功したかどうか
 
-	//更新
+							 //更新
 	if (GetKeyboardTrigger(DIK_SPACE)) {
 		DIVE_TRIG = true;
 	}
@@ -206,7 +219,7 @@ void Game::Update(void) {
 		tate = stageBoardSystem->stage->OutSide_Tate(coord.X / 2, coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(coord.X / 2, coord.Y / 2);
 		vertex = stageBoardSystem->stage->OutVertexInfo(coord.X / 2, coord.Y / 2);
-		if (character->CheckDive(tate.isPassagable,yoko.isPassagable,vertex.isPassagable)) {
+		if (character->CheckDive(tate.isPassagable, yoko.isPassagable, vertex.isPassagable)) {
 			//浮上できる場所か判定
 			//潜るのを切り替える
 			Dive_State = !Dive_State;
@@ -229,7 +242,7 @@ void Game::Update(void) {
 					EnemyAttackFlag = false;
 				}
 
-				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X,enemyCoord.Y);//足元のマス情報取り出し
+				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y);//足元のマス情報取り出し
 				if (blockinfo.isCut) {
 					//穴に落ちる
 					brownBear[UpdateNum].FallintoHole();
@@ -247,34 +260,68 @@ void Game::Update(void) {
 				);
 
 				//別の敵キャラを避ける
-				
-					for (int avoidNum = 0; avoidNum < Enemy_MaxNum; avoidNum++) {
-						if (avoidNum == UpdateNum) {
-							continue;//自分自身はスキップ
-						}
-						if (brownBear[avoidNum].isAlive == false) {
-							continue;//死んだ敵はスキップ
-						}
-						brownBear[UpdateNum].AvoidAnotherEnemy(brownBear[avoidNum].OutBlockCoord());
+
+				for (int avoidNum = 0; avoidNum < Enemy_MaxNum; avoidNum++) {
+					if (avoidNum == UpdateNum) {
+						continue;//自分自身はスキップ
 					}
-				
-				switch (UpdateNum) {
-				case 0:
-					ToCoord.X = ENEMY1_DEFPOS_X;
-					ToCoord.Y = ENEMY1_DEFPOS_Y;
+					if (brownBear[avoidNum].isAlive == false) {
+						continue;//死んだ敵はスキップ
+					}
+					brownBear[UpdateNum].AvoidAnotherEnemy(brownBear[avoidNum].OutBlockCoord());
+				}
+				switch (Scene) {
+				case GAME_STAGE1:
+					switch (UpdateNum) {
+					case 0:
+						ToCoord.X = ENEMY1_DEFPOS_X;
+						ToCoord.Y = ENEMY1_DEFPOS_Y;
+						break;
+
+					case 1:
+						ToCoord.X = ENEMY2_DEFPOS_X;
+						ToCoord.Y = ENEMY2_DEFPOS_Y;
+						break;
+
+					}
 					break;
 
-				case 1:
-					ToCoord.X = ENEMY2_DEFPOS_X;
-					ToCoord.Y = ENEMY2_DEFPOS_Y;
+				case GAME_STAGE2:
+					switch (UpdateNum) {
+					case 0:
+						ToCoord.X = ENEMY3_DEFPOS_X;
+						ToCoord.Y = ENEMY3_DEFPOS_Y;
+						break;
+
+					case 1:
+						ToCoord.X = ENEMY4_DEFPOS_X;
+						ToCoord.Y = ENEMY4_DEFPOS_Y;
+						break;
+
+					case 2:
+						ToCoord.X = ENEMY5_DEFPOS_X;
+						ToCoord.Y = ENEMY5_DEFPOS_Y;
+						break;
+
+					case 3:
+						ToCoord.X = ENEMY6_DEFPOS_X;
+						ToCoord.Y = ENEMY6_DEFPOS_Y;
+						break;
+
+					case 4:
+						ToCoord.X = ENEMY7_DEFPOS_X;
+						ToCoord.Y = ENEMY7_DEFPOS_Y;
+						break;
+					}
 					break;
 				}
-				EnemyAttack = brownBear[UpdateNum].Update(character->OutPos(), Dive_State, EnemyAttackFlag,ToCoord);
+				EnemyAttack = brownBear[UpdateNum].Update(character->OutPos(), Dive_State, EnemyAttackFlag, ToCoord);
 			}
 		}
 	}
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------
 	if (EnemyAttack) {
+
 		//プレイヤーへダメージ
 		character->Hit();
 
@@ -287,8 +334,8 @@ void Game::Update(void) {
 			stageBoardSystem->BoardUpdate(coord);
 			stageBoardSystem->stage->Check_Passagable();//切り取られたところには行けないようにするやつ
 			stageBoardSystem->stage->CheckCakeFall();//ケーキが切り落ちてるか
-			stageBoardSystem->stage->FallingCake();
 		}
+		stageBoardSystem->stage->FallingCake();//ケーキが落ちていく処理
 	}
 	ui->TIME();
 }
@@ -300,25 +347,6 @@ void Game::Gettime(void) {
 
 bool Game::OutClearFlg(void)//敵が0ならtrueを返す
 {
-	//for (int num = 0; num < Enemy_MaxNum; num++)
-	//{
-	//	//クマさん配列の生存フラグを参照していって全員が消えてたら
-	//	//敵の数が0になる処理
-	//	if (brownBear[num].isAlive == false)
-	//	{
-	//		Enemy_num--;
-	//	}
-	//}
-	//if (Enemy_num >  0)
-	//{
-	//	Enemy_num = Enemy_MaxNum;//敵1体倒すだけでカウントが0になる対策
-	//	return false;
-	//}
-	//else if (Enemy_num <= 0)
-	//{
-	//	return true;
-	//}
-	//return false;
 	if (DeathEnemyNum == Enemy_MaxNum) {
 		return true;
 	}

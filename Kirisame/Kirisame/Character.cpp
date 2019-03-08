@@ -38,6 +38,21 @@ Character::~Character(void) {
 }
 
 
+void Character::SetCoord(COORD inCoord) {
+	memcpy(&Coord, &inCoord, sizeof(COORD));
+	//初期位置の配列をセット
+	GroundInfo.X = (inCoord.X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
+	GroundInfo.Y = (inCoord.Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
+
+	////初期位置の頂点セット
+	Pos_Vertex.X = 2;
+	Pos_Vertex.Y = 4;
+
+	//サメの向きを初期状態に
+	Tu = 0;
+	Tv = 0;
+}
+
 void Character::Draw(void) {
 	//キャラを描画
 	Draw2dPolygon(Coord.X - CHARA_SIZE / 2, Coord.Y - CHARA_SIZE + HOSEITI, CHARA_SIZE, CHARA_SIZE, D3DCOLOR_ARGB(255, 255, 255, 255), Texture, Tu, Tv, 0.5f, 0.5f);
@@ -53,8 +68,8 @@ void Character::Move(void)
 
 	memcpy(&wark_coord, &Coord, sizeof(COORD));//キャラの座標の退避用
 	memcpy(&wark_groundinfo, &GroundInfo, sizeof(COORD));//キャラの配列座標の退避用
-														 
-	//対応するキーが押されたら(キーボード)
+
+														 //対応するキーが押されたら(キーボード)
 	if (GetKeyboardPress(DIK_UP) && Inputflg == false) {
 		UP_TRIG = true;
 		Inputflg = true;

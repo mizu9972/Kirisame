@@ -5,7 +5,7 @@ LPDIRECT3DTEXTURE9* _TexOp::PlayerTex;//プレイヤー
 LPDIRECT3DTEXTURE9* _TexOp::BrownBearTex;//敵キャラクター
 LPDIRECT3DTEXTURE9* _TexOp::EnemyAttackTex;//敵キャラクター攻撃
 LPDIRECT3DTEXTURE9* _TexOp::EnemySunabokoriTex;//敵キャラ砂ぼこり
-//ステージ
+											   //ステージ
 LPDIRECT3DTEXTURE9* _TexOp::sideTextureYoko;
 LPDIRECT3DTEXTURE9* _TexOp::sideTextureTate;
 LPDIRECT3DTEXTURE9* _TexOp::blockTexture;
@@ -24,7 +24,7 @@ LPDIRECT3DTEXTURE9* _TexOp::UI_Discription;
 LPDIRECT3DTEXTURE9* _TexOp::UI_Background;
 
 _TexOp::_TexOp(void) {
-	
+
 }
 
 _TexOp::~_TexOp(void) {
@@ -44,15 +44,15 @@ void _TexOp::LoadAllTexture(void) {
 	sideTextureTate = LoadTexture(SIDE_TATE_TEX_FILE, sideTextureTate);
 	blockTexture = LoadTexture(TILE_TEX_FILE, blockTexture);
 	cutblockTexture = LoadTexture(TILE_CUT_TEX_FILE, cutblockTexture);
-	wallTexture = LoadTexture(WALL_TEX_FILE,wallTexture);
+	wallTexture = LoadTexture(WALL_TEX_FILE, wallTexture);
 	rockTexture = LoadTexture(ROCK_TEX_FILE, rockTexture);
 	cakeTexture = LoadTexture(CAKE_TEX_FILE, cakeTexture);
 
 	//UI
-	UI_ScoreBoard = LoadTexture(SCOREBOARD_FILE,UI_ScoreBoard);
-	UI_ScoreNum = LoadTexture(SCORENUM_FILE,UI_ScoreNum);
-	UI_TimeBoard = LoadTexture(TIMEBOARD_FILE,UI_TimeBoard);
-	UI_TimeNum = LoadTexture(TIMENUM_FILE,UI_TimeNum);
+	UI_ScoreBoard = LoadTexture(SCOREBOARD_FILE, UI_ScoreBoard);
+	UI_ScoreNum = LoadTexture(SCORENUM_FILE, UI_ScoreNum);
+	UI_TimeBoard = LoadTexture(TIMEBOARD_FILE, UI_TimeBoard);
+	UI_TimeNum = LoadTexture(TIMENUM_FILE, UI_TimeNum);
 	UI_PlayerStatus = LoadTexture(UIPlayerstatus_FILE, UI_PlayerStatus);
 	UI_Discription = LoadTexture(DESCRIPTION_FILE, UI_Discription);
 	UI_Background = LoadTexture(BACKGROUND_FILE, UI_Background);

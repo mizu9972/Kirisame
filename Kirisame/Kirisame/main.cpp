@@ -84,15 +84,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		WS_OVERLAPPEDWINDOW, //ウインドウスタイル
 		CW_USEDEFAULT,    //ウインドウの左上X座標
 		CW_USEDEFAULT,    //ウインドウの左上Y座標
-		(SCREEN_WIDTH+GetSystemMetrics(SM_CXDLGFRAME)*2),     //ウインドウの幅
-		(SCREEN_HEIGHT + GetSystemMetrics(SM_CXDLGFRAME) * 2+
-										GetSystemMetrics(SM_CYCAPTION)),    //ウインドウの高さ
+		(SCREEN_WIDTH + GetSystemMetrics(SM_CXDLGFRAME) * 2),     //ウインドウの幅
+		(SCREEN_HEIGHT + GetSystemMetrics(SM_CXDLGFRAME) * 2 +
+			GetSystemMetrics(SM_CYCAPTION)),    //ウインドウの高さ
 		NULL,             //親ウインドウのハンドル
 		NULL,             //メニューハンドルまたは子ウインドウID
 		hInstance,        //インスタンスハンドル
 		NULL);            //ウインドウ作成データ
 
-	//初期化処理(ウインドウを作成してから行う)
+						  //初期化処理(ウインドウを作成してから行う)
 	if (FAILED(Init(hInstance, hWnd, TRUE)))
 	{
 		return -1;
@@ -109,8 +109,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//第2引数 :ウインドウのハンドル
 	//第3引数 :最初のメッセージ
 	//第4引数 :最後のメッセージ
-	while(1)
-	{ 
+	while (1)
+	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) != 0)//メッセージを取得しなかった場合"0"を返す
 		{//Windowsの処理
 			if (msg.message == WM_QUIT)
@@ -126,7 +126,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		else
 		{//DirectXの処理
-			if (NowTime - OldTime > 1000 / FPS ) {
+			if (NowTime - OldTime > 1000 / FPS) {
 				// 更新処理
 				Update();
 
@@ -280,7 +280,7 @@ HRESULT Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	}
 	InitInput(hInstance, hWnd);//入力情報の初期化
 	InitSound();
-	
+
 	Title_Texture = LoadTexture(TITLE_FILE, Title_Texture);//タイトルのテクスチャ読み込み
 	Tutorial_Texture = LoadTexture(Tutorial_FILE, Tutorial_Texture);//チュートリアルのテクスチャ読み込み
 	PadTutorial_Texture = LoadTexture(PadTutorial_FILE, PadTutorial_Texture);//ゲームパッドのチュートリアルのテクスチャ読み込み
@@ -304,7 +304,7 @@ void Uninit(void)
 {
 	UninitInput();
 	UninitSound();
-	
+
 	ReleaseTexture(Title_Texture);
 	ReleaseTexture(Result_Texture);
 	ReleaseTexture(Load_Texture);
@@ -387,7 +387,7 @@ void Update(void)
 			JoypadDI_Y = GetGamePadLeftStickY();
 
 
-			
+
 
 		}
 		break;
@@ -403,13 +403,14 @@ void Update(void)
 		//ゲームのCLEAR条件を記入
 		if (game->OutClearFlg())
 		{
-			Scene = RESULT;
 
-			//game->Init();
-			//
-			//game->Edit();
+			Scene = GAME_STAGE2;
 
-			//game->SetCoord();
+			game->Init();
+
+			game->Edit();
+
+			game->SetCoord();
 
 
 		}
@@ -420,6 +421,7 @@ void Update(void)
 			game->Update();
 		}
 		if (game->OutClearFlg()) {
+
 			Scene = RESULT;
 		}
 		break;
@@ -440,7 +442,8 @@ void Update(void)
 	case LOAD://ロード中(この間にゲームクラスのdeleteとnewを行う)
 		if (game != NULL)
 		{
-			
+			game->EnemyUnInit();
+
 			delete game;
 			game = new Game;//こいつに時間かかる
 			game->Init();
@@ -466,7 +469,7 @@ void Draw(void)
 	// Color   : サーフェスをクリアする色
 	// Z       : デプスバッファに保存する値
 	// Stencil : ステンシルバッファに保存する値(整数)
-	g_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(255,255,255,255), 1.0f, 0);
+	g_pD3DDevice->Clear(0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER), D3DCOLOR_RGBA(255, 255, 255, 255), 1.0f, 0);
 
 	// Direct3Dによる描画の開始
 	if (SUCCEEDED(g_pD3DDevice->BeginScene()))

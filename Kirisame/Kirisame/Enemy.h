@@ -30,11 +30,11 @@ protected:
 	float AnimeCount = 0;//アニメーション速度
 	int DrawCount = (int)(ENEMY_MOVESPEED * 2 * FPS);
 	AttackInfoT AttackInfo;//攻撃情報
-	//移動可能か判定フラグ
+						   //移動可能か判定フラグ
 	bool MoveFlagXRight = true;
-	bool MoveFlagYUp    = true;
-	bool MoveFlagXLeft  = true;
-	bool MoveFlagYDown  = true;
+	bool MoveFlagYUp = true;
+	bool MoveFlagXLeft = true;
+	bool MoveFlagYDown = true;
 
 	bool isFalling = false;
 	bool AttackMode = false;
@@ -52,7 +52,7 @@ public:
 
 	void Init(COORD);//初期化
 
-	bool Update(COORD,bool,bool,COORD);//更新
+	bool Update(COORD, bool, bool, COORD);//更新
 	void Move(void);//移動
 	void AvoidHole(PieceT, PieceT, PieceT, PieceT);
 	void AvoidAnotherEnemy(COORD);

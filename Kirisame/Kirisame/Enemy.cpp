@@ -39,24 +39,45 @@ void Enemy::Init(COORD GetCoord) {
 	//受け取った座標情報を反映する
 	Coord.X = GetCoord.X;
 	Coord.Y = GetCoord.Y;
-	
+
 	//どのマスにいるか
 	BlockCoord.X = ((GetCoord.X - (STAGEPOS_YOKO - (MASUWIDTH / 2))) / MASUWIDTH) - 1;
 	BlockCoord.Y = ((GetCoord.Y - (STAGEPOS_TATE - (MASUHEIGHT / 2))) / MASUHEIGHT) - 1;
 
 	Size = ENEMY_SIZE;
 	isAlive = true;
-	  MoveFlagXRight = true;
-	  MoveFlagYUp = true;
-	  MoveFlagXLeft = true;
-	  MoveFlagYDown = true;
+	MoveFlagXRight = true;
+	MoveFlagYUp = true;
+	MoveFlagXLeft = true;
+	MoveFlagYDown = true;
 
-	  isFalling = false;
-	  AttackMode = false;
-	  Attack = false;
+	isFalling = false;
+	AttackMode = false;
+	Attack = false;
+
+	MoveMode = RIGHT_MOVE_MODE;//移動パターン
+	MoveCount = 0;
+	Animation = 0;//アニメーション用変数
+	AnimeCount = 0;//アニメーション速度
+	DrawCount = (int)(ENEMY_MOVESPEED * 2 * FPS);
+
+	Texture = TexOp->BrownBearTex;
+	AttackInfo.Texture = TexOp->EnemyAttackTex;
+	DiveTexture = TexOp->EnemySunabokoriTex;
+
+	MoveFlagXRight = true;
+	MoveFlagYUp = true;
+	MoveFlagXLeft = true;
+	MoveFlagYDown = true;
+
+	isFalling = false;
+	AttackMode = false;
+	Attack = false;
+	isAlive = true;
+
 }
 
-bool Enemy::Update(COORD PlayerCoord,bool Diveflag,bool Attackflag,COORD ToCoord) {
+bool Enemy::Update(COORD PlayerCoord, bool Diveflag, bool Attackflag, COORD ToCoord) {
 	//更新処理
 	bool ReturnBool = false;
 
@@ -73,7 +94,7 @@ bool Enemy::Update(COORD PlayerCoord,bool Diveflag,bool Attackflag,COORD ToCoord
 	else {
 		AnimeCount += 1;
 	}
-	
+
 	//攻撃可能なら攻撃準備に入る
 	if (AttackMode == false && Attackflag == true && Diveflag == 1) {
 		AttackMode = true;//攻撃準備フラグ
@@ -94,7 +115,7 @@ bool Enemy::Update(COORD PlayerCoord,bool Diveflag,bool Attackflag,COORD ToCoord
 	//--------------------------------------------------------------------------------------
 
 	if (Diveflag) {//潜っているか
-		//プレイヤーの位置によって移動する目標地点を調整する
+				   //プレイヤーの位置によって移動する目標地点を調整する
 		if ((SubCoord.X < ENEMY_SEARCH_RAD * MASUWIDTH) && (SubCoord.Y < ENEMY_SEARCH_RAD * MASUHEIGHT)) {
 			//プレイヤーがテリトリーに近づいたら
 
@@ -136,7 +157,7 @@ bool Enemy::Update(COORD PlayerCoord,bool Diveflag,bool Attackflag,COORD ToCoord
 					}
 				}
 			}
-			else if (AttackMode == false || Diveflag == 0){
+			else if (AttackMode == false || Diveflag == 0) {
 				AttackInfo.Flag = false;//攻撃しない
 				Move();//移動
 			}
@@ -161,7 +182,7 @@ void Enemy::Move(void) {
 	SubCoord.Y = MokuhyoCoord.Y - Coord.Y;
 	//--------------------------------------
 
-		//X軸とY軸のより目標との距離があるほうを優先して移動する
+	//X軸とY軸のより目標との距離があるほうを優先して移動する
 	if ((SubCoord.X) * (SubCoord.X) > (SubCoord.Y) * (SubCoord.Y)) {
 		//X座標の方が離れている場合---------------------------------
 		if (MoveFlag) {
@@ -218,9 +239,9 @@ void Enemy::Move(void) {
 		//----------------------------------------------------------
 
 	}
-	else{
+	else {
 		//Y軸の方が離れている場合-----------------------------------
-		if (MoveFlag ) {
+		if (MoveFlag) {
 			//移動可能なら目標座標目指して移動
 			if (SubCoord.Y > 0) {
 				//下移動
@@ -240,7 +261,7 @@ void Enemy::Move(void) {
 					MoveFlag = false;
 				}
 			}
-			else{
+			else {
 				//何もしない
 			}
 		}

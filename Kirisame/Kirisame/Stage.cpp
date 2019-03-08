@@ -155,26 +155,6 @@ void Stage::RockInit(void)//岩の初期化
 		Rockinfo[num].Coord.X = NULL;//一旦NULLを入れてる
 		Rockinfo[num].Coord.Y = NULL;
 	}
-
-	//座標位置を入力(6.0)～(6.5)に６つ、(0.5)～(5.5)に６つ、(3.6)～(3.7)に２つ 　計１４個
-	for (int rocknum = 0, rockY = 0; rocknum < 6; rocknum++, rockY++) {
-
-		Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6);
-		Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
-
-	}
-	for (int rocknum = 6, rockX = 0; rocknum < 12; rocknum++, rockX++) {
-
-		Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-		Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 5);
-
-	}
-	for (int rocknum = 12, rockY = 6; rocknum < 14; rocknum++, rockY++) {
-
-		Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 3);
-		Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
-
-	}
 }
 
 void Stage::CakeInit(void)//ケーキの初期化
@@ -234,21 +214,25 @@ void Stage::SideEdit(void) {
 		// ===縦の辺から通行不可を指定===
 		//(7.2)
 		Side_Tate[2][7].isPassagable = false;
-		for (int setNum_row = 1; setNum_row < 4; setNum_row++) {
-			//(1.3)～(3.3)まで
+		for (int setNum_row = 0; setNum_row < 4; setNum_row++) {
+			//(0.3)～(3.3)まで
 			Side_Tate[3][setNum_row].isPassagable = false;
 		}
 		//(7.3)
 		Side_Tate[3][7].isPassagable = false;
 		for (int setNum_column = 7; setNum_column < 11; setNum_column++) {
 			//(7.6)～(10.6)まで
-			Side_Tate[setNum_column][7].isPassagable = false;
+			Side_Tate[6][setNum_column].isPassagable = false;
 		}
 		// ===次に横の辺の通行不可を指定===
 		Side_Yoko[3][6].isPassagable = false;
 		Side_Yoko[3][7].isPassagable = false;
+
 		Side_Yoko[7][6].isPassagable = false;
+		Side_Yoko[8][6].isPassagable = false;
+		Side_Yoko[9][6].isPassagable = false;
 		Side_Yoko[10][6].isPassagable = false;
+
 
 		break;
 	default:
@@ -522,7 +506,7 @@ void Stage::BlockDraw(void) {
 
 void Stage::WallDraw(void) {
 	//壁描画
-	
+
 	//横壁
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE - WALL_HUTOSA, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE + WALL_SIZE_HEIGHT, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
@@ -558,9 +542,11 @@ void Stage::CakeDraw(void) {
 		{
 			break;
 		}
-
-		Draw2dPolygon(Cakeinfo[num].Coord.X - Cakeinfo[num].Size / 2, Cakeinfo[num].Coord.Y - Cakeinfo[num].Size / 2, Cakeinfo[num].Size, Cakeinfo[num].Size, D3DCOLOR_ARGB(255, 255, 255, 255),
-			Cakeinfo[num].Texture, 0.0f, 0.0f, 1.0f, 1.0f);
+		if (Cakeinfo[num].isAlive)
+		{
+			Draw2dPolygon(Cakeinfo[num].Coord.X - Cakeinfo[num].Size / 2, Cakeinfo[num].Coord.Y - Cakeinfo[num].Size / 2, Cakeinfo[num].Size, Cakeinfo[num].Size, D3DCOLOR_ARGB(255, 255, 255, 255),
+				Cakeinfo[num].Texture, 0.0f, 0.0f, 1.0f, 1.0f);
+		}
 	}
 }
 //ステージ情報取り出し関数---------------------
