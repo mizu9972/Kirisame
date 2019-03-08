@@ -29,7 +29,7 @@ void UI::UIDraw(bool Dive_State) {
 	}
 	Draw2dPolygon(SCOREBOARD_X, SCOREBOARD_Y, SCOREBOARD_W, SCOREBOARD_H, D3DCOLOR_ARGB(255, 255, 255, 255), Scoreboard, 0, 0, 1, 1);//スコアボード
 	Draw2dPolygon(TIMEBOARD_X, TIMEBOARD_Y, TIMEBOARD_W, TIMEBOARD_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timeboard, 0, 0, 1, 1);//タイムボード
-		//潜ってるか潜ってないかで画像変更																															//潜ってるか潜ってないかで画像変更																															//潜ってるか潜ってないかで画像変更
+																																//潜ってるか潜ってないかで画像変更																															//潜ってるか潜ってないかで画像変更																															//潜ってるか潜ってないかで画像変更
 	if (Dive_State) {
 		Draw2dPolygon(PUI_X, PUI_Y, PUI_W, PUI_H, D3DCOLOR_ARGB(255, 255, 255, 255), Playerstatus, 0, 0, 0.5, 1);//プレイヤーステータス潜ってない
 	}
@@ -54,4 +54,23 @@ void UI::TIME(void) {
 
 void UI::GTIME(void) {
 	start = timeGetTime();       // スタート時間の取得
+}
+void UI::DrawRestMath(int Rest)
+{
+	float Tu = 0;
+	float Tv = 0;
+	RestMath = Rest;
+	Math.DigitOne = RestMath % 10;//1の位
+	Math.DigitTen = (RestMath % 100) / 10;//10の位
+	Math.DigitHundret = (RestMath % 1000) / 100;//100の位
+												//取得した位を元に数字テクスチャを描画
+	Tu = (Math.DigitOne % 5) * 0.2;
+	Tv = Math.DigitOne / 5 * 0.5;
+	Draw2dPolygon(SCORE_X, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1の位
+	Tu = (Math.DigitTen % 5) * 0.2;
+	Tv = Math.DigitTen / 5 * 0.5;
+	Draw2dPolygon(SCORE_X - TIMENUM_W, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10の位
+	Tu = (Math.DigitHundret % 5) * 0.2;
+	Tv = Math.DigitHundret / 5 * 0.5;
+	Draw2dPolygon(SCORE_X - TIMENUM_W * 2, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10の位
 }

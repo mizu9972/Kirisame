@@ -26,7 +26,7 @@ public:
 
 	void CutBoard(COORD);
 	void CutStage(int, int);
-	bool CheckBoard(int,int);
+	bool CheckBoard(int, int);
 	void BoardUpdate(COORD);
 
 };

@@ -6,22 +6,22 @@ extern long JoypadDI_X;
 extern long JoypadDI_Y;
 int DeathEnemyNum = 0;
 Game::Game(void) {
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	character = new Character;
 	stageBoardSystem = new StageBoardSystem;
 
 	ui = new UI;
 
 	AllocFlag = false;
-	//Enemy_num = ENEMY_STAGE1_NUM;//“G‚Ì”
+	//Enemy_num = ENEMY_STAGE1_NUM;//æ•µã®æ•°
 }
 
 Game::~Game(void) {
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	if (character != NULL) {
 		delete character;
 	}
-	
+
 	if (stageBoardSystem != NULL) {
 		delete stageBoardSystem;
 	}
@@ -31,7 +31,7 @@ Game::~Game(void) {
 }
 
 void Game::Init(void) {
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	switch (Scene) {
 	case GAME_STAGE1:
 		//brownBear = S1Brownbear;
@@ -66,27 +66,27 @@ void Game::Init(void) {
 	COORD setCoord = { PLAYER_STARTPOS_X ,PLAYER_STARTPOS_Y };
 	character->SetCoord(setCoord);
 
-	Dive_State = true;//Å‰‚Íö‚Á‚Ä‚È‚¢ó‘Ô‚©‚çƒXƒ^[ƒg
+	Dive_State = true;//æœ€åˆã¯æ½œã£ã¦ãªã„çŠ¶æ…‹ã‹ã‚‰ã‚¹ã‚¿ãƒ¼ãƒˆ
 	DeathEnemyNum = 0;
 	InitSound();
 
-	
+
 }
 
 void Game::Edit(void) {
-	//’¼Ú•ÒW
+	//ç›´æ¥ç·¨é›†
 	stageBoardSystem->stage->Edit();
 
 }
 
 void Game::SetCoord(void) {
-	//ƒIƒuƒWƒFƒNƒg‚ÌÀ•WŠi”[
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åº§æ¨™æ ¼ç´
 	stageBoardSystem->stage->SetCoord();
 
 }
 
 void Game::EnemyInit(void) {
-	//“G‚Ì‰Šú‰»
+	//æ•µã®åˆæœŸåŒ–
 	COORD coord[ENEMY_STAGE1_NUM + ENEMY_STAGE2_NUM];
 	switch (Scene) {
 	case GAME_STAGE1:
@@ -132,21 +132,22 @@ void Game::EnemyUnInit(void) {
 }
 
 void Game::Draw(void) {
-	//•`‰æ
-	//UI‚Ì•`‰æ
+	//æç”»
+	//UIã®æç”»
 	if (ui != NULL) {
 		ui->UIDraw(Dive_State);
+		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
 	}
-	if (Dive_State)//•‚ã‚µ‚Ä‚é‚Æ‚«
+	if (Dive_State)//æµ®ä¸Šã—ã¦ã‚‹ã¨ã
 	{
 		stageBoardSystem->stage->Tu = 0.0f;
 		stageBoardSystem->stage->Tv = 0.0f;
 	}
-	else {//ö‚Á‚Ä‚¢‚é
+	else {//æ½œã£ã¦ã„ã‚‹æ™‚
 		stageBoardSystem->stage->Tu = 0.5f;
 		stageBoardSystem->stage->Tv = 0.0f;
 	}
-	//ƒXƒe[ƒW‚Ì•`‰æ
+	//ã‚¹ãƒ†ãƒ¼ã‚¸ã®æç”»
 	if (stageBoardSystem != NULL) {
 		stageBoardSystem->stage->BlockDraw();
 		stageBoardSystem->stage->SideDraw();
@@ -154,11 +155,11 @@ void Game::Draw(void) {
 		stageBoardSystem->stage->RockDraw(Dive_State);
 		stageBoardSystem->stage->CakeDraw();
 	}
-	//ƒvƒŒƒCƒ„[‚Ì•`‰æ
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»
 	if (character != NULL) {
 		character->Draw();
 	}
-	//“GƒLƒƒƒ‰ƒNƒ^[‚Ì•`‰æ
+	//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æç”»
 	if (brownBear != NULL) {
 		for (int DrawNum = 0; DrawNum < Enemy_MaxNum; DrawNum++) {
 			if (brownBear[DrawNum].isAlive) {
@@ -170,27 +171,27 @@ void Game::Draw(void) {
 }
 
 void Game::Update(void) {
-	COORD coord;//ƒvƒŒƒCƒ„[‚ÌÀ•W
-	COORD wark_coord;//outcoord‚Å‚à‚ç‚Á‚½‚â‚ÂŠi”[
-	COORD enemyCoord;//“GƒLƒƒƒ‰ƒNƒ^[‚ÌÀ•W
-	COORD playerpos;//ƒvƒŒƒCƒ„[‚ÌÀ•W(‰æ–Ê“à‚ÌÀ•W)
-	COORD enemypos;//“GƒLƒƒƒ‰ƒNƒ^[‚ÌÀ•W(‰æ–Ê“à‚ÌÀ•W)
-	COORD ToCoord;//“GƒLƒƒƒ‰ƒNƒ^[‚Ì‰ŠúˆÊ’u
-	//ƒXƒe[ƒWî•ñ•ÛŠÇ—p
+	COORD coord;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™
+	COORD wark_coord;//outcoordã§ã‚‚ã‚‰ã£ãŸã‚„ã¤æ ¼ç´
+	COORD enemyCoord;//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åº§æ¨™
+	COORD playerpos;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™(ç”»é¢å†…ã®åº§æ¨™)
+	COORD enemypos;//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åº§æ¨™(ç”»é¢å†…ã®åº§æ¨™)
+	COORD ToCoord;//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åˆæœŸä½ç½®
+				  //ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±ä¿ç®¡ç”¨
 	PieceT  blockinfo;
 	PieceT tate;
 	PieceT yoko;
 	PieceT vertex;
 	//------------------
-	bool DIVE_TRIG = false;//‰¼‘zƒL[
-	bool EnemyAttackFlag = false;//UŒ‚‰Â”\‚©‚Ç‚¤‚©
-	bool EnemyAttack = false;//UŒ‚¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
+	bool DIVE_TRIG = false;//ä»®æƒ³ã‚­ãƒ¼
+	bool EnemyAttackFlag = false;//æ”»æ’ƒå¯èƒ½ã‹ã©ã†ã‹
+	bool EnemyAttack = false;//æ”»æ’ƒæˆåŠŸã—ãŸã‹ã©ã†ã‹
 
-	//XV
+							 //æ›´æ–°
 	if (GetKeyboardTrigger(DIK_SPACE)) {
 		DIVE_TRIG = true;
 	}
-	//ƒRƒ“ƒgƒ[ƒ‰‚Å‚Ì“ü—Íˆ—
+	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã§ã®å…¥åŠ›å‡¦ç†
 	if (g_pDIDevGamePad) {
 		if (GetGamePadTrigger(0) || GetGamePadTrigger(1) || GetGamePadTrigger(2) || GetGamePadTrigger(3)) {
 			DIVE_TRIG = true;
@@ -198,60 +199,60 @@ void Game::Update(void) {
 	}
 
 
-	//ƒvƒŒƒCƒ„[‚ÌXV-------------------------------
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°-------------------------------
 	if (character != NULL)
 	{
-		character->Update(Dive_State);//ˆø”‚Åö‚Á‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒO‚ğ“n‚·
+		character->Update(Dive_State);//å¼•æ•°ã§æ½œã£ã¦ã„ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°ã‚’æ¸¡ã™
 
-		wark_coord = character->OutCoord();//ƒLƒƒƒ‰‚Ì’¸“_À•Wó‚¯æ‚Á‚Ä‚¨‚­
+		wark_coord = character->OutCoord();//ã‚­ãƒ£ãƒ©ã®é ‚ç‚¹åº§æ¨™å—ã‘å–ã£ã¦ãŠã
 
 		tate = stageBoardSystem->stage->OutSide_Tate(wark_coord.X / 2, wark_coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(wark_coord.X / 2, wark_coord.Y / 2);
 		if (Dive_State == 1) {
-			character->CheckMove(tate.isPassagable, yoko.isPassagable);//–ß‚·‚â‚Â
+			character->CheckMove(tate.isPassagable, yoko.isPassagable);//æˆ»ã™ã‚„ã¤
 		}
 		coord = character->OutCoord();
 		playerpos = character->OutPos();
 	}
 	//-----------------------------------------------
-	if (DIVE_TRIG)//ö‚éA•‚ã‚·‚é
+	if (DIVE_TRIG)//æ½œã‚‹ã€æµ®ä¸Šã™ã‚‹
 	{
 		tate = stageBoardSystem->stage->OutSide_Tate(coord.X / 2, coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(coord.X / 2, coord.Y / 2);
 		vertex = stageBoardSystem->stage->OutVertexInfo(coord.X / 2, coord.Y / 2);
-		if (character->CheckDive(tate.isPassagable,yoko.isPassagable,vertex.isPassagable)) {
-			//•‚ã‚Å‚«‚éêŠ‚©”»’è
-			//ö‚é‚Ì‚ğØ‚è‘Ö‚¦‚é
+		if (character->CheckDive(tate.isPassagable, yoko.isPassagable, vertex.isPassagable)) {
+			//æµ®ä¸Šã§ãã‚‹å ´æ‰€ã‹åˆ¤å®š
+			//æ½œã‚‹ã®ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 			Dive_State = !Dive_State;
 			PlaySound(SunaSE);
 		}
 	}
 
-	//“GƒLƒƒƒ‰ƒNƒ^[‚ÌXV------------------------------------------------------------------------------------------------------------------------------------
+	//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æ›´æ–°------------------------------------------------------------------------------------------------------------------------------------
 	if (brownBear != NULL) {
 		for (int UpdateNum = 0; UpdateNum < Enemy_MaxNum; UpdateNum++) {
 			if (brownBear[UpdateNum].isAlive) {
-				enemyCoord = brownBear[UpdateNum].OutBlockCoord();//À•Wæ‚èo‚µ
+				enemyCoord = brownBear[UpdateNum].OutBlockCoord();//åº§æ¨™å–ã‚Šå‡ºã—
 				enemypos = brownBear[UpdateNum].OutPos();
 
 				if ((enemypos.X - playerpos.X)*(enemypos.X - playerpos.X) + (enemypos.Y - playerpos.Y)*(enemypos.Y - playerpos.Y) < (MASUWIDTH / 2 * 1.5f)*(MASUWIDTH / 2 * 1.5f)) {
-					//UŒ‚‰Â”\”ÍˆÍ“à‚È‚çƒtƒ‰ƒO‚ğtrue‚É
+					//æ”»æ’ƒå¯èƒ½ç¯„å›²å†…ãªã‚‰ãƒ•ãƒ©ã‚°ã‚’trueã«
 					EnemyAttackFlag = true;
 				}
 				else {
 					EnemyAttackFlag = false;
 				}
 
-				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y);//‘«Œ³‚Ìƒ}ƒXî•ñæ‚èo‚µ
+				blockinfo = stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y);//è¶³å…ƒã®ãƒã‚¹æƒ…å ±å–ã‚Šå‡ºã—
 				if (blockinfo.isCut) {
-					//ŒŠ‚É—‚¿‚é
+					//ç©´ã«è½ã¡ã‚‹
 					brownBear[UpdateNum].FallintoHole();
 					if (PollSound(FallSE) == false) {
 						PlaySound(FallSE);
 					}
 				}
 
-				//ŒŠ‚ğ”ğ‚¯‚é
+				//ç©´ã‚’é¿ã‘ã‚‹
 				brownBear[UpdateNum].AvoidHole(
 					stageBoardSystem->stage->OutBlockInfo(enemyCoord.X + 1, enemyCoord.Y),
 					stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y - 1),
@@ -259,14 +260,14 @@ void Game::Update(void) {
 					stageBoardSystem->stage->OutBlockInfo(enemyCoord.X, enemyCoord.Y + 1)
 				);
 
-				//•Ê‚Ì“GƒLƒƒƒ‰‚ğ”ğ‚¯‚é
+				//åˆ¥ã®æ•µã‚­ãƒ£ãƒ©ã‚’é¿ã‘ã‚‹
 
 				for (int avoidNum = 0; avoidNum < Enemy_MaxNum; avoidNum++) {
 					if (avoidNum == UpdateNum) {
-						continue;//©•ª©g‚ÍƒXƒLƒbƒv
+						continue;//è‡ªåˆ†è‡ªèº«ã¯ã‚¹ã‚­ãƒƒãƒ—
 					}
 					if (brownBear[avoidNum].isAlive == false) {
-						continue;//€‚ñ‚¾“G‚ÍƒXƒLƒbƒv
+						continue;//æ­»ã‚“ã æ•µã¯ã‚¹ã‚­ãƒƒãƒ—
 					}
 					brownBear[UpdateNum].AvoidAnotherEnemy(brownBear[avoidNum].OutBlockCoord());
 				}
@@ -322,20 +323,20 @@ void Game::Update(void) {
 	//--------------------------------------------------------------------------------------------------------------------------------------------------------
 	if (EnemyAttack) {
 
-		//ƒvƒŒƒCƒ„[‚Öƒ_ƒ[ƒW
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¸ãƒ€ãƒ¡ãƒ¼ã‚¸
 		character->Hit();
 
 	}
-	//ƒXƒe[ƒWî•ñ‚ÌXV
+	//ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±ã®æ›´æ–°
 	if (stageBoardSystem != NULL) {
-		if (Dive_State)//ö‚Á‚Ä‚¢‚È‚¢‚Ì‚İØ‚èæ‚é
+		if (Dive_State)//æ½œã£ã¦ã„ãªã„æ™‚ã®ã¿åˆ‡ã‚Šå–ã‚‹
 		{
-			stageBoardSystem->CutBoard(coord);//ƒLƒƒƒ‰ƒNƒ^[‚ÌˆÊ’u‚ğØ‚é
+			stageBoardSystem->CutBoard(coord);//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ä½ç½®ã‚’åˆ‡ã‚‹
 			stageBoardSystem->BoardUpdate(coord);
-			stageBoardSystem->stage->Check_Passagable();//Ø‚èæ‚ç‚ê‚½‚Æ‚±‚ë‚É‚Ís‚¯‚È‚¢‚æ‚¤‚É‚·‚é‚â‚Â
-			stageBoardSystem->stage->CheckCakeFall();//ƒP[ƒL‚ªØ‚è—‚¿‚Ä‚é‚©
-			stageBoardSystem->stage->FallingCake();
+			stageBoardSystem->stage->Check_Passagable();//åˆ‡ã‚Šå–ã‚‰ã‚ŒãŸã¨ã“ã‚ã«ã¯è¡Œã‘ãªã„ã‚ˆã†ã«ã™ã‚‹ã‚„ã¤
+			stageBoardSystem->stage->CheckCakeFall();//ã‚±ãƒ¼ã‚­ãŒåˆ‡ã‚Šè½ã¡ã¦ã‚‹ã‹
 		}
+		stageBoardSystem->stage->FallingCake();//ã‚±ãƒ¼ã‚­ãŒè½ã¡ã¦ã„ãå‡¦ç†
 	}
 	ui->TIME();
 }
@@ -345,7 +346,7 @@ void Game::Gettime(void) {
 	ui->GTIME();
 }
 
-bool Game::OutClearFlg(void)//“G‚ª0‚È‚çtrue‚ğ•Ô‚·
+bool Game::OutClearFlg(void)//æ•µãŒ0ãªã‚‰trueã‚’è¿”ã™
 {
 	if (DeathEnemyNum == Enemy_MaxNum) {
 		return true;

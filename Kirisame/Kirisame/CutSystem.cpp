@@ -44,7 +44,7 @@ void StageBoardSystem::CutBoard(COORD coord) {
 	stage->StageCut(coord.X, coord.Y);
 }
 
-bool StageBoardSystem::CheckBoard(int X ,int Y) {
+bool StageBoardSystem::CheckBoard(int X, int Y) {
 	//マスが切れているか判定する
 	//隣のマスが切れていないなら再帰処理で隣のマスを判定していく
 	//切れていた場合trueを返す
@@ -58,7 +58,7 @@ bool StageBoardSystem::CheckBoard(int X ,int Y) {
 	CheckedBoard[Y][X] = CHECKED;//調査済みにする
 
 	if (Board[Y][X] == DONTCUT) {//切れていないなら周囲を調査
-		//再帰処理
+								 //再帰処理
 		if (CheckBoard(X + 1, Y) == false) {//右
 			return false;
 		}
@@ -76,7 +76,7 @@ bool StageBoardSystem::CheckBoard(int X ,int Y) {
 	return true;//囲まれている
 }
 
-void StageBoardSystem::CutStage(int X,int Y){
+void StageBoardSystem::CutStage(int X, int Y) {
 	//囲まれている部分をまとめて切り落とす処理
 	if (Board[Y][X] == DONTCUT) {
 		//切れていないなら

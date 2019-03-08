@@ -3,17 +3,19 @@
 #include "2dpolygon.h"
 
 class _TexOp {
-	//“ÆŽ©‚ÅƒeƒNƒXƒ`ƒƒ“Ç‚Ýž‚Ý‚ðs‚¤ƒNƒ‰ƒX
-	//GameƒNƒ‰ƒX‚©‚ç“Æ—§‚µ‚Ä‚¨‚èAƒQ[ƒ€‹N“®Žž‚Éˆê“x‚¾‚¯ƒeƒNƒXƒ`ƒƒ‚ð“Ç‚Ýž‚ñ‚Å
-	//ƒ‹[ƒvˆ—‚ðŒy‚­‚³‚¹‚é
+	//ç‹¬è‡ªã§ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
+	//Gameã‚¯ãƒ©ã‚¹ã‹ã‚‰ç‹¬ç«‹ã—ã¦ãŠã‚Šã€ã‚²ãƒ¼ãƒ èµ·å‹•æ™‚ã«ä¸€åº¦ã ã‘ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚“ã§
+	//ãƒ«ãƒ¼ãƒ—å‡¦ç†ã‚’è»½ãã•ã›ã‚‹
 private:
 public:
-	static LPDIRECT3DTEXTURE9* PlayerTex;//ƒvƒŒƒCƒ„[
-	static LPDIRECT3DTEXTURE9* BrownBearTex;//“GƒLƒƒƒ‰ƒNƒ^[
-	static LPDIRECT3DTEXTURE9* EnemyAttackTex;//“GƒLƒƒƒ‰ƒNƒ^[UŒ‚
-	static LPDIRECT3DTEXTURE9* EnemySunabokoriTex;//“GƒLƒƒƒ‰»‚Ú‚±‚è
+	static LPDIRECT3DTEXTURE9* PlayerTex;//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	static LPDIRECT3DTEXTURE9* BrownBearTex;//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼
+	static LPDIRECT3DTEXTURE9* EnemyAttackTex;//æ•µã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æ”»æ’ƒ
+	static LPDIRECT3DTEXTURE9* EnemySunabokoriTex;//æ•µã‚­ãƒ£ãƒ©ç ‚ã¼ã“ã‚Š
 
-	//ƒXƒe[ƒW
+
+	//ã‚¹ãƒ†ãƒ¼ã‚¸
+
 	static LPDIRECT3DTEXTURE9* sideTextureYoko;
 	static LPDIRECT3DTEXTURE9* sideTextureTate;
 	static LPDIRECT3DTEXTURE9* blockTexture;

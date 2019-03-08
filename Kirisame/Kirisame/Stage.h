@@ -64,12 +64,12 @@ private:
 public:
 	Stage(void);
 	~Stage(void);
-	
+
 	float Tu = 0;//UV座標
 	float Tv = 0;
 
 	void Init(void);//初期化関数
-	//↑の関数内に入れる-------
+					//↑の関数内に入れる-------
 	void StageDataInit(void);
 	void SideInit(void);
 	void BlockInit(void);
@@ -79,7 +79,7 @@ public:
 	//-------------------------
 
 	void Edit(void);//初期化後の手入力編集
-	//↑の関数内に入れる-------
+					//↑の関数内に入れる-------
 	void StageDataEdit(void);
 	void SideEdit(void);
 	void BlockEdit(void);
@@ -87,7 +87,7 @@ public:
 	//-------------------------
 
 	void SetCoord(void);//ステージごとに座標を編集
-	//↑の関数内に入れる-------
+						//↑の関数内に入れる-------
 	void SetRockCoord(void);
 	void SetCakeCoord(void);
 	//-------------------------
@@ -97,7 +97,7 @@ public:
 	void RockDraw(bool);
 	void CakeDraw(void);
 
-	void StageCut(int,int);
+	void StageCut(int, int);
 	//ステージ情報取り出し関数
 	PieceT OutSide_Tate(int, int);
 	PieceT OutSide_Yoko(int, int);
@@ -107,5 +107,5 @@ public:
 	void Check_Passagable(void);//通行可能かどうかを判定
 	void CheckCakeFall(void);//ケーキが落ちたか
 	void FallingCake(void);//ケーキが落ちた時の処理
-
+	int RestMathCheck(void);//残りマスの数
 };
