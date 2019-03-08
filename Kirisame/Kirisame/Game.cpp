@@ -21,7 +21,7 @@ Game::~Game(void) {
 	if (character != NULL) {
 		delete character;
 	}
-	
+
 	if (stageBoardSystem != NULL) {
 		delete stageBoardSystem;
 	}
@@ -67,7 +67,7 @@ void Game::Init(void) {
 	DeathEnemyNum = 0;
 	InitSound();
 
-	
+
 }
 
 void Game::Edit(void) {
@@ -133,6 +133,7 @@ void Game::Draw(void) {
 	//UIの描画
 	if (ui != NULL) {
 		ui->UIDraw(Dive_State);
+		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
 	}
 	if (Dive_State)//浮上してるとき
 	{
@@ -173,7 +174,7 @@ void Game::Update(void) {
 	COORD playerpos;//プレイヤーの座標(画面内の座標)
 	COORD enemypos;//敵キャラクターの座標(画面内の座標)
 	COORD ToCoord;//敵キャラクターの初期位置
-	//ステージ情報保管用
+				  //ステージ情報保管用
 	PieceT  blockinfo;
 	PieceT tate;
 	PieceT yoko;
@@ -183,7 +184,7 @@ void Game::Update(void) {
 	bool EnemyAttackFlag = false;//攻撃可能かどうか
 	bool EnemyAttack = false;//攻撃成功したかどうか
 
-	//更新
+							 //更新
 	if (GetKeyboardTrigger(DIK_SPACE)) {
 		DIVE_TRIG = true;
 	}
@@ -216,7 +217,7 @@ void Game::Update(void) {
 		tate = stageBoardSystem->stage->OutSide_Tate(coord.X / 2, coord.Y / 2);
 		yoko = stageBoardSystem->stage->OutSide_Yoko(coord.X / 2, coord.Y / 2);
 		vertex = stageBoardSystem->stage->OutVertexInfo(coord.X / 2, coord.Y / 2);
-		if (character->CheckDive(tate.isPassagable,yoko.isPassagable,vertex.isPassagable)) {
+		if (character->CheckDive(tate.isPassagable, yoko.isPassagable, vertex.isPassagable)) {
 			//浮上できる場所か判定
 			//潜るのを切り替える
 			Dive_State = !Dive_State;

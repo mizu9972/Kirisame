@@ -5,7 +5,7 @@
 extern SCENE Scene;
 
 Stage::Stage(void) {
-	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	sideTextureYoko = TexOp->sideTextureYoko;
 	sideTextureTate = TexOp->sideTextureTate;
 	blockTexture = TexOp->blockTexture;
@@ -13,31 +13,31 @@ Stage::Stage(void) {
 	wallTexture = TexOp->wallTexture;
 }
 Stage::~Stage(void) {
-	//ãƒE‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//ƒfƒXƒgƒ‰ƒNƒ^
 }
 void Stage::Init(void) {
-	//åˆæœŸåŒE
+	//‰Šú‰»
 
-	//ã‚¹ãƒEEã‚¸ãƒEEã‚¿åˆæœŸåŒE
+	//ƒXƒe[ƒWƒf[ƒ^‰Šú‰»
 	StageDataInit();
-	//è¾ºã®åˆæœŸåŒE
+	//•Ó‚Ì‰Šú‰»
 	SideInit();
-	//ãƒã‚¹ã®åˆæœŸåŒE
+	//ƒ}ƒX‚Ì‰Šú‰»
 	BlockInit();
-	//é ‚ç‚¹ã®åˆæœŸåŒE
+	//’¸“_‚Ì‰Šú‰»
 	VertexInit();
-	//ROCKã®åˆæœŸåŒE
+	//ROCK‚Ì‰Šú‰»
 	RockInit();
-	//ã‚±ãƒ¼ã‚­ã®åˆæœŸåŒE
+	//ƒP[ƒL‚Ì‰Šú‰»
 	CakeInit();
 }
 
 void Stage::StageDataInit(void) {
-	//ã‚¹ãƒEEã‚¸ãƒEEã‚¿ã®åˆæœŸåŒE
-	//é ‚ç‚¹ã€€ã€€è¾ºã€€ã€€é ‚ç‚¹ã€€ã€€è¾ºã€€ã€€é ‚ç‚¹
-	//è¾ºã€€ã€€ãƒã‚¹ã€€ã€€è¾ºã€€ã€€ãƒã‚¹ã€€ã€€è¾º
-	//é ‚ç‚¹ã€€ã€€è¾ºã€€ã€€é ‚ç‚¹ã€€ã€€è¾ºã€€ã€€é ‚ç‚¹
-	//ã§ä¸¦ã¹ã¦ãE
+	//ƒXƒe[ƒWƒf[ƒ^‚Ì‰Šú‰»
+	//’¸“_@@•Ó@@’¸“_@@•Ó@@’¸“_
+	//•Ó@@ƒ}ƒX@@•Ó@@ƒ}ƒX@@•Ó
+	//’¸“_@@•Ó@@’¸“_@@•Ó@@’¸“_
+	//‚Å•À‚×‚Ä‚¢‚­
 	int Flag = 0;
 	for (int setY = 0; setY < STAGESIZE_IGOY; setY++) {
 		switch (setY % 2) {
@@ -74,7 +74,7 @@ void Stage::StageDataInit(void) {
 
 void Stage::SideInit(void) {
 
-	//ç¸¦å‘ãã®è¾ºã®åˆæœŸåŒE
+	//cŒü‚«‚Ì•Ó‚Ì‰Šú‰»
 	for (int setNum_retu = 0; setNum_retu < SIDEVERTICAL_NUM; setNum_retu++) {
 
 		for (int setNum_gyo = 0; setNum_gyo < SIDENUM_TATE; setNum_gyo++) {
@@ -85,12 +85,12 @@ void Stage::SideInit(void) {
 			Side_Tate[setNum_retu][setNum_gyo].isCut = false;
 			Side_Tate[setNum_retu][setNum_gyo].isActive = true;
 			Side_Tate[setNum_retu][setNum_gyo].Texture = sideTextureTate;
-			Side_Tate[setNum_retu][setNum_gyo].isPassagable = true;//é€šè¡Œå¯èƒ½ã«
+			Side_Tate[setNum_retu][setNum_gyo].isPassagable = true;//’Ês‰Â”\‚É
 
 		}
 	}
 
-	//æ¨ªå‘ãã®è¾ºã®åˆæœŸåŒE
+	//‰¡Œü‚«‚Ì•Ó‚Ì‰Šú‰»
 	for (int setNum_retu = 0; setNum_retu < SIDEHORIZONTAL_NUM; setNum_retu++) {
 
 		for (int setNum_gyo = 0; setNum_gyo < SIDENUM_YOKO; setNum_gyo++) {
@@ -102,14 +102,14 @@ void Stage::SideInit(void) {
 			Side_Yoko[setNum_retu][setNum_gyo].isCut = false;
 			Side_Yoko[setNum_retu][setNum_gyo].isActive = true;
 			Side_Yoko[setNum_retu][setNum_gyo].Texture = sideTextureYoko;
-			Side_Yoko[setNum_retu][setNum_gyo].isPassagable = true;//é€šè¡Œå¯èƒ½ã«
+			Side_Yoko[setNum_retu][setNum_gyo].isPassagable = true;//’Ês‰Â”\‚É
 
 		}
 	}
 }
 
 void Stage::BlockInit(void) {
-	//ãƒã‚¹ã®åˆæœŸåŒE
+	//ƒ}ƒX‚Ì‰Šú‰»
 	for (int setY = 0; setY < TATEMASU_NUM; setY++) {
 
 		for (int setX = 0; setX < YOKOMASU_NUM; setX++) {
@@ -121,7 +121,7 @@ void Stage::BlockInit(void) {
 			Blockinfo[setY][setX].isActive = true;
 
 			Blockinfo[setY][setX].Texture = blockTexture;
-			Blockinfo[setY][setX].isPassagable = true;//é€šè¡Œå¯èƒ½ã«
+			Blockinfo[setY][setX].isPassagable = true;//’Ês‰Â”\‚É
 
 		}
 	}
@@ -129,7 +129,7 @@ void Stage::BlockInit(void) {
 }
 
 void Stage::VertexInit(void) {
-	//é ‚ç‚¹ã®åˆæœŸåŒE
+	//’¸“_‚Ì‰Šú‰»
 
 	for (int setY = 0; setY < VERTEXY_NUM; setY++) {
 
@@ -142,27 +142,27 @@ void Stage::VertexInit(void) {
 			Vertexinfo[setY][setX].isActive = true;
 
 			Vertexinfo[setY][setX].Texture = NULL;
-			Vertexinfo[setY][setX].isPassagable = true;//é€šè¡Œå¯èƒ½ã«
+			Vertexinfo[setY][setX].isPassagable = true;//’Ês‰Â”\‚É
 
 		}
 	}
 }
-void Stage::RockInit(void)//å²©ã®åˆæœŸåŒE
+void Stage::RockInit(void)//Šâ‚Ì‰Šú‰»
 {
-	for (int num = 0; num < ROCK_NUM; num++)//ãƒE‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿ç”¨ã®ç¹°ã‚Šè¿”ã—å‡¦çE
+	for (int num = 0; num < ROCK_NUM; num++)//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ—p‚ÌŒJ‚è•Ô‚µˆ—
 	{
-		Rockinfo[num].Texture = TexOp->rockTexture;//ãƒE‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
-		Rockinfo[num].Coord.X = NULL;//ä¸€æ—¦NULLã‚’åEã‚Œã¦ã‚E
+		Rockinfo[num].Texture = TexOp->rockTexture;//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+		Rockinfo[num].Coord.X = NULL;//ˆê’UNULL‚ğ“ü‚ê‚Ä‚é
 		Rockinfo[num].Coord.Y = NULL;
 	}
 }
 
-void Stage::CakeInit(void)//ã‚±ãƒ¼ã‚­ã®åˆæœŸåŒE
+void Stage::CakeInit(void)//ƒP[ƒL‚Ì‰Šú‰»
 {
-	for (int num = 0; num < CAKE_NUM; num++)//ãƒE‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿ç”¨ã®ç¹°ã‚Šè¿”ã—å‡¦çE
+	for (int num = 0; num < CAKE_NUM; num++)//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ—p‚ÌŒJ‚è•Ô‚µˆ—
 	{
-		Cakeinfo[num].Texture = TexOp->cakeTexture;//ãƒE‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
-		Cakeinfo[num].Coord.X = NULL;//ä¸€æ—¦NULLã‚’åEã‚Œã¦ã‚E
+		Cakeinfo[num].Texture = TexOp->cakeTexture;//ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+		Cakeinfo[num].Coord.X = NULL;//ˆê’UNULL‚ğ“ü‚ê‚Ä‚é
 		Cakeinfo[num].Coord.Y = NULL;
 		Cakeinfo[num].isAlive = true;
 		Cakeinfo[num].isFalling = false;
@@ -172,15 +172,15 @@ void Stage::CakeInit(void)//ã‚±ãƒ¼ã‚­ã®åˆæœŸåŒE
 }
 
 void Stage::Edit(void) {
-	//ç›´æ¥ç·¨é›E
+	//’¼Ú•ÒW
 
-	//ã‚¹ãƒEEã‚¸ãƒEEã‚¿ç·¨é›E
+	//ƒXƒe[ƒWƒf[ƒ^•ÒW
 	StageDataEdit();
-	//è¾ºã®ç·¨é›E
+	//•Ó‚Ì•ÒW
 	SideEdit();
-	//ãƒã‚¹ã®ç·¨é›E
+	//ƒ}ƒX‚Ì•ÒW
 	BlockEdit();
-	//é ‚ç‚¹ã®ç·¨é›E
+	//’¸“_‚Ì•ÒW
 	VertexEdit();
 }
 
@@ -195,40 +195,39 @@ void Stage::SideEdit(void) {
 	case GAME_STAGE1:
 
 		for (int setNum_row = 0; setNum_row < 6; setNum_row++) {
-			//(6,0)EE6,5)ã¾ã§
-			Side_Yoko[setNum_row][6].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			//(6,0)`(6,5)‚Ü‚Å
+			Side_Yoko[setNum_row][6].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setNum_column = 0; setNum_column < 7; setNum_column++) {
-			//(0,5)EE6,5)ã¾ã§
-			Side_Tate[5][setNum_column].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			//(0,5)`(6,5)‚Ü‚Å
+			Side_Tate[5][setNum_column].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setNum_row = 6; setNum_row < 8; setNum_row++) {
-			//(6,3)EE7,3)ã¾ã§
-			Side_Yoko[setNum_row][3].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			//(6,3)`(7,3)‚Ü‚Å
+			Side_Yoko[setNum_row][3].isPassagable = false;//’Ês•s‰Â‚É
 		}
 
 		break;
 	case GAME_STAGE2:
-		// ===ç¸¦ã®è¾ºã‹ã‚‰é€šè¡Œä¸å¯ã‚’æŒ‡å®E==
+		// ===c‚Ì•Ó‚©‚ç’Ês•s‰Â‚ğw’è===
 		//(7.2)
 		Side_Tate[2][7].isPassagable = false;
 		for (int setNum_row = 0; setNum_row < 4; setNum_row++) {
-			//(0.3)EE3.3)ã¾ã§
+			//(0.3)`(3.3)‚Ü‚Å
 			Side_Tate[3][setNum_row].isPassagable = false;
 		}
 		//(7.3)
 		Side_Tate[3][7].isPassagable = false;
 		for (int setNum_column = 7; setNum_column < 11; setNum_column++) {
-			//(7.6)EE10.6)ã¾ã§
+			//(7.6)`(10.6)‚Ü‚Å
 			Side_Tate[6][setNum_column].isPassagable = false;
 		}
-		// ===æ¬¡ã«æ¨ªã®è¾ºã®é€šè¡Œä¸å¯ã‚’æŒ‡å®E==
+		// ===Ÿ‚É‰¡‚Ì•Ó‚Ì’Ês•s‰Â‚ğw’è===
 		Side_Yoko[3][6].isPassagable = false;
-
-		Side_Yoko[3][7].isPassagable = false;
-
+		Side_Yoko[3][7].isPassagable = false;		
+		
 		Side_Yoko[7][6].isPassagable = false;
 		Side_Yoko[8][6].isPassagable = false;
 		Side_Yoko[9][6].isPassagable = false;
@@ -250,17 +249,17 @@ void Stage::BlockEdit(void) {
 
 		for (int setX = 0; setX < 6; setX++) {
 
-			Blockinfo[5][setX].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[5][setX].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setY = 0; setY < 6; setY++) {
 
-			Blockinfo[setY][6].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[setY][6].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setY = 6; setY < 8; setY++) {
 
-			Blockinfo[setY][3].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[setY][3].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 
@@ -269,30 +268,30 @@ void Stage::BlockEdit(void) {
 
 		for (int setX = 6; setX < 8; setX++) {
 
-			Blockinfo[2][setX].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[2][setX].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setX = 0; setX < 4; setX++) {
 
-			Blockinfo[3][setX].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[3][setX].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setX = 6; setX < 8; setX++) {
 
-			Blockinfo[3][setX].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[3][setX].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
-		Blockinfo[6][1].isPassagable = false;//é€šè¡Œä¸å¯ã«
-		Blockinfo[6][4].isPassagable = false;//é€šè¡Œä¸å¯ã«
+		Blockinfo[6][1].isPassagable = false;//’Ês•s‰Â‚É
+		Blockinfo[6][4].isPassagable = false;//’Ês•s‰Â‚É
 
 		for (int setX = 6; setX < 10; setX++) {
 
-			Blockinfo[6][setX].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[6][setX].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 		for (int setY = 7; setY < 10; setY++) {
 
-			Blockinfo[setY][6].isPassagable = false;//é€šè¡Œä¸å¯ã«
+			Blockinfo[setY][6].isPassagable = false;//’Ês•s‰Â‚É
 
 		}
 
@@ -309,9 +308,9 @@ void Stage::VertexEdit(void) {
 
 void Stage::SetCoord(void) {
 
-	//å²©ã®åº§æ¨™æ ¼ç´E
+	//Šâ‚ÌÀ•WŠi”[
 	SetRockCoord();
-	//ã‚±ãƒ¼ã‚­ã®åº§æ¨™æ ¼ç´E
+	//ƒP[ƒL‚ÌÀ•WŠi”[
 	SetCakeCoord();
 
 }
@@ -320,7 +319,7 @@ void Stage::SetRockCoord(void) {
 	switch (Scene) {
 
 	case GAME_STAGE1:
-		//åº§æ¨™ä½ç½®ã‚’åEåŠE6.0)EE6.5)ã«E–ã¤ã€E0.5)EE5.5)ã«E–ã¤ã€E3.6)EE3.7)ã«E’ã¤ ã€€è¨ˆï¼‘ï¼”å€E
+		//À•WˆÊ’u‚ğ“ü—Í(6.0)`(6.5)‚É‚U‚ÂA(0.5)`(5.5)‚É‚U‚ÂA(3.6)`(3.7)‚É‚Q‚Â @Œv‚P‚SŒÂ
 		for (int rocknum = 0, rockY = 0; rocknum < 6; rocknum++, rockY++) {
 
 			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6);
@@ -342,8 +341,8 @@ void Stage::SetRockCoord(void) {
 
 		break;
 	case GAME_STAGE2:
-		//åº§æ¨™ä½ç½®ã‚’åEåŠE6.2)EE7.2)ã«E’ã¤ã€E0.3)EE3.3)ã«E“ã¤ã€E6.3)EE7.3)ã«E’ã¤
-		//              (1.6)ã€E4.6)ã«E’ã¤ã€E6.6)EE9.6)ã«E”ã¤ã€E6.7)EE6.9)ã«E“ã¤ã€€è¨ˆï¼‘ï¼—ã¤
+		//À•WˆÊ’u‚ğ“ü—Í(6.2)`(7.2)‚É‚Q‚ÂA(0.3)`(3.3)‚É‚R‚ÂA(6.3)`(7.3)‚É‚Q‚Â
+		//              (1.6)A(4.6)‚É‚Q‚ÂA(6.6)`(9.6)‚É‚S‚ÂA(6.7)`(6.9)‚É‚R‚Â@Œv‚P‚V‚Â
 		for (int rocknum = 0, rockX = 6; rocknum < 2; rocknum++, rockX++) {
 
 			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
@@ -393,14 +392,14 @@ void Stage::SetCakeCoord(void) {
 	switch (Scene) {
 
 	case GAME_STAGE1:
-		////åº§æ¨™åEåŠ›ã€€(4.2)ã€E8.2)ã®E’ã‹æ‰€
+		////À•W“ü—Í@(4.2)A(8.2)‚Ì‚Q‚©Š
 		//Cakeinfo[0].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 4);
 		//Cakeinfo[0].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 2);
 		//Cakeinfo[1].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 8);
 		//Cakeinfo[1].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 2);
 
-		//åº§æ¨™åEåŠ›ã€€(4.2)ã€E8.2)ã®2ã‹æ‰€
-		Cakeinfo[0].MathPos.X = 4;//ãƒã‚¹ã®ã©ã“ã«ãE‚‹ãE
+		//À•W“ü—Í@(4.2)A(8.2)‚Ì2‚©Š
+		Cakeinfo[0].MathPos.X = 4;//ƒ}ƒX‚Ì‚Ç‚±‚É‚¢‚é‚©
 		Cakeinfo[0].MathPos.Y = 2;
 		Cakeinfo[0].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * Cakeinfo[0].MathPos.X) + CAKESIZE / 2;
 		Cakeinfo[0].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * Cakeinfo[0].MathPos.Y) + CAKESIZE / 2;
@@ -412,7 +411,7 @@ void Stage::SetCakeCoord(void) {
 
 		break;
 	case GAME_STAGE2:
-		//åº§æ¨™åEåŠ›ã€€(8.1)ã€E1.6)ã€E6.4)ã®E“ã‹æ‰€
+		//À•W“ü—Í@(8.1)A(1.6)A(6.4)‚Ì‚R‚©Š
 		Cakeinfo[0].MathPos.X = 8;
 		Cakeinfo[0].MathPos.Y = 1;
 		Cakeinfo[1].MathPos.X = 2;
@@ -436,14 +435,14 @@ void Stage::SetCakeCoord(void) {
 }
 
 void Stage::StageCut(int X, int Y) {
-	//åˆE‚‹å ´æ‰€ã‹ã‚‰ä½•ã‚’åˆE‚‹ãEé ‚ç‚¹ãƒ»è¾ºãƒ»ãƒã‚¹)ã€ã©ã“ã‚’åˆE‚‹ã‹ã‚’æŒE®šã—ã¦åˆE‚‹
+	//Ø‚éêŠ‚©‚ç‰½‚ğØ‚é‚©(’¸“_E•ÓEƒ}ƒX)A‚Ç‚±‚ğØ‚é‚©‚ğw’è‚µ‚ÄØ‚é
 	switch (StageData[Y][X]) {
 	case Vertex:
 		Vertexinfo[Y / 2][X / 2].isCut = true;
 		break;
 
 	case Side:
-		//æ¨ªå‘ãã®è¾ºã‹ç¸¦å‘ãã®è¾ºã‹å ´æ‰€ã«ã‚ˆã£ã¦åˆ¤å®E
+		//‰¡Œü‚«‚Ì•Ó‚©cŒü‚«‚Ì•Ó‚©êŠ‚É‚æ‚Á‚Ä”»’è
 		if (Y % 2 == 0) {
 			Side_Yoko[Y / 2][X / 2].isCut = true;
 		}
@@ -459,11 +458,11 @@ void Stage::StageCut(int X, int Y) {
 }
 
 void Stage::SideDraw(void) {
-	//æ¨ªè¾ºæç”»
+	//‰¡•Ó•`‰æ
 	for (int drawY = 0; drawY < SIDEHORIZONTAL_NUM; drawY++) {
 		for (int drawX = 0; drawX < SIDENUM_YOKO; drawX++) {
 			if (Side_Yoko[drawY][drawX].isCut) {
-				//åˆE‚Œã¦ãE‚‹ã‹ã©ãE‹ã§æç”»ã‚’å¤‰ãˆã‚E
+				//Ø‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Å•`‰æ‚ğ•Ï‚¦‚é
 				Draw2dPolygon(Side_Yoko[drawY][drawX].Coord.X, Side_Yoko[drawY][drawX].Coord.Y, MASUWIDTH, SIDESIZE_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), sideTextureYoko, 0, 0, 1, 0.2f);
 			}
 			else {
@@ -473,11 +472,11 @@ void Stage::SideDraw(void) {
 		}
 	}
 
-	//ç¸¦è¾ºæç”»
+	//c•Ó•`‰æ
 	for (int drawY = 0; drawY < SIDEVERTICAL_NUM; drawY++) {
 		for (int drawX = 0; drawX < SIDENUM_TATE; drawX++) {
 			if (Side_Tate[drawY][drawX].isCut) {
-				//åˆE‚Œã¦ãE‚‹ã‹ã©ãE‹ã§æç”»ã‚’å¤‰ãˆã‚E
+				//Ø‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Å•`‰æ‚ğ•Ï‚¦‚é
 
 				Draw2dPolygon(Side_Tate[drawY][drawX].Coord.X, Side_Tate[drawY][drawX].Coord.Y, SIDESIZE_HUTOSA, MASUHEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), sideTextureTate, 0, 0, 0.2f, 1);
 			}
@@ -490,11 +489,11 @@ void Stage::SideDraw(void) {
 }
 
 void Stage::BlockDraw(void) {
-	//ãƒã‚¹æç”»
+	//ƒ}ƒX•`‰æ
 	for (int drawY = 0; drawY < TATEMASU_NUM; drawY++) {
 		for (int drawX = 0; drawX < YOKOMASU_NUM; drawX++) {
 			if (Blockinfo[drawY][drawX].isCut) {
-				//åˆE‚Œã¦ãE‚‹ã‹ã©ãE‹ã§æç”»ã‚’å¤‰ãˆã‚E
+				//Ø‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Å•`‰æ‚ğ•Ï‚¦‚é
 				Draw2dPolygon(Blockinfo[drawY][drawX].Coord.X, Blockinfo[drawY][drawX].Coord.Y, MASUWIDTH, MASUHEIGHT + 1, D3DCOLOR_ARGB(255, 255, 255, 255), cutblockTexture, 0, 0, 1, 1);
 			}
 			else {
@@ -506,13 +505,13 @@ void Stage::BlockDraw(void) {
 }
 
 void Stage::WallDraw(void) {
-	//å£æç”»
-
-	//æ¨ªå£E
+	//•Ç•`‰æ
+	
+	//‰¡•Ç
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE - WALL_HUTOSA, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE + WALL_SIZE_HEIGHT, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 
-	//ç¸¦å£E
+	//c•Ç
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE, WALL_HUTOSA, WALL_SIZE_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 	Draw2dPolygon(STAGEPOS_YOKO + WALL_SIZE_WIDTH, STAGEPOS_TATE, WALL_HUTOSA, WALL_SIZE_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 }
@@ -550,7 +549,8 @@ void Stage::CakeDraw(void) {
 		}
 	}
 }
-//ã‚¹ãƒEEã‚¸æƒE ±å–ã‚Šå‡ºã—é–¢æ•°---------------------
+
+//ƒXƒe[ƒWî•ñæ‚èo‚µŠÖ”---------------------
 PieceT Stage::OutSide_Tate(int X, int Y) {
 	PieceT rtn;
 	if (X >= SIDENUM_TATE || X < 0 || Y >= SIDEVERTICAL_NUM || Y < 0) {
@@ -588,35 +588,35 @@ PieceT Stage::OutVertexInfo(int X, int Y) {
 }
 //---------------------------------------------
 
-void Stage::Check_Passagable(void)//é€šè¡Œå¯èƒ½ã‹åˆ¤å®E
+void Stage::Check_Passagable(void)//’Ês‰Â”\‚©”»’è
 {
 	//////////////////////////////////////////////////////
-	//æ¨ªè¾ºã®é€šè¡ŒçŠ¶æ…‹ç¢ºèªE
-	for (int setNum_retu = 1; setNum_retu < SIDEHORIZONTAL_NUM - 1; setNum_retu++) {//ä¸­
+	//‰¡•Ó‚Ì’Êsó‘ÔŠm”F
+	for (int setNum_retu = 1; setNum_retu < SIDEHORIZONTAL_NUM - 1; setNum_retu++) {//’†
 
 		for (int setNum_gyo = 0; setNum_gyo < SIDENUM_YOKO; setNum_gyo++) {
 			if (Blockinfo[setNum_retu - 1][setNum_gyo].isCut
-				&&Blockinfo[setNum_retu][setNum_gyo].isCut) {//ä¸Šä¸‹ãEãƒ–ãƒ­ãƒE‚¯ãŒåEã‚Šå–ã‚‰ã‚Œã¦ãEŸã‚E
-				Side_Yoko[setNum_retu][setNum_gyo].isPassagable = false;//é€šè¡Œä¸å¯ã«
+				&&Blockinfo[setNum_retu][setNum_gyo].isCut) {//ã‰º‚ÌƒuƒƒbƒN‚ªØ‚èæ‚ç‚ê‚Ä‚¢‚½‚ç
+				Side_Yoko[setNum_retu][setNum_gyo].isPassagable = false;//’Ês•s‰Â‚É
 			}
 		}
 	}
 	//////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////
-	//ç¸¦è¾ºã®é€šè¡ŒçŠ¶æ…‹ç¢ºèªE
-	for (int setNum_retu = 0; setNum_retu < SIDEVERTICAL_NUM; setNum_retu++) {//ä¸­
+	//c•Ó‚Ì’Êsó‘ÔŠm”F
+	for (int setNum_retu = 0; setNum_retu < SIDEVERTICAL_NUM; setNum_retu++) {//’†
 		for (int setNum_gyo = 1; setNum_gyo < SIDENUM_TATE - 1; setNum_gyo++) {
 			if (Blockinfo[setNum_retu][setNum_gyo].isCut
-				&&Blockinfo[setNum_retu][setNum_gyo - 1].isCut) {//å·¦å³ã®ãƒ–ãƒ­ãƒE‚¯ãŒåEã‚Šå–ã‚‰ã‚Œã¦ãEŸã‚E
-				Side_Tate[setNum_retu][setNum_gyo].isPassagable = false;//é€šè¡Œä¸å¯ã«
+				&&Blockinfo[setNum_retu][setNum_gyo - 1].isCut) {//¶‰E‚ÌƒuƒƒbƒN‚ªØ‚èæ‚ç‚ê‚Ä‚¢‚½‚ç
+				Side_Tate[setNum_retu][setNum_gyo].isPassagable = false;//’Ês•s‰Â‚É
 			}
 		}
 	}
 	//////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////
-	//é ‚ç‚¹ã®é€šè¡ŒçŠ¶æ…‹ç¢ºèªE
+	//’¸“_‚Ì’Êsó‘ÔŠm”F
 	for (int setNum_retu = 1; setNum_retu < VERTEXY_NUM - 1; setNum_retu++) {
 		for (int setNum_gyo = 1; setNum_gyo < VERTEXX_NUM - 1; setNum_gyo++) {
 			if (Blockinfo[setNum_retu][setNum_gyo].isCut
@@ -632,17 +632,17 @@ void Stage::Check_Passagable(void)//é€šè¡Œå¯èƒ½ã‹åˆ¤å®E
 }
 void Stage::CheckCakeFall(void)
 {
-	PieceT CheckCake;//ãƒãƒ£ãƒE‚¯ã‚’ã™ã‚‹ç”¨
+	PieceT CheckCake;//ƒ`ƒƒƒbƒN‚ğ‚·‚é—p
 	for (int num = 0; num < CAKE_NUM; num++)
 	{
-		if (Cakeinfo[num].MathPos.X == NULL&&Cakeinfo[num].MathPos.Y == NULL)//ç©ºãªã‚‰åEçE‚’æŠœã‘ã‚E
+		if (Cakeinfo[num].MathPos.X == NULL&&Cakeinfo[num].MathPos.Y == NULL)//‹ó‚È‚çˆ—‚ğ”²‚¯‚é
 		{
 			break;
 		}
 		CheckCake = OutBlockInfo(Cakeinfo[num].MathPos.X, Cakeinfo[num].MathPos.Y);
-		if (CheckCake.isCut)//ã‚±ãƒ¼ã‚­ã®ä¸‹ãEãƒã‚¹ãŒåEã‚Šå–ã‚‰ã‚Œã¦ãEŸã‚E
+		if (CheckCake.isCut)//ƒP[ƒL‚Ì‰º‚Ìƒ}ƒX‚ªØ‚èæ‚ç‚ê‚Ä‚¢‚½‚ç
 		{
-			Cakeinfo[num].isFalling = true;//è½ã¡ãE
+			Cakeinfo[num].isFalling = true;//—‚¿‚½
 		}
 
 	}
@@ -655,16 +655,17 @@ void Stage::FallingCake(void)
 		{
 			if (Cakeinfo[num].Size <= 0)
 			{
-				Cakeinfo[num].isAlive = false;//ã‚±ãƒ¼ã‚­ã®æ­»
+				Cakeinfo[num].isAlive = false;//ƒP[ƒL‚Ì€
 				Cakeinfo[num].Size = 0;
 			}
 			Cakeinfo[num].Size -= 1;
 		}
 	}
 }
-int Stage::RestMathCheck(void)//æ®‹ã‚Šã®ãƒã‚¹ã®æ•°ã‚’è¿”ã™
+
+int Stage::RestMathCheck(void)//c‚è‚Ìƒ}ƒX‚Ì”‚ğ•Ô‚·
 {
-	int RestMath = 0;//æ®‹ã‚Šãƒã‚¹ã®æ•°
+	int RestMath = 0;//c‚èƒ}ƒX‚Ì”
 	PieceT Check;
 	for (int num_retu = 0; num_retu < YOKOMASU_NUM; num_retu++)
 	{
@@ -677,5 +678,5 @@ int Stage::RestMathCheck(void)//æ®‹ã‚Šã®ãƒã‚¹ã®æ•°ã‚’è¿”ã™
 			}
 		}
 	}
-	return RestMath;//æ®‹ã‚Šãƒã‚¹ã®æ•°ã‚’è¿”ã™
+	return RestMath;//c‚èƒ}ƒX‚Ì”‚ğ•Ô‚·
 }
