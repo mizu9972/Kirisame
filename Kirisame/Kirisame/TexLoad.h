@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "2dpolygon.h"
 
@@ -9,6 +9,7 @@ class _TexOp {
 private:
 public:
 	static LPDIRECT3DTEXTURE9* PlayerTex;//プレイヤー
+	static LPDIRECT3DTEXTURE9* PlayerLightTex;//プレイヤーの光沢
 	static LPDIRECT3DTEXTURE9* BrownBearTex;//敵キャラクター
 	static LPDIRECT3DTEXTURE9* EnemyAttackTex;//敵キャラクター攻撃
 	static LPDIRECT3DTEXTURE9* EnemySunabokoriTex;//敵キャラ砂ぼこり
@@ -32,7 +33,7 @@ public:
 	static LPDIRECT3DTEXTURE9* UI_PlayerStatus;
 	static LPDIRECT3DTEXTURE9* UI_Discription;
 	static LPDIRECT3DTEXTURE9* UI_Background;
-
+	static LPDIRECT3DTEXTURE9* UI_ContDiscription;
 
 	_TexOp(void);
 	~_TexOp(void);

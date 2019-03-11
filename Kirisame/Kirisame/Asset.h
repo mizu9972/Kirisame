@@ -6,7 +6,8 @@
 #define TILE_TEX_FILE "asset/MASU.png"//ステージのマスの画像
 #define TILE_CUT_TEX_FILE "asset/tile1.jpg"//切れたあとのマスの画像
 
-#define HIRE_TEX_FILE "asset/HIRE.png" //プレイヤーの背ビレ
+#define HIRE_TEX_FILE "asset/HIRE_ver2.png" //プレイヤーの背ビレ
+#define HIRE_BRIGHT_TEX_FILE "asset/HIRE_BRIGHT.png"//光沢
 
 #define ENEMY_BROWNBEAR_TEX_FILE "asset/bear_anim_ver2.png"//敵キャラクターの画像
 #define ENEMY_SLASH_TEX_FILE "asset/tumeato.png"//敵キャラクターの攻撃の画像
@@ -32,6 +33,7 @@
 #define UIPlayerstatus_FILE "asset/UI_playerstatus.png"//プレイヤーステータス画像
 #define DESCRIPTION_FILE "asset/Description.png"//操作説明画像UI
 #define BACKGROUND_FILE "asset/background.png"//背景画像
+#define CONTDISCRIPTION "asset/cont_UI.png"//コントローラの操作説明
 
 //------------------------------------------------------------
 //BGM・SE

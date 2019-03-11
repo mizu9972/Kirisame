@@ -27,7 +27,11 @@ typedef struct
 {
 	//岩のやつ
 	COORD Coord;
+	COORD MathPos;//岩のマス
 	LPDIRECT3DTEXTURE9* Texture;
+	float Size;
+	bool isFalling;
+	bool isAlive;
 }RockState;
 
 typedef struct
@@ -106,5 +110,7 @@ public:
 	void Check_Passagable(void);//通行可能かどうかを判定
 	void CheckCakeFall(void);//ケーキが落ちたか
 	void FallingCake(void);//ケーキが落ちた時の処理
+	void CheckRockFall(void);//岩が落ちたか
+	void FallingRock(void);//岩が落ちた時の処理
 	int RestMathCheck(void);//残りマスの数
 };

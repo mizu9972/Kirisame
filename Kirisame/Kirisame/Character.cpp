@@ -12,6 +12,17 @@
 extern LPDIRECT3DDEVICE9 g_pD3DDevice;
 extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 
+typedef struct {
+	float CoordX;
+	float CoordY;
+	float LightU;
+	float LightV;
+	float LightW;
+	float LightH;
+	float LightTexSizeU;
+	float LightTexSizeV;
+}_LightingT;
+
 Character::Character(void) {
 	//初期位置をセット
 	Coord.X = PLAYER_STARTPOS_X;
@@ -26,6 +37,7 @@ Character::Character(void) {
 	Pos_Vertex.Y = 4;
 	//テクスチャセット
 	Texture = TexOp->PlayerTex;
+	LightTexture = TexOp->PlayerLightTex;
 	KeyWait = 0;
 	Inputflg = false;
 
@@ -41,7 +53,6 @@ Character::~Character(void) {
 
 void Character::SetCoord(COORD inCoord) {
 	memcpy(&Coord, &inCoord, sizeof(COORD));
-
 	//初期位置の配列をセット
 	GroundInfo.X = (inCoord.X - STAGEPOS_YOKO) / (MASUWIDTH / 2);
 	GroundInfo.Y = (inCoord.Y - STAGEPOS_TATE) / (MASUHEIGHT / 2);
@@ -53,17 +64,61 @@ void Character::SetCoord(COORD inCoord) {
 	//サメの向きを初期状態に
 	Tu = 0;
 	Tv = 0;
-
 }
+
 
 void Character::Draw(void) {
 	//キャラを描画
 	Draw2dPolygon(Coord.X - CHARA_SIZE / 2, Coord.Y - CHARA_SIZE + HOSEITI, CHARA_SIZE, CHARA_SIZE, D3DCOLOR_ARGB(255, 255, 255, 255), Texture, Tu, Tv, 0.5f, 0.5f);
+
+	//光沢描画処理
+	_LightingT LightingStatus;
+	float TexCoordX = GroundInfo.X / 2 * PLAYER_LIGHT_SIZEX;
+	float TexCoordY = GroundInfo.Y / 2 * PLAYER_LIGHT_SIZEY;
+
+	if (Tv < 0.5) {
+		//横向きの時の設定
+		LightingStatus.CoordX = Coord.X - CHARA_SIZE / 2 + CHARA_SIZE - (CHARA_SIZE * TexCoordX);
+		LightingStatus.CoordY = Coord.Y - CHARA_SIZE;
+		LightingStatus.LightU = 0.5f + Tu - (TexCoordX * 0.5f);
+		LightingStatus.LightV = Tv;
+		LightingStatus.LightW = 0.5f * PLAYER_LIGHT_SIZEX;
+		LightingStatus.LightH = 0.5f;
+		LightingStatus.LightTexSizeU = CHARA_SIZE * PLAYER_LIGHT_SIZEX;
+		LightingStatus.LightTexSizeV = CHARA_SIZE;
+
+		//UV値がオーバーしないように
+		if (LightingStatus.LightU - Tu + LightingStatus.LightW > 0.5f) {
+			LightingStatus.LightW = 0.5f - (LightingStatus.LightU - Tu);
+		}
+	}
+
+	else if (Tv >= 0.5f) {
+		//縦向きの時の設定
+		LightingStatus.CoordX = Coord.X - CHARA_SIZE / 2;
+		LightingStatus.CoordY = Coord.Y - CHARA_SIZE + CHARA_SIZE - (CHARA_SIZE * TexCoordY);
+		LightingStatus.LightU = Tu;
+		LightingStatus.LightV = 0.5f + Tv - (TexCoordY * 0.5f);
+		LightingStatus.LightW = 0.5f;
+		LightingStatus.LightH = 0.5f * PLAYER_LIGHT_SIZEY;
+		LightingStatus.LightTexSizeU = CHARA_SIZE;
+		LightingStatus.LightTexSizeV = CHARA_SIZE * PLAYER_LIGHT_SIZEY;
+
+		//UV値がオーバーしないように
+		if (LightingStatus.LightV - Tv + LightingStatus.LightH > 0.5f) {
+			LightingStatus.LightH = 0.5f - (LightingStatus.LightV - Tv);
+		}
+	}
+	//光沢描画
+	Draw2dPolygon(LightingStatus.CoordX, LightingStatus.CoordY + HOSEITI, LightingStatus.LightTexSizeU, LightingStatus.LightTexSizeV, D3DCOLOR_ARGB(255, 255, 255, 255), LightTexture,
+		LightingStatus.LightU, LightingStatus.LightV, LightingStatus.LightW, LightingStatus.LightH);
+
 }
 
 void Character::Move(void)
 {
 	//仮想キー
+
 	bool UP_TRIG = false;
 	bool DOWN_TRIG = false;
 	bool LEFT_TRIG = false;
@@ -71,8 +126,8 @@ void Character::Move(void)
 
 	memcpy(&wark_coord, &Coord, sizeof(COORD));//キャラの座標の退避用
 	memcpy(&wark_groundinfo, &GroundInfo, sizeof(COORD));//キャラの配列座標の退避用
-
-														 //対応するキーが押されたら(キーボード)
+														 
+	//対応するキーが押されたら(キーボード)
 	if (GetKeyboardPress(DIK_UP) && Inputflg == false) {
 		UP_TRIG = true;
 		Inputflg = true;

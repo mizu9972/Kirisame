@@ -11,6 +11,8 @@ private:
 	COORD GroundInfo;//辺とか頂点とかの配列格納するやつ
 	COORD Pos_Vertex;//現在どこの頂点にいるか
 	LPDIRECT3DTEXTURE9* Texture;//テクスチャ
+	LPDIRECT3DTEXTURE9* LightTexture;
+
 	float Tu;//U
 	float Tv;//V
 	int KeyWait;//キーのウェイト

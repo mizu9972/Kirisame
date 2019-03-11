@@ -154,6 +154,9 @@ void Stage::RockInit(void)//岩の初期化
 		Rockinfo[num].Texture = TexOp->rockTexture;//テクスチャ読み込み
 		Rockinfo[num].Coord.X = NULL;//一旦NULLを入れてる
 		Rockinfo[num].Coord.Y = NULL;
+		Rockinfo[num].isAlive = true;
+		Rockinfo[num].isFalling = false;
+		Rockinfo[num].Size = ROCKSIZE;
 	}
 }
 
@@ -226,9 +229,8 @@ void Stage::SideEdit(void) {
 		}
 		// ===次に横の辺の通行不可を指定===
 		Side_Yoko[3][6].isPassagable = false;
-
-		Side_Yoko[3][7].isPassagable = false;
-
+		Side_Yoko[3][7].isPassagable = false;		
+		
 		Side_Yoko[7][6].isPassagable = false;
 		Side_Yoko[8][6].isPassagable = false;
 		Side_Yoko[9][6].isPassagable = false;
@@ -322,21 +324,24 @@ void Stage::SetRockCoord(void) {
 	case GAME_STAGE1:
 		//座標位置を入力(6.0)～(6.5)に６つ、(0.5)～(5.5)に６つ、(3.6)～(3.7)に２つ 　計１４個
 		for (int rocknum = 0, rockY = 0; rocknum < 6; rocknum++, rockY++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
+			Rockinfo[rocknum].MathPos.X = 6;
+			Rockinfo[rocknum].MathPos.Y = rockY;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY) + ROCKSIZE / 2;
 
 		}
 		for (int rocknum = 6, rockX = 0; rocknum < 12; rocknum++, rockX++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 5);
+			Rockinfo[rocknum].MathPos.X = rockX;
+			Rockinfo[rocknum].MathPos.Y = 5;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 5) + ROCKSIZE / 2;
 
 		}
 		for (int rocknum = 12, rockY = 6; rocknum < 14; rocknum++, rockY++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 3);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
+			Rockinfo[rocknum].MathPos.X = 3;
+			Rockinfo[rocknum].MathPos.Y = rockY;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 3) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY) + ROCKSIZE / 2;
 
 		}
 
@@ -345,38 +350,47 @@ void Stage::SetRockCoord(void) {
 		//座標位置を入力(6.2)～(7.2)に２つ、(0.3)～(3.3)に３つ、(6.3)～(7.3)に２つ
 		//              (1.6)、(4.6)に２つ、(6.6)～(9.6)に４つ、(6.7)～(6.9)に３つ　計１７つ
 		for (int rocknum = 0, rockX = 6; rocknum < 2; rocknum++, rockX++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 2);
+			Rockinfo[rocknum].MathPos.X = rockX;
+			Rockinfo[rocknum].MathPos.Y = 2;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 2) + ROCKSIZE / 2;
 
 		}
 		for (int rocknum = 2, rockX = 0; rocknum < 6; rocknum++, rockX++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 3);
+			Rockinfo[rocknum].MathPos.X = rockX;
+			Rockinfo[rocknum].MathPos.Y = 3;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 3) + ROCKSIZE / 2;
 
 		}
 		for (int rocknum = 6, rockX = 6; rocknum < 8; rocknum++, rockX++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 3);
+			Rockinfo[rocknum].MathPos.X = rockX;
+			Rockinfo[rocknum].MathPos.Y = 3;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 3) + ROCKSIZE / 2;
 
 		}
-		Rockinfo[8].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 1);
-		Rockinfo[8].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 6);
-		Rockinfo[9].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 4);
-		Rockinfo[9].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 6);
+		Rockinfo[8].MathPos.X = 1;
+		Rockinfo[8].MathPos.Y = 6;
+		Rockinfo[8].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 1) + ROCKSIZE / 2;
+		Rockinfo[8].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 6) + ROCKSIZE / 2;
+		Rockinfo[9].MathPos.X = 4;
+		Rockinfo[9].MathPos.Y = 6;
+		Rockinfo[9].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 4) + ROCKSIZE / 2;
+		Rockinfo[9].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 6) + ROCKSIZE / 2;
 
 		for (int rocknum = 10, rockX = 6; rocknum < 14; rocknum++, rockX++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 6);
+			Rockinfo[rocknum].MathPos.X = rockX;
+			Rockinfo[rocknum].MathPos.Y = 6;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * rockX) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * 6) + ROCKSIZE / 2;
 
 		}
 		for (int rocknum = 14, rockY = 7; rocknum < 17; rocknum++, rockY++) {
-
-			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6);
-			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY);
+			Rockinfo[rocknum].MathPos.X = 6;
+			Rockinfo[rocknum].MathPos.Y = rockY;
+			Rockinfo[rocknum].Coord.X = STAGEPOS_YOKO + (MASUWIDTH * 6) + ROCKSIZE / 2;
+			Rockinfo[rocknum].Coord.Y = STAGEPOS_TATE + (MASUHEIGHT * rockY) + ROCKSIZE / 2;
 
 		}
 
@@ -507,7 +521,7 @@ void Stage::BlockDraw(void) {
 
 void Stage::WallDraw(void) {
 	//壁描画
-
+	
 	//横壁
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE - WALL_HUTOSA, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
 	Draw2dPolygon(STAGEPOS_YOKO - WALL_HUTOSA, STAGEPOS_TATE + WALL_SIZE_HEIGHT, WALL_SIZE_WIDTH + 20, WALL_HUTOSA, D3DCOLOR_ARGB(255, 255, 255, 255), wallTexture, 0, 0, 1, 1);
@@ -530,9 +544,10 @@ void Stage::RockDraw(bool DiveState) {
 		{
 			break;
 		}
-
-		Draw2dPolygon(Rockinfo[num].Coord.X, Rockinfo[num].Coord.Y, MASUWIDTH, MASUHEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255),
-			Rockinfo[num].Texture, UV, 0.0f, 0.5f, 1.0f);
+		if (Rockinfo[num].isAlive) {
+			Draw2dPolygon(Rockinfo[num].Coord.X - Rockinfo[num].Size / 2, Rockinfo[num].Coord.Y - Rockinfo[num].Size / 2, Rockinfo[num].Size, Rockinfo[num].Size, D3DCOLOR_ARGB(255, 255, 255, 255),
+				Rockinfo[num].Texture, UV, 0.0f, 0.5f, 1.0f);
+		}
 	}
 }
 
@@ -550,6 +565,7 @@ void Stage::CakeDraw(void) {
 		}
 	}
 }
+
 //ステージ情報取り出し関数---------------------
 PieceT Stage::OutSide_Tate(int X, int Y) {
 	PieceT rtn;
@@ -632,7 +648,7 @@ void Stage::Check_Passagable(void)//通行可能か判定
 }
 void Stage::CheckCakeFall(void)
 {
-	PieceT CheckCake;//チャックをする用
+	PieceT CheckCake;//チェックをする用
 	for (int num = 0; num < CAKE_NUM; num++)
 	{
 		if (Cakeinfo[num].MathPos.X == NULL&&Cakeinfo[num].MathPos.Y == NULL)//空なら処理を抜ける
@@ -655,18 +671,51 @@ void Stage::FallingCake(void)
 		{
 			if (Cakeinfo[num].isAlive)
 			{
+
 				if (Cakeinfo[num].Size <= 0)
 				{
-					Cakeinfo[num].isAlive = false;//ケーキの死
+
 					Cakeinfo[num].Size = 0;
-					//スコア加算の処理
+				Cakeinfo[num].isAlive = false;//ケーキの死
+
 					UI::Score += CAKESCORE;
 				}
 				Cakeinfo[num].Size -= 1;
+
 			}
 		}
 	}
 }
+
+void Stage::CheckRockFall(void) {
+	PieceT CheckRock;//チェックをすう用
+	for (int checkNum = 0; checkNum < ROCK_NUM; checkNum++) {
+		if (Rockinfo[checkNum].MathPos.X == NULL && Rockinfo[checkNum].MathPos.Y == NULL) {//空なら処理を抜ける
+			break;
+		}
+		CheckRock = OutBlockInfo(Rockinfo[checkNum].MathPos.X, Rockinfo[checkNum].MathPos.Y);
+		if (CheckRock.isCut) {
+			//岩の下のマスが切り取られていたら
+			Rockinfo[checkNum].isFalling = true;//落ちた
+		}
+	}
+}
+
+void Stage::FallingRock(void) {
+	for (int num = 0; num < ROCK_NUM; num++)
+	{
+		if (Rockinfo[num].isFalling)
+		{
+			if (Rockinfo[num].Size <= 0)
+			{
+				Rockinfo[num].isAlive = false;//岩の死
+				Rockinfo[num].Size = 0;
+			}
+			Rockinfo[num].Size -= 1;
+		}
+	}
+}
+
 int Stage::RestMathCheck(void)//残りのマスの数を返す
 {
 	int RestMath = 0;//残りマスの数
