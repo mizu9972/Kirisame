@@ -23,6 +23,7 @@ LPDIRECT3DTEXTURE9* _TexOp::UI_TimeNum;
 LPDIRECT3DTEXTURE9* _TexOp::UI_PlayerStatus;
 LPDIRECT3DTEXTURE9* _TexOp::UI_Discription;
 LPDIRECT3DTEXTURE9* _TexOp::UI_Background;
+LPDIRECT3DTEXTURE9* _TexOp::UI_ContDiscription;
 
 _TexOp::_TexOp(void) {
 
@@ -58,6 +59,7 @@ void _TexOp::LoadAllTexture(void) {
 	UI_PlayerStatus = LoadTexture(UIPlayerstatus_FILE, UI_PlayerStatus);
 	UI_Discription = LoadTexture(DESCRIPTION_FILE, UI_Discription);
 	UI_Background = LoadTexture(BACKGROUND_FILE, UI_Background);
+	UI_ContDiscription = LoadTexture(CONTDISCRIPTION, UI_ContDiscription);
 }
 
 void _TexOp::ReleaseAllTexture(void) {
@@ -86,5 +88,6 @@ void _TexOp::ReleaseAllTexture(void) {
 	ReleaseTexture(UI_PlayerStatus);
 	ReleaseTexture(UI_Discription);
 	ReleaseTexture(UI_Background);
+	ReleaseTexture(UI_ContDiscription);
 
 }

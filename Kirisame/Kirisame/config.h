@@ -15,6 +15,7 @@
 #define CHARA_SIZE (50.0f)//プレイヤーのサイズ
 #define ENEMY_SIZE (50.0f)//敵キャラクターのサイズ
 #define CAKESIZE (50)//ケーキのサイズ
+#define ROCKSIZE (50)//岩のサイズ
 
 #define STAGESIZE_IGOX (21) //ステージ一辺のサイズ(頂点・ふち含む)X軸
 #define STAGESIZE_IGOY (21) //ステージ一辺のサイズ(頂点・ふち含む)Y軸
@@ -50,22 +51,22 @@
 #define PLAYER_LIGHT_SIZEY (1.0f / (STAGESIZE_IGOY / 2 ))//光沢のサイズY
 
 #define ENEMY_SPEED (1) //敵の移動速度
-#define ENEMY_MOVESPEED (0.5) //敵の動作速度
+#define ENEMY_MOVESPEED (0.6) //敵の動作速度
 
 #define ENEMY1_DEFPOS_X (675)//敵1の初期位置(X座標)
 #define ENEMY1_DEFPOS_Y (475)//敵1の初期位置(Y座標)
 #define ENEMY2_DEFPOS_X (325)//敵2の初期位置(X座標)
 #define ENEMY2_DEFPOS_Y (375)//敵2の初期位置(Y座標)
-#define ENEMY3_DEFPOS_X (475)
-#define ENEMY3_DEFPOS_Y (275)
-#define ENEMY4_DEFPOS_X (675)
-#define ENEMY4_DEFPOS_Y (275)
-#define ENEMY5_DEFPOS_X (325)
-#define ENEMY5_DEFPOS_Y (475)
-#define ENEMY6_DEFPOS_X (475)
-#define ENEMY6_DEFPOS_Y (475)
-#define ENEMY7_DEFPOS_X (725)
-#define ENEMY7_DEFPOS_Y (525)
+#define ENEMY3_DEFPOS_X (475)//敵3の初期位置(X座標)
+#define ENEMY3_DEFPOS_Y (275)//敵3の初期位置(Y座標)
+#define ENEMY4_DEFPOS_X (675)//敵4の初期位置(X座標)
+#define ENEMY4_DEFPOS_Y (275)//敵4の初期位置(Y座標)
+#define ENEMY5_DEFPOS_X (325)//敵5の初期位置(X座標)
+#define ENEMY5_DEFPOS_Y (475)//敵5の初期位置(Y座標)
+#define ENEMY6_DEFPOS_X (475)//敵6の初期位置(X座標)
+#define ENEMY6_DEFPOS_Y (475)//敵6の初期位置(Y座標)
+#define ENEMY7_DEFPOS_X (725)//敵7の初期位置(X座標)
+#define ENEMY7_DEFPOS_Y (525)//敵7の初期位置(Y座標)
 
 #define ENEMY_PERSONAL_SPACE (3)//敵のパーソナルスペース
 #define ENEMY_SEARCH_RAD (5)//敵の索敵範囲(マス)

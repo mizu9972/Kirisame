@@ -33,7 +33,7 @@ public:
 	static LPDIRECT3DTEXTURE9* UI_PlayerStatus;
 	static LPDIRECT3DTEXTURE9* UI_Discription;
 	static LPDIRECT3DTEXTURE9* UI_Background;
-
+	static LPDIRECT3DTEXTURE9* UI_ContDiscription;
 
 	_TexOp(void);
 	~_TexOp(void);

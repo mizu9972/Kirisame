@@ -33,6 +33,7 @@
 #define UIPlayerstatus_FILE "asset/UI_playerstatus.png"//プレイヤーステータス画像
 #define DESCRIPTION_FILE "asset/Description.png"//操作説明画像UI
 #define BACKGROUND_FILE "asset/background.png"//背景画像
+#define CONTDISCRIPTION "asset/cont_UI.png"//コントローラの操作説明
 
 //------------------------------------------------------------
 //BGM・SE
