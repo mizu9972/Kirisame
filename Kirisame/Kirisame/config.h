@@ -51,7 +51,7 @@
 #define PLAYER_LIGHT_SIZEY (1.0f / (STAGESIZE_IGOY / 2 ))//光沢のサイズY
 
 #define ENEMY_SPEED (1) //敵の移動速度
-#define ENEMY_MOVESPEED (0.5) //敵の動作速度
+#define ENEMY_MOVESPEED (0.6) //敵の動作速度
 
 #define ENEMY1_DEFPOS_X (675)//敵1の初期位置(X座標)
 #define ENEMY1_DEFPOS_Y (475)//敵1の初期位置(Y座標)
