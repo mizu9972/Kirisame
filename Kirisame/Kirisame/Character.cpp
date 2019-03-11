@@ -6,6 +6,7 @@
 #include "Asset.h"
 #include "main.h"
 #include "TexLoad.h"
+#include "UI.h"
 
 #define HOSEITI 15.0f//キャラクター描画位置調整用
 extern LPDIRECT3DDEVICE9 g_pD3DDevice;
@@ -276,7 +277,7 @@ StageTypeT Character::OutStageType(void) {
 }
 void Character::Hit(void) {
 	//攻撃食らった時の処理
-	int a = 0;///仮
+	UI::Score -= DAMAGESCORE;
 }
 COORD Character::OutCoord(void) {
 	//ステージ内の位置を取り出す

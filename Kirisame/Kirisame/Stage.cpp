@@ -1,7 +1,7 @@
 #include "Stage.h"
 #include "Asset.h"
 #include "main.h"
-
+#include "UI.h"
 extern SCENE Scene;
 
 Stage::Stage(void) {
@@ -653,12 +653,17 @@ void Stage::FallingCake(void)
 	{
 		if (Cakeinfo[num].isFalling)
 		{
-			if (Cakeinfo[num].Size <= 0)
+			if (Cakeinfo[num].isAlive)
 			{
-				Cakeinfo[num].isAlive = false;//ケーキの死
-				Cakeinfo[num].Size = 0;
+				if (Cakeinfo[num].Size <= 0)
+				{
+					Cakeinfo[num].isAlive = false;//ケーキの死
+					Cakeinfo[num].Size = 0;
+					//スコア加算の処理
+					UI::Score += CAKESCORE;
+				}
+				Cakeinfo[num].Size -= 1;
 			}
-			Cakeinfo[num].Size -= 1;
 		}
 	}
 }

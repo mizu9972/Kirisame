@@ -5,6 +5,7 @@ extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 extern long JoypadDI_X;
 extern long JoypadDI_Y;
 int DeathEnemyNum = 0;
+
 Game::Game(void) {
 	//コンストラクタ
 	character = new Character;
@@ -136,7 +137,8 @@ void Game::Draw(void) {
 	//UIの描画
 	if (ui != NULL) {
 		ui->UIDraw(Dive_State);
-		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
+		ui->Calculation(stageBoardSystem->stage->RestMathCheck());
+		ui->DrawRestMath();
 	}
 	if (Dive_State)//浮上してるとき
 	{
@@ -352,4 +354,10 @@ bool Game::OutClearFlg(void)//敵が0ならtrueを返す
 		return true;
 	}
 	return false;
+}
+
+void Game::ResultDraw(void)//リザルト出す
+{
+	ui->Calculation(stageBoardSystem->stage->RestMathCheck());
+	ui->DrawResult();
 }

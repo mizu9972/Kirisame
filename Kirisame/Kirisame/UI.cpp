@@ -1,7 +1,7 @@
 #include "UI.h"
 #include "Asset.h"
 #include "main.h"
-
+#include "config.h"
 UI::UI(void) {
 	//コンストラクタ
 	Scoreboard = TexOp->UI_ScoreBoard;
@@ -11,7 +11,10 @@ UI::UI(void) {
 	Playerstatus = TexOp->UI_PlayerStatus;
 	Description = TexOp->UI_Discription;
 	Background = TexOp->UI_Background;
-
+	Score = 0;
+	Stage1Score = 0;
+	Stage2Score = 0;
+	wark_score = 0;
 }
 UI::~UI(void) {
 	//デストラクタ
@@ -55,22 +58,73 @@ void UI::TIME(void) {
 void UI::GTIME(void) {
 	start = timeGetTime();       // スタート時間の取得
 }
-void UI::DrawRestMath(int Rest)
+void UI::DrawRestMath()
 {
 	float Tu = 0;
 	float Tv = 0;
-	RestMath = Rest;
-	Math.DigitOne = RestMath % 10;//1の位
-	Math.DigitTen = (RestMath % 100) / 10;//10の位
-	Math.DigitHundret = (RestMath % 1000) / 100;//100の位
-												//取得した位を元に数字テクスチャを描画
-	Tu = (Math.DigitOne % 5) * 0.2;
-	Tv = Math.DigitOne / 5 * 0.5;
+	
+	
+	//取得した位を元に数字テクスチャを描画
+	Tu = (Math.DigitOne % 5) * 0.2f;
+	Tv = Math.DigitOne / 5 * 0.5f;
 	Draw2dPolygon(SCORE_X, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1の位
-	Tu = (Math.DigitTen % 5) * 0.2;
-	Tv = Math.DigitTen / 5 * 0.5;
+	Tu = (Math.DigitTen % 5) * 0.2f;
+	Tv = Math.DigitTen / 5 * 0.5f;
 	Draw2dPolygon(SCORE_X - TIMENUM_W, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10の位
-	Tu = (Math.DigitHundret % 5) * 0.2;
-	Tv = Math.DigitHundret / 5 * 0.5;
-	Draw2dPolygon(SCORE_X - TIMENUM_W * 2, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10の位
+	Tu = (Math.DigitHundret % 5) * 0.2f;
+	Tv = Math.DigitHundret / 5 * 0.5f;
+	Draw2dPolygon(SCORE_X - TIMENUM_W * 2, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//100の位
+	Tu = (Math.DigitThousand % 5) * 0.2f;
+	Tv = Math.DigitThousand / 5 * 0.5f;
+	Draw2dPolygon(SCORE_X - TIMENUM_W * 3, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1000の位
+}
+
+void UI::DrawResult(void)
+{
+	float Tu = 0;
+	float Tv = 0;
+
+	Math.DigitOne = Score % 10;//1の位
+	Math.DigitTen = (Score % 100) / 10;//10の位
+	Math.DigitHundret = (Score % 1000) / 100;//100の位
+	Math.DigitThousand = (Score % 10000) / 1000;//1000の位
+													 //取得した位を元に数字テクスチャを描画
+	Tu = (Math.DigitOne % 5) * 0.2f;
+	Tv = Math.DigitOne / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1の位
+	Tu = (Math.DigitTen % 5) * 0.2f;
+	Tv = Math.DigitTen / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X - TIMENUM_W, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10の位
+	Tu = (Math.DigitHundret % 5) * 0.2f;
+	Tv = Math.DigitHundret / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X - TIMENUM_W * 2, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//100の位
+	Tu = (Math.DigitThousand % 5) * 0.2f;
+	Tv = Math.DigitThousand / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X - TIMENUM_W * 3, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1000の位
+
+}
+
+void UI::Calculation(int Rest)
+{
+	wark_score = Rest*MATHSCORE + Score;
+	switch (Scene)
+	{
+	case GAME_STAGE1:
+		Stage1Score = Rest*MATHSCORE + Score;
+		break;
+	case GAME_STAGE2:
+		Stage2Score = Rest*MATHSCORE + Score;
+		break;
+	case RESULT:
+		Score = Stage1Score + Stage2Score;//各ステージのスコアを合算
+		break;
+	}
+	if (wark_score <= 0)//0以下になったら
+	{
+		wark_score = 0;
+	}
+	Math.DigitOne = wark_score % 10;//1の位
+	Math.DigitTen = (wark_score % 100) / 10;//10の位
+	Math.DigitHundret = (wark_score % 1000) / 100;//100の位
+	Math.DigitThousand = (wark_score % 10000) / 1000;//1000の位
 }

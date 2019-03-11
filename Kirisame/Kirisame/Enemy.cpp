@@ -7,12 +7,12 @@
 #include "config.h"
 #include "TexLoad.h"
 #include "XAudio2.h"
-
+#include"UI.h"
 //攻撃したときに画面全体にエフェクトをかける
 //複数の攻撃でエフェクトが重複しないようにグローバルで定義
 bool AttackEffectFlag = false;
 int AttackEffectCount = 0;
-
+int UI::Score;
 extern int DeathEnemyNum;
 
 Enemy::Enemy(void) {
@@ -26,6 +26,7 @@ Enemy::Enemy(void) {
 	AttackMode = false;
 	Attack = false;
 	isAlive = true;
+
 }
 
 Enemy::~Enemy(void) {
@@ -395,6 +396,7 @@ void Enemy::FallintoHole(void) {
 	if (Size <= 0) {
 		isAlive = false;
 		DeathEnemyNum += 1;
+		UI::Score += 25;//スコアプラス
 	}
 	Size -= 1;
 }

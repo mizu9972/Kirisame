@@ -27,7 +27,6 @@ public:
 	~Character(void);
 	void SetCoord(COORD);
 	void Hit(void);//UŒ‚‚­‚ç‚¢ˆ—
-
 	StageTypeT OutStageType(void);
 	void Move(void);//ˆÚ“®ŠÖ”
 	void Update(bool Dive_State);//XVˆ—
