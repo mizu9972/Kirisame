@@ -48,6 +48,7 @@ private:
 	LPDIRECT3DTEXTURE9* Timenum;
 	LPDIRECT3DTEXTURE9* Playerstatus;
 	LPDIRECT3DTEXTURE9* Description;
+	LPDIRECT3DTEXTURE9* ContDescription;
 	LPDIRECT3DTEXTURE9* Background;
 
 	int time; //ŽžŠÔ
