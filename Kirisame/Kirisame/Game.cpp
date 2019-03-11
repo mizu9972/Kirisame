@@ -316,7 +316,9 @@ void Game::Update(void) {
 					}
 					break;
 				}
-				EnemyAttack = brownBear[UpdateNum].Update(character->OutPos(), Dive_State, EnemyAttackFlag, ToCoord);
+				if (EnemyAttack == false) {
+					EnemyAttack = brownBear[UpdateNum].Update(character->OutPos(), Dive_State, EnemyAttackFlag, ToCoord);
+				}
 			}
 		}
 	}
@@ -335,10 +337,13 @@ void Game::Update(void) {
 			stageBoardSystem->BoardUpdate(coord);
 			stageBoardSystem->stage->Check_Passagable();//切り取られたところには行けないようにするやつ
 			stageBoardSystem->stage->CheckCakeFall();//ケーキが切り落ちてるか
+			stageBoardSystem->stage->CheckRockFall();//岩が切り落ちてるか
 		}
 		stageBoardSystem->stage->FallingCake();//ケーキが落ちていく処理
+		stageBoardSystem->stage->FallingRock();//岩が落ちていく処理
 	}
 	ui->TIME();
+
 }
 
 

@@ -15,6 +15,7 @@
 #define CHARA_SIZE (50.0f)//プレイヤーのサイズ
 #define ENEMY_SIZE (50.0f)//敵キャラクターのサイズ
 #define CAKESIZE (50)//ケーキのサイズ
+#define ROCKSIZE (50)//岩のサイズ
 
 #define STAGESIZE_IGOX (21) //ステージ一辺のサイズ(頂点・ふち含む)X軸
 #define STAGESIZE_IGOY (21) //ステージ一辺のサイズ(頂点・ふち含む)Y軸
