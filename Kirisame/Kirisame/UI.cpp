@@ -2,10 +2,13 @@
 #include "Asset.h"
 #include "main.h"
 
+#include "config.h"
+
+
 extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 
 UI::UI(void) {
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Scoreboard = TexOp->UI_ScoreBoard;
 	Scorenum = TexOp->UI_ScoreNum;
 	Timeboard = TexOp->UI_TimeBoard;
@@ -13,74 +16,131 @@ UI::UI(void) {
 	Playerstatus = TexOp->UI_PlayerStatus;
 	Description = TexOp->UI_Discription;
 	Background = TexOp->UI_Background;
+
+	Score = 0;
+	Stage1Score = 0;
+	Stage2Score = 0;
+	wark_score = 0;
+
 	ContDescription = TexOp->UI_ContDiscription;
 
 }
 UI::~UI(void) {
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 }
 
 
 void UI::UIDraw(bool Dive_State) {
-	//•`‰æ
+	//æç”»
 	if (Dive_State) {
 
-		Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), Background, 0.5, 0, 0.5, 1);//”wŒi–¾‚é‚¢
+		Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), Background, 0.5, 0, 0.5, 1);//èƒŒæ™¯æ˜ã‚‹ã„
 	}
 	else {
-		Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), Background, 0, 0, 0.5, 1);//”wŒiˆÃ‚¢
+		Draw2dPolygon(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, D3DCOLOR_ARGB(255, 255, 255, 255), Background, 0, 0, 0.5, 1);//èƒŒæ™¯æš—ã„
 	}
-	Draw2dPolygon(SCOREBOARD_X, SCOREBOARD_Y, SCOREBOARD_W, SCOREBOARD_H, D3DCOLOR_ARGB(255, 255, 255, 255), Scoreboard, 0, 0, 1, 1);//ƒXƒRƒAƒ{[ƒh
-	Draw2dPolygon(TIMEBOARD_X, TIMEBOARD_Y, TIMEBOARD_W, TIMEBOARD_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timeboard, 0, 0, 1, 1);//ƒ^ƒCƒ€ƒ{[ƒh
-																																//ö‚Á‚Ä‚é‚©ö‚Á‚Ä‚È‚¢‚©‚Å‰æ‘œ•ÏX																															//ö‚Á‚Ä‚é‚©ö‚Á‚Ä‚È‚¢‚©‚Å‰æ‘œ•ÏX																															//ö‚Á‚Ä‚é‚©ö‚Á‚Ä‚È‚¢‚©‚Å‰æ‘œ•ÏX
+	Draw2dPolygon(SCOREBOARD_X, SCOREBOARD_Y, SCOREBOARD_W, SCOREBOARD_H, D3DCOLOR_ARGB(255, 255, 255, 255), Scoreboard, 0, 0, 1, 1);//ã‚¹ã‚³ã‚¢ãƒœãƒ¼ãƒ‰
+	Draw2dPolygon(TIMEBOARD_X, TIMEBOARD_Y, TIMEBOARD_W, TIMEBOARD_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timeboard, 0, 0, 1, 1);//ã‚¿ã‚¤ãƒ ãƒœãƒ¼ãƒ‰
+																																//æ½œã£ã¦ã‚‹ã‹æ½œã£ã¦ãªã„ã‹ã§ç”»åƒå¤‰æ›´																															//æ½œã£ã¦ã‚‹ã‹æ½œã£ã¦ãªã„ã‹ã§ç”»åƒå¤‰æ›´																															//æ½œã£ã¦ã‚‹ã‹æ½œã£ã¦ãªã„ã‹ã§ç”»åƒå¤‰æ›´
 	if (Dive_State) {
-		Draw2dPolygon(PUI_X, PUI_Y, PUI_W, PUI_H, D3DCOLOR_ARGB(255, 255, 255, 255), Playerstatus, 0, 0, 0.5, 1);//ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒXö‚Á‚Ä‚È‚¢
+		Draw2dPolygon(PUI_X, PUI_Y, PUI_W, PUI_H, D3DCOLOR_ARGB(255, 255, 255, 255), Playerstatus, 0, 0, 0.5, 1);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ½œã£ã¦ãªã„
 	}
 	else {
-		Draw2dPolygon(PUI_X, PUI_Y, PUI_W, PUI_H, D3DCOLOR_ARGB(255, 255, 255, 255), Playerstatus, 0.5, 0, 0.5, 1);//ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒXö‚Á‚Ä‚é
+		Draw2dPolygon(PUI_X, PUI_Y, PUI_W, PUI_H, D3DCOLOR_ARGB(255, 255, 255, 255), Playerstatus, 0.5, 0, 0.5, 1);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ½œã£ã¦ã‚‹
 	}
 
 	if (g_pDIDevGamePad == false) {
-		Draw2dPolygon(DESCRIPTION_X, DESCRIPTION_Y, DESCRIPTION_W, DESCRIPTION_H, D3DCOLOR_ARGB(255, 255, 255, 255), Description, 0, 0, 1, 1);//‘€ìà–¾
+		Draw2dPolygon(DESCRIPTION_X, DESCRIPTION_Y, DESCRIPTION_W, DESCRIPTION_H, D3DCOLOR_ARGB(255, 255, 255, 255), Description, 0, 0, 1, 1);//æ“ä½œèª¬æ˜
 	}
 	else {
-		Draw2dPolygon(DESCRIPTION_X, DESCRIPTION_Y, DESCRIPTION_W, DESCRIPTION_H, D3DCOLOR_ARGB(255, 255, 255, 255), ContDescription, 0, 0, 1, 1);//‘€ìà–¾
+		Draw2dPolygon(DESCRIPTION_X, DESCRIPTION_Y, DESCRIPTION_W, DESCRIPTION_H, D3DCOLOR_ARGB(255, 255, 255, 255), ContDescription, 0, 0, 1, 1);//æ“ä½œèª¬æ˜
 
 	}
-	Draw2dPolygon(TIMENUM_X, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time % 5 * 0.2f, time / 5 * 0.5f, 0.2f, 0.5f);//ƒ^ƒCƒ€‚Ì1‚ÌˆÊ
-	Draw2dPolygon(TIMENUM_X - TIMENUM_W, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time / 10 % 5 * 0.2f, time / 10 / 5 * 0.5f, 0.2f, 0.5f);//ƒ^ƒCƒ€‚Ì10‚ÌˆÊ
-	Draw2dPolygon(TIMENUM_X - TIMENUM_W - TIMENUM_W, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time / 100 % 5 * 0.2f, time / 100 / 5 * 0.5f, 0.2f, 0.5f);//ƒ^ƒCƒ€‚Ì100‚ÌˆÊ
+	Draw2dPolygon(TIMENUM_X, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time % 5 * 0.2f, time / 5 * 0.5f, 0.2f, 0.5f);//ã‚¿ã‚¤ãƒ ã®1ã®ä½
+	Draw2dPolygon(TIMENUM_X - TIMENUM_W, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time / 10 % 5 * 0.2f, time / 10 / 5 * 0.5f, 0.2f, 0.5f);//ã‚¿ã‚¤ãƒ ã®10ã®ä½
+	Draw2dPolygon(TIMENUM_X - TIMENUM_W - TIMENUM_W, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time / 100 % 5 * 0.2f, time / 100 / 5 * 0.5f, 0.2f, 0.5f);//ã‚¿ã‚¤ãƒ ã®100ã®ä½
 	if (time / 1000 >= 1)
 	{
-		Draw2dPolygon(TIMENUM_X - TIMENUM_W - TIMENUM_W - TIMENUM_W, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time / 1000 % 5 * 0.2f, time / 1000 / 5 * 0.5f, 0.2f, 0.5f);//ƒ^ƒCƒ€‚Ì100‚ÌˆÊ
+		Draw2dPolygon(TIMENUM_X - TIMENUM_W - TIMENUM_W - TIMENUM_W, TIMENUM_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, time / 1000 % 5 * 0.2f, time / 1000 / 5 * 0.5f, 0.2f, 0.5f);//ã‚¿ã‚¤ãƒ ã®100ã®ä½
 	}
 
 }
 
 void UI::TIME(void) {
-	end = timeGetTime();    // Œo‰ßŠÔ
-	time = (end - start) / 1000;//Œo‰ßŠÔ‚ğƒ~ƒŠ•b‚©‚ç•b‚É•ÏŠ·‚µ‚Ä‘ã“ü
+	end = timeGetTime();    // çµŒéæ™‚é–“
+	time = (end - start) / 1000;//çµŒéæ™‚é–“ã‚’ãƒŸãƒªç§’ã‹ã‚‰ç§’ã«å¤‰æ›ã—ã¦ä»£å…¥
 }
 
 void UI::GTIME(void) {
-	start = timeGetTime();       // ƒXƒ^[ƒgŠÔ‚Ìæ“¾
+	start = timeGetTime();       // ã‚¹ã‚¿ãƒ¼ãƒˆæ™‚é–“ã®å–å¾—
 }
-void UI::DrawRestMath(int Rest)
+void UI::DrawRestMath()
 {
 	float Tu = 0;
 	float Tv = 0;
-	RestMath = Rest;
-	Math.DigitOne = RestMath % 10;//1‚ÌˆÊ
-	Math.DigitTen = (RestMath % 100) / 10;//10‚ÌˆÊ
-	Math.DigitHundret = (RestMath % 1000) / 100;//100‚ÌˆÊ
-												//æ“¾‚µ‚½ˆÊ‚ğŒ³‚É”šƒeƒNƒXƒ`ƒƒ‚ğ•`‰æ
-	Tu = (Math.DigitOne % 5) * 0.2;
-	Tv = Math.DigitOne / 5 * 0.5;
-	Draw2dPolygon(SCORE_X, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1‚ÌˆÊ
-	Tu = (Math.DigitTen % 5) * 0.2;
-	Tv = Math.DigitTen / 5 * 0.5;
-	Draw2dPolygon(SCORE_X - TIMENUM_W, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10‚ÌˆÊ
-	Tu = (Math.DigitHundret % 5) * 0.2;
-	Tv = Math.DigitHundret / 5 * 0.5;
-	Draw2dPolygon(SCORE_X - TIMENUM_W * 2, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10‚ÌˆÊ
+	
+	
+	//å–å¾—ã—ãŸä½ã‚’å…ƒã«æ•°å­—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æç”»
+	Tu = (Math.DigitOne % 5) * 0.2f;
+	Tv = Math.DigitOne / 5 * 0.5f;
+	Draw2dPolygon(SCORE_X, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1ã®ä½
+	Tu = (Math.DigitTen % 5) * 0.2f;
+	Tv = Math.DigitTen / 5 * 0.5f;
+	Draw2dPolygon(SCORE_X - TIMENUM_W, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10ã®ä½
+	Tu = (Math.DigitHundret % 5) * 0.2f;
+	Tv = Math.DigitHundret / 5 * 0.5f;
+	Draw2dPolygon(SCORE_X - TIMENUM_W * 2, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//100ã®ä½
+	Tu = (Math.DigitThousand % 5) * 0.2f;
+	Tv = Math.DigitThousand / 5 * 0.5f;
+	Draw2dPolygon(SCORE_X - TIMENUM_W * 3, SCORE_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1000ã®ä½
+}
+
+void UI::DrawResult(void)
+{
+	float Tu = 0;
+	float Tv = 0;
+
+	Math.DigitOne = Score % 10;//1ã®ä½
+	Math.DigitTen = (Score % 100) / 10;//10ã®ä½
+	Math.DigitHundret = (Score % 1000) / 100;//100ã®ä½
+	Math.DigitThousand = (Score % 10000) / 1000;//1000ã®ä½
+													 //å–å¾—ã—ãŸä½ã‚’å…ƒã«æ•°å­—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æç”»
+	Tu = (Math.DigitOne % 5) * 0.2f;
+	Tv = Math.DigitOne / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1ã®ä½
+	Tu = (Math.DigitTen % 5) * 0.2f;
+	Tv = Math.DigitTen / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X - TIMENUM_W, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//10ã®ä½
+	Tu = (Math.DigitHundret % 5) * 0.2f;
+	Tv = Math.DigitHundret / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X - TIMENUM_W * 2, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//100ã®ä½
+	Tu = (Math.DigitThousand % 5) * 0.2f;
+	Tv = Math.DigitThousand / 5 * 0.5f;
+	Draw2dPolygon(RESULT_X - TIMENUM_W * 3, RESULT_Y, TIMENUM_W, TIMENUM_H, D3DCOLOR_ARGB(255, 255, 255, 255), Timenum, Tu, Tv, 0.2, 0.5);//1000ã®ä½
+
+}
+
+void UI::Calculation(int Rest)
+{
+	wark_score = Rest*MATHSCORE + Score;
+	switch (Scene)
+	{
+	case GAME_STAGE1:
+		Stage1Score = Rest*MATHSCORE + Score;
+		break;
+	case GAME_STAGE2:
+		Stage2Score = Rest*MATHSCORE + Score;
+		break;
+	case RESULT:
+		Score = Stage1Score + Stage2Score;//å„ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚¹ã‚³ã‚¢ã‚’åˆç®—
+		break;
+	}
+	if (wark_score <= 0)//0ä»¥ä¸‹ã«ãªã£ãŸã‚‰
+	{
+		wark_score = 0;
+	}
+	Math.DigitOne = wark_score % 10;//1ã®ä½
+	Math.DigitTen = (wark_score % 100) / 10;//10ã®ä½
+	Math.DigitHundret = (wark_score % 1000) / 100;//100ã®ä½
+	Math.DigitThousand = (wark_score % 10000) / 1000;//1000ã®ä½
 }

@@ -15,13 +15,14 @@ private:
 	StageBoardSystem* stageBoardSystem = NULL;
 	bool Dive_State;//1なら潜ってない、0なら潜ってる
 	bool AllocFlag;//mallocしたかまだしていないか
-	UI* ui = NULL;
+	
 	int Enemy_num;//敵の数
 	int Enemy_MaxNum;
+	
 public:
 	Game(void);
 	~Game(void);
-
+	UI* ui = NULL;
 	void Init(void);
 	void EnemyUnInit(void);
 	void Edit(void);
@@ -31,6 +32,7 @@ public:
 	void Update(void);
 	void Gettime(void);
 	bool OutClearFlg(void);//残りの敵の数を参照してCLEARかどうかを返す
+	void ResultDraw(void);//出す
 };
 
 extern int DeathEnemyNum;

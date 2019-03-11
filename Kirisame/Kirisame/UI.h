@@ -1,46 +1,49 @@
 #pragma once
-//UI‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+//UIã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 #include <Windows.h>
 #include "2dpolygon.h"
 #pragma comment(lib, "winmm.lib")
-#define SCOREBOARD_X (40.0f)//ƒXƒRƒAƒ{[ƒhˆÊ’u(XÀ•W)
-#define SCOREBOARD_Y (50.0f)//ƒXƒRƒAƒ{[ƒhˆÊ’u(YÀ•W)
-#define SCOREBOARD_W (200.0f)//ƒXƒRƒAƒ{[ƒh•(XÀ•W)
-#define SCOREBOARD_H (150.0f)//ƒXƒRƒAƒ{[ƒh‚‚³(YÀ•W)
 
-#define TIMEBOARD_X (40.0f)//ƒ^ƒCƒ€ƒ{[ƒhˆÊ’u(XÀ•W)
-#define TIMEBOARD_Y (300.0f)//ƒ^ƒCƒ€ƒ{[ƒhˆÊ’u(YÀ•W)
-#define TIMEBOARD_W (200.0f)//ƒ^ƒCƒ€ƒ{[ƒh•(XÀ•W)
-#define TIMEBOARD_H (150.0f)//ƒ^ƒCƒ€ƒ{[ƒh‚‚³(YÀ•W)
+#define SCOREBOARD_X (20.0f)//ã‚¹ã‚³ã‚¢ãƒœãƒ¼ãƒ‰ä½ç½®(Xåº§æ¨™)
+#define SCOREBOARD_Y (50.0f)//ã‚¹ã‚³ã‚¢ãƒœãƒ¼ãƒ‰ä½ç½®(Yåº§æ¨™)
+#define SCOREBOARD_W (200.0f)//ã‚¹ã‚³ã‚¢ãƒœãƒ¼ãƒ‰å¹…(Xåº§æ¨™)
+#define SCOREBOARD_H (150.0f)//ã‚¹ã‚³ã‚¢ãƒœãƒ¼ãƒ‰é«˜ã•(Yåº§æ¨™)
 
-#define PUI_X (780.0f)//ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒXˆÊ’u(XÀ•W)
-#define PUI_Y (50.0f)//ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒXˆÊ’u(YÀ•W)
-#define PUI_W (200.0f)//ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒX•(XÀ•W)
-#define PUI_H (200.0f)//ƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒX‚‚³(YÀ•W)
+#define TIMEBOARD_X (20.0f)//ã‚¿ã‚¤ãƒ ãƒœãƒ¼ãƒ‰ä½ç½®(Xåº§æ¨™)
+#define TIMEBOARD_Y (300.0f)//ã‚¿ã‚¤ãƒ ãƒœãƒ¼ãƒ‰ä½ç½®(Yåº§æ¨™)
+#define TIMEBOARD_W (200.0f)//ã‚¿ã‚¤ãƒ ãƒœãƒ¼ãƒ‰å¹…(Xåº§æ¨™)
+#define TIMEBOARD_H (150.0f)//ã‚¿ã‚¤ãƒ ãƒœãƒ¼ãƒ‰é«˜ã•(Yåº§æ¨™)
 
-
-#define DESCRIPTION_X (780.0f)//‘€ìà–¾ˆÊ’u(XÀ•W)
-#define DESCRIPTION_Y (300.0f)//‘€ìà–¾ˆÊ’u(YÀ•W)
-#define DESCRIPTION_W (210.0f)//‘€ìà–¾•(XÀ•W)
-#define DESCRIPTION_H (180.0f)//‘€ìà–¾‚‚³(YÀ•W)
+#define PUI_X (780.0f)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ä½ç½®(Xåº§æ¨™)
+#define PUI_Y (50.0f)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ä½ç½®(Yåº§æ¨™)
+#define PUI_W (200.0f)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¹…(Xåº§æ¨™)
+#define PUI_H (300.0f)//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹é«˜ã•(Yåº§æ¨™)
 
 
-#define TIMENUM_X (190.0f)//ŠÔˆÊ’u(XÀ•W)
-#define TIMENUM_Y (350.0f)//ŠÔˆÊ’u(YÀ•W)
-#define TIMENUM_W (50.0f)//ŠÔ•(XÀ•W)
-#define TIMENUM_H (100.0f)//ŠÔ‚‚³(YÀ•W)
-#define SCORE_X (190.0f)//ƒXƒRƒA•\¦
+#define DESCRIPTION_X (780.0f)//æ“ä½œèª¬æ˜ä½ç½®(Xåº§æ¨™)
+#define DESCRIPTION_Y (400.0f)//æ“ä½œèª¬æ˜ä½ç½®(Yåº§æ¨™)
+#define DESCRIPTION_W (210.0f)//æ“ä½œèª¬æ˜å¹…(Xåº§æ¨™)
+#define DESCRIPTION_H (180.0f)//æ“ä½œèª¬æ˜é«˜ã•(Yåº§æ¨™)
+
+
+#define TIMENUM_X (170.0f)//æ™‚é–“ä½ç½®(Xåº§æ¨™)
+#define TIMENUM_Y (350.0f)//æ™‚é–“ä½ç½®(Yåº§æ¨™)
+#define TIMENUM_W (50.0f)//æ™‚é–“å¹…(Xåº§æ¨™)
+#define TIMENUM_H (100.0f)//æ™‚é–“é«˜ã•(Yåº§æ¨™)
+#define SCORE_X (170.0f)//ã‚¹ã‚³ã‚¢è¡¨ç¤º
 #define SCORE_Y (100.0f)
+
 
 typedef struct
 {
-	int DigitOne;//1‚ÌˆÊ
-	int DigitTen;//10‚ÌˆÊ
-	int DigitHundret;//100‚ÌˆÊ
+	int DigitOne;//1ã®ä½
+	int DigitTen;//10ã®ä½
+	int DigitHundret;//100ã®ä½
+	int DigitThousand;//1000ã®ä½
 }DIGIT;
 
 class UI {
-	//UIƒNƒ‰ƒX
+	//UIã‚¯ãƒ©ã‚¹
 private:
 	LPDIRECT3DTEXTURE9* Scoreboard;
 	LPDIRECT3DTEXTURE9* Scorenum;
@@ -50,18 +53,23 @@ private:
 	LPDIRECT3DTEXTURE9* Description;
 	LPDIRECT3DTEXTURE9* ContDescription;
 	LPDIRECT3DTEXTURE9* Background;
-
-	int time; //ŠÔ
-	int RestMath;//c‚èƒ}ƒX
-	DIGIT Math;//c‚èƒ}ƒX‚ğˆÊ‚²‚Æ‚É•Ï‚¦‚é
+	int wark_score;
+	int time; //æ™‚é–“
+	int RestMath;//æ®‹ã‚Šãƒã‚¹
+	DIGIT Math;//æ®‹ã‚Šãƒã‚¹ã‚’ä½ã”ã¨ã«å¤‰ãˆã‚‹
 	DWORD start;
 	DWORD end;
 
 public:
+	int Stage1Score;//ã‚¹ãƒ†ãƒ¼ã‚¸ï¼‘ã®ã‚¹ã‚³ã‚¢
+	int Stage2Score;//ã‚¹ãƒ†ãƒ¼ã‚¸2ã®ã‚¹ã‚³ã‚¢
+    static int Score;//Score
 	UI(void);
 	~UI(void);
 	void UIDraw(bool Dive_State);
 	void TIME(void);
 	void GTIME(void);
-	void DrawRestMath(int Rest);//c‚èƒ}ƒX‚Ì•`‰æ
+	void DrawRestMath(void);//æ®‹ã‚Šãƒã‚¹ã®æç”»
+	void DrawResult(void);//ã‚¹ã‚³ã‚¢å‡ºã™
+	void Calculation(int Rest);//è¨ˆç®—å¼å…¥åŠ›ã™ã‚‹ã‹ã‚‰ã‚ˆã‚ã—ãã€‚
 };
