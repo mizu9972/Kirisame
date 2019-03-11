@@ -37,7 +37,7 @@
 #define WALL_HUTOSA (10)
 
 #define KEYWAIT (6)//キーの入力間隔
-#define SCENE_TIME (FPS*5)//タイトルに戻るまでの時間のやつ
+#define SCENE_TIME (FPS*5)//タイトルに戻るまでの時間
 
 #define ENEMY_STAGE1_NUM (2)//敵の数
 #define ENEMY_STAGE2_NUM (5)//敵の数
