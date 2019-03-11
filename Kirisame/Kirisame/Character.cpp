@@ -74,28 +74,39 @@ void Character::Draw(void) {
 	_LightingT LightingStatus;
 	float TexCoordX = GroundInfo.X / 2 * PLAYER_LIGHT_SIZEX;
 	float TexCoordY = GroundInfo.Y / 2 * PLAYER_LIGHT_SIZEY;
+
 	if (Tv < 0.5) {
 		//横向きの時の設定
-		LightingStatus.CoordX = Coord.X - CHARA_SIZE / 2 + (CHARA_SIZE * TexCoordX);
+		LightingStatus.CoordX = Coord.X - CHARA_SIZE / 2 + CHARA_SIZE - (CHARA_SIZE * TexCoordX);
 		LightingStatus.CoordY = Coord.Y - CHARA_SIZE;
-		LightingStatus.LightU = Tu + (TexCoordX * 0.5f);
+		LightingStatus.LightU = 0.5f + Tu - (TexCoordX * 0.5f);
 		LightingStatus.LightV = Tv;
 		LightingStatus.LightW = 0.5f * PLAYER_LIGHT_SIZEX;
 		LightingStatus.LightH = 0.5f;
 		LightingStatus.LightTexSizeU = CHARA_SIZE * PLAYER_LIGHT_SIZEX;
 		LightingStatus.LightTexSizeV = CHARA_SIZE;
 
+		//UV値がオーバーしないように
+		if (LightingStatus.LightU - Tu + LightingStatus.LightW > 0.5f) {
+			LightingStatus.LightW = 0.5f - (LightingStatus.LightU - Tu);
+		}
 	}
+
 	else if (Tv >= 0.5f) {
 		//縦向きの時の設定
 		LightingStatus.CoordX = Coord.X - CHARA_SIZE / 2;
-		LightingStatus.CoordY = Coord.Y - CHARA_SIZE + (CHARA_SIZE * TexCoordY);
+		LightingStatus.CoordY = Coord.Y - CHARA_SIZE + CHARA_SIZE - (CHARA_SIZE * TexCoordY);
 		LightingStatus.LightU = Tu;
-		LightingStatus.LightV = Tv + (TexCoordY * 0.5f);
+		LightingStatus.LightV = 0.5f + Tv - (TexCoordY * 0.5f);
 		LightingStatus.LightW = 0.5f;
 		LightingStatus.LightH = 0.5f * PLAYER_LIGHT_SIZEY;
 		LightingStatus.LightTexSizeU = CHARA_SIZE;
 		LightingStatus.LightTexSizeV = CHARA_SIZE * PLAYER_LIGHT_SIZEY;
+
+		//UV値がオーバーしないように
+		if (LightingStatus.LightV - Tv + LightingStatus.LightH > 0.5f) {
+			LightingStatus.LightH = 0.5f - (LightingStatus.LightV - Tv);
+		}
 	}
 	//光沢描画
 	Draw2dPolygon(LightingStatus.CoordX, LightingStatus.CoordY + HOSEITI, LightingStatus.LightTexSizeU, LightingStatus.LightTexSizeV, D3DCOLOR_ARGB(255, 255, 255, 255), LightTexture,
