@@ -117,7 +117,6 @@ void Character::Draw(void) {
 void Character::Move(void)
 {
 	//âºëzÉLÅ[
-	int a;
 	bool UP_TRIG = false;
 	bool DOWN_TRIG = false;
 	bool LEFT_TRIG = false;
