@@ -5,6 +5,7 @@ extern LPDIRECTINPUTDEVICE8 g_pDIDevGamePad;
 extern long JoypadDI_X;
 extern long JoypadDI_Y;
 int DeathEnemyNum = 0;
+
 Game::Game(void) {
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	character = new Character;
@@ -136,7 +137,8 @@ void Game::Draw(void) {
 	//UI‚Ì•`‰æ
 	if (ui != NULL) {
 		ui->UIDraw(Dive_State);
-		ui->DrawRestMath(stageBoardSystem->stage->RestMathCheck());
+		ui->Calculation(stageBoardSystem->stage->RestMathCheck());
+		ui->DrawRestMath();
 	}
 	if (Dive_State)//•‚ã‚µ‚Ä‚é‚Æ‚«
 	{
@@ -357,4 +359,10 @@ bool Game::OutClearFlg(void)//“G‚ª0‚È‚çtrue‚ð•Ô‚·
 		return true;
 	}
 	return false;
+}
+
+void Game::ResultDraw(void)//ãƒªã‚¶ãƒ«ãƒˆå‡ºã™
+{
+	ui->Calculation(stageBoardSystem->stage->RestMathCheck());
+	ui->DrawResult();
 }

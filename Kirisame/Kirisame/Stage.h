@@ -5,7 +5,6 @@
 #include "config.h"
 #include "2dpolygon.h"
 
-
 typedef enum {
 	//頂点・辺・マスの区別
 	Vertex,
